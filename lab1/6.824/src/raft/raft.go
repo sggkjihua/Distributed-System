@@ -186,7 +186,6 @@ func (rf *Raft) asFollower(){
 		case <- rf.followerTimeout:
 			// if no communication received during this period
 			go rf.asCandidate()
-			go rf.electionTiming()
 			return
 		case term := <- rf.convertToFollower:
 			// may need more jude here
@@ -205,6 +204,7 @@ func (rf *Raft) asCandidate(){
 	rf.role = 1
 	voteResult := make(chan bool, rf.total)
 	go rf.initialVoting(voteResult)
+	go rf.electionTiming()
 	for{
 		select{
 		case term := <- rf.convertToFollower:
@@ -428,7 +428,7 @@ func (rf *Raft) resetTimer(){
 }
 
 func (rf *Raft) electionTiming(){
-	waitTime := rand.Intn(3000)+2000
+	waitTime := rand.Intn(2000)+2000
 	for {
 		if rf.role != 1{
 			return
@@ -475,7 +475,7 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.mu = sync.Mutex{}
 	rf.term = 0
 	rf.total = len(peers)
-	rf.timeout = rand.Intn(1000)+1000
+	rf.timeout = rand.Intn(2500)+2000
 
 	rf.followerTimeout = make(chan bool)
 	rf.convertToFollower = make(chan int)
