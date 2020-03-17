@@ -77,8 +77,10 @@ type Raft struct {
 // return currentTerm and whether this server
 // believes it is the leader.
 func (rf *Raft) GetState() (int, bool) {
+	//rf.mu.Lock()
+	//defer rf.mu.Unlock()
 	var term  = rf.term
-	var isleader = rf.role==2
+	var isleader = (rf.role==2 && !rf.killed())
 	// Your code here (2A).
 	return term, isleader
 }
@@ -145,25 +147,6 @@ type AppendEntriesReply struct {
 	Success bool
 }
 
-// Write an AppendEntries RPC handler method that resets the election timeout
-// so that other servers don't step forward as leaders when one has already been elected.
-
-// The tester requires that the leader send heartbeat RPCs no more than ten times per second.
-func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
-	term := args.Term
-	leaderId := args.LeaderId
-	fmt.Println(strconv.Itoa(rf.me)+ " Received AppendEntries from "+ strconv.Itoa(leaderId)+" term is "+strconv.Itoa(term))
-	if rf.term > term {
-		reply.Success = false
-		reply.Term = rf.term
-	}else {
-		rf.votedFor = leaderId
-		reply.Term = term
-		rf.setToFollower(term)
-	}
-}
-
-
 //
 // example RequestVote RPC arguments structure.
 // field names must start with capital letters!
@@ -187,6 +170,121 @@ type RequestVoteReply struct {
 	VoteGranted bool
 }
 
+
+func (rf *Raft) sendHeartbeat(server int, args *AppendEntries, reply *AppendEntriesReply) bool {
+	ok := rf.peers[server].Call("Raft.AppendEntries", args, reply)
+	return ok
+}
+
+// Write an AppendEntries RPC handler method that resets the election timeout
+// so that other servers don't step forward as leaders when one has already been elected.
+// The tester requires that the leader send heartbeat RPCs no more than ten times per second.
+func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	term := args.Term
+	leaderId := args.LeaderId
+	fmt.Println(strconv.Itoa(rf.me)+ " received HeartBeat from "+ strconv.Itoa(leaderId)+" with term:"+strconv.Itoa(term))
+	if rf.term > term {
+		reply.Success = false
+		reply.Term = rf.term
+	}else {
+		rf.votedFor = leaderId
+		reply.Term = term
+		rf.setToFollower(term)
+	}
+}
+
+
+func (rf *Raft) heartBeating() bool{
+	acknowledged := true
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	for i :=0 ;i< rf.total;i++ {
+		if i == rf.me{
+			continue
+		}
+		// heart beat logic
+		args := AppendEntries{rf.term,rf.me,0,0,rf.entries,0}
+		reply := AppendEntriesReply{}
+		reachable := rf.sendHeartbeat(i, &args, &reply)
+		if reachable {
+			// fmt.Println(strconv.Itoa(i)+" is reachable!")
+			// check if any term has been higher than itself
+			// if so, it will turn into a follower
+			if reply.Term > rf.term || !reply.Success {
+				rf.setToFollower(reply.Term)
+				acknowledged = false
+				break
+			}
+		}
+	}
+	return acknowledged
+}
+
+
+// when receiving a valid Append, or Request
+func (rf *Raft) setToFollower(term int){
+	rf.resetTimer()
+	rf.voting = false
+	rf.role = 0
+	rf.term = term
+}
+
+func (rf *Raft) startVoting() {
+	fmt.Println("Initializing a vote request from "+strconv.Itoa(rf.me))
+	// if waiting for a specific time and still need to vote
+	rf.initializeVoting()
+}
+
+// defect is that it check that it has been timeout but before it excute the initializeVoting
+// it receive another vote request saying that it needs to vote
+func (rf *Raft) initializeVoting(){
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	term := rf.term + 1
+	rf.term ++                 // increase term
+	rf.role = 1     		   // set itself to candidate
+	numVoteForMe := 1          // counting the number voting for itself
+	rf.votedFor = -1           // set voting for it self
+	args := RequestVoteArgs{term, rf.me, 0, 0, rf.entries}
+	for i:=0;i< rf.total ;i++ {
+		if i == rf.me {
+			continue
+		}
+		go func(server int, args *RequestVoteArgs){
+			reply := RequestVoteReply{}
+			// need to figure out what valid actually represents
+			valid := rf.sendRequestVote(server, args, &reply)
+
+			rf.mu.Lock()
+			if valid {
+				if reply.VoteGranted {
+					numVoteForMe ++
+				} else if reply.Term > rf.term {
+					rf.setToFollower(reply.Term)
+				}
+			}else {
+				fmt.Println(strconv.Itoa(rf.me) +" did not receive reply from "+strconv.Itoa(server))
+			}
+			if rf.role == 1 && numVoteForMe > rf.total/2 {
+				// set itself as the leader
+				rf.voting = false
+				rf.role = 2
+				rf.votedFor = rf.me     // set voting for it self
+				fmt.Println(strconv.Itoa(rf.me)+" has been elected as leader for term "+strconv.Itoa(rf.term))
+			}
+			rf.mu.Unlock()
+		}(i, &args)
+		
+	}
+}
+
+func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *RequestVoteReply) bool {
+	fmt.Println(strconv.Itoa(rf.me) +" sending request vote to "+ strconv.Itoa(server))
+	ok := rf.peers[server].Call("Raft.RequestVote", args, reply)
+	return ok
+}
 //
 // example RequestVote RPC handler.
 // timeout should be relatively longer than 150-300 ms
@@ -215,122 +313,6 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		fmt.Println(strconv.Itoa(rf.me)+" reject the vote from "+strconv.Itoa(candidateId))
 	}
 }
-
-//
-// example code to send a RequestVote RPC to a server.
-// server is the index of the target server in rf.peers[].
-// expects RPC arguments in args.
-// fills in *reply with RPC reply, so caller should
-// pass &reply.
-// the types of the args and reply passed to Call() must be
-// the same as the types of the arguments declared in the
-// handler function (including whether they are pointers).
-//
-// The labrpc package simulates a lossy network, in which servers
-// may be unreachable, and in which requests and replies may be lost.
-// Call() sends a request and waits for a reply. If a reply arrives
-// within a timeout interval, Call() returns true; otherwise
-// Call() returns false. Thus Call() may not return for a while.
-// A false return can be caused by a dead server, a live server that
-// can't be reached, a lost request, or a lost reply.
-//
-// Call() is guaranteed to return (perhaps after a delay) *except* if the
-// handler function on the server side does not return.  Thus there
-// is no need to implement your own timeouts around Call().
-//
-// look at the comments in ../labrpc/labrpc.go for more details.
-//
-// if you're having trouble getting RPC to work, check that you've
-// capitalized all field names in structs passed over RPC, and
-// that the caller passes the address of the reply struct with &, not
-// the struct itself.
-//
-func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *RequestVoteReply) bool {
-	fmt.Println(strconv.Itoa(rf.me) +" sending request vote to "+ strconv.Itoa(server))
-	ok := rf.peers[server].Call("Raft.RequestVote", args, reply)
-	return ok
-}
-
-func (rf *Raft) heartBeating() bool{
-	acknowledged := true
-	for i :=0 ;i< rf.total;i++ {
-		if i == rf.me{
-			continue
-		}
-		// heart beat logic
-		args := AppendEntries{rf.term,rf.me,0,0,rf.entries,0}
-		reply := AppendEntriesReply{}
-		reachable := rf.sendHeartbeat(i, &args, &reply)
-		if reachable {
-			// fmt.Println(strconv.Itoa(i)+" is reachable!")
-			// check if any term has been higher than itself
-			// if so, it will turn into a follower
-			if reply.Term > rf.term || !reply.Success {
-				rf.setToFollower(reply.Term)
-				acknowledged = false
-				break
-			}
-		}
-	}
-	return acknowledged
-}
-
-// when receiving a valid Append, or Request
-func (rf *Raft) setToFollower(term int){
-	rf.resetTimer()
-	rf.voting = false
-	rf.role = 0
-	rf.term = term
-}
-
-func (rf *Raft) sendHeartbeat(server int, args *AppendEntries, reply *AppendEntriesReply) bool {
-	ok := rf.peers[server].Call("Raft.AppendEntries", args, reply)
-	return ok
-}
-
-func (rf *Raft) initializeVoting(){
-	rf.term ++	               // increase term
-	rf.role = 1     		   // set itself to candidate
-	numVoteForMe := 0          // counting the number voting for itself
-	rf.votedFor = -1           // set voting for it self
-	liveTotal := rf.total      // only compare with the half of the living object
-	args := RequestVoteArgs{rf.term, rf.me, 0, 0, rf.entries}
-	rf.resetTimer()
-	for i:=0;i< rf.total ;i++ {
-		if i == rf.me {
-			numVoteForMe ++
-			continue
-		}
-		reply := RequestVoteReply{}
-		// need to figure out what valid actually represents
-		//valid := false
-		//for !valid{
-		rf.sendRequestVote(i, &args, &reply)
-		if reply.VoteGranted {
-			numVoteForMe ++
-		} else if reply.Term > rf.term {
-			rf.setToFollower(reply.Term)
-		}
-
-	}
-	fmt.Println(strconv.Itoa(rf.me)+" received/liveTotal = "+strconv.Itoa(numVoteForMe)+":"+strconv.Itoa(liveTotal))
-	// if found that someone is higher than itself
-	if rf.role == 1 && numVoteForMe > liveTotal/2 {
-		// set itself as the leader
-		rf.voting = false
-		rf.role = 2
-		rf.votedFor = rf.me     // set voting for it self
-		fmt.Println(strconv.Itoa(rf.me)+" has been elected as leader for term "+strconv.Itoa(rf.term))
-	}
-}
-
-func (rf *Raft) startVoting() {
-	fmt.Println("Initializing a vote request from "+strconv.Itoa(rf.me))
-	// if waiting for a specific time and still need to vote
-	rf.initializeVoting()
-}
-
-
 
 //
 // the service using Raft (e.g. a k/v server) wants to start
@@ -367,6 +349,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 // should call killed() to check whether it should stop.
 //
 func (rf *Raft) Kill() {
+	rf.setToFollower(-1)
 	atomic.StoreInt32(&rf.dead, 1)
 	// Your code here, if desired.
 }
@@ -379,6 +362,10 @@ func (rf *Raft) killed() bool {
 func (rf *Raft) run() {
 	WaitTime := rand.Intn(150)+50
 	for true {
+		if rf.killed() {
+			//fmt.Println(strconv.Itoa(rf.me)+" has been killed")
+			return
+		}
 		_, isleader := rf.GetState()
 		if isleader {
 			// if it is a leader, it should keep quering other servers about their status
@@ -391,6 +378,7 @@ func (rf *Raft) run() {
 		}else if rf.role == 0 {
 			if rf.timeout < 0 {
 				fmt.Println(strconv.Itoa(rf.me) + " has timed out("+ strconv.Itoa(rf.timeout)+") start voting process")
+				rf.resetTimer()
 				go rf.startVoting()
 				time.Sleep(time.Second)
 			}
@@ -400,13 +388,17 @@ func (rf *Raft) run() {
 
 // reset the timmer since a certain leader has been found
 func (rf *Raft) resetTimer(){
-	time := rand.Intn(1000)+5000
+	time := rand.Intn(3000)+3000
 	rf.timeout = time
 }
 
 // used to judge whether we will need to initialize the voting process
 func (rf *Raft) timing(){
 	for true {
+		if rf.killed() {
+			rf.setToFollower(-1)
+			return
+		}
 		time.Sleep(time.Duration(500)*time.Millisecond)
 		rf.timeout -=500;
 	}
@@ -432,7 +424,7 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.mu = sync.Mutex{}
 	rf.term = 0
 	rf.total = len(peers)
-	rf.timeout = rand.Intn(2000)+1000
+	rf.timeout = rand.Intn(3000)+1000
 	go rf.timing()
 	go rf.run()
 	// Your initialization code here (2A, 2B, 2C).
