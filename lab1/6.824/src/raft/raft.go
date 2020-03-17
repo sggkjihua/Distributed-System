@@ -73,6 +73,13 @@ type Raft struct {
 	voting bool
 	timeout int
 	heartBeatTimeout int
+
+
+	followerTimeout chan bool
+	leaderTimeout   chan bool
+	electionTimeout chan bool
+	convertToFollower chan int
+	terminated chan bool
 }
 
 // return currentTerm and whether this server
@@ -172,6 +179,99 @@ type RequestVoteReply struct {
 	Term int
 	VoteGranted bool
 }
+
+
+func (rf *Raft) asFollower(){
+	// 0 indicates that 
+	rf.role = 0
+	for{
+		select {
+		case <- rf.followerTimeout:
+			// if no communication received during this period
+			go rf.asCandidate()
+			return
+		case term := <- rf.convertToFollower:
+			rf.transferToFollower(term)
+			return
+		case <- rf.terminated:
+			fmt.Printf("[Follower] %v has been terminated\n", rf.me)
+			return
+		}
+	}
+}
+
+
+func (rf *Raft) asCandidate(){
+	// as a candidate, initialize a vote
+	rf.role = 1
+	voteResult := make(chan bool, rf.total)
+	go rf.initialVoting(voteResult)
+	for{
+		select{
+		case term := <- rf.convertToFollower:
+			// need to judge more
+			if term > rf.term {
+				rf.transferToFollower(term)
+			}
+		case win := <- voteResult:
+			if win{
+				go rf.asLeader()
+				return
+			}
+		case <- rf.terminated:
+			fmt.Printf("[Candidate] %v has been terminated\n", rf.me)
+			return
+		case <- rf.electionTimeout:
+			fmt.Printf("[Candidate] Election initiated from %d has timed out, restart election\n",rf.me)
+		}
+	}
+}
+
+func (rf *Raft) asLeader(){
+	rf.mu.Lock()
+	rf.role = 2
+	rf.mu.Unlock()
+	// initialize a hearBeat interval
+	heartBeatInterval := rand.Intn(100)+150
+	for{
+		select{
+		case term := <- rf.convertToFollower:
+			// if reveived an appendies >= my term, convert to follower
+			if term >= rf.term{
+				fmt.Printf("[Leader] %v found higher term: %v,convert to follower\n", rf.me, term)
+				go rf.transferToFollower(term)
+				return
+			}
+		case <- rf.terminated:
+			fmt.Printf("[Leader] %v has been terminated\n", rf.me)
+			return
+		default:
+            fmt.Printf("[Leader] me:%d default. rf.role:%v", rf.me, rf.role)
+            //等待直到leader状态初始化完成
+            if rf.role == 2 {
+                rf.heartbeating()
+                time.Sleep(time.Duration(heartBeatInterval)*time.Millisecond)
+            }
+		}
+	}
+}
+
+func (rf *Raft) transferToFollower(term int){
+	rf.term = term
+	rf.resetTimer()
+	go rf.asFollower()
+}
+
+func (rf *Raft) initialVoting(vote chan bool){
+
+}
+
+func (rf *Raft) heartbeating(){
+	rf.resetTimerHeartBeat()
+
+
+}
+
 
 
 func (rf *Raft) sendHeartbeat(server int, args *AppendEntries, reply *AppendEntriesReply) bool {
