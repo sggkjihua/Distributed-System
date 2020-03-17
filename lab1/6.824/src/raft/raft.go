@@ -86,9 +86,8 @@ func (rf *Raft) GetState() (int, bool) {
 	defer rf.mu.Unlock()
 	var term  = rf.term
 	// when connect back, it will still remain 2
-	var isleader = (rf.role==2 && !rf.killed())
+	var isleader = rf.role==2
 	// Your code here (2A).
-
 	return term, isleader
 }
 
@@ -187,6 +186,7 @@ func (rf *Raft) asFollower(){
 		case <- rf.followerTimeout:
 			// if no communication received during this period
 			go rf.asCandidate()
+			go rf.electionTiming()
 			return
 		case term := <- rf.convertToFollower:
 			// may need more jude here
@@ -221,7 +221,10 @@ func (rf *Raft) asCandidate(){
 			fmt.Printf("[Candidate] %v has been terminated\n", rf.me)
 			return
 		case <- rf.electionTimeout:
+			// need some logic here to check when election hsa timed out
+			go rf.asCandidate()
 			fmt.Printf("[Candidate] Election initiated from %d has timed out, restart election\n",rf.me)
+			return
 		}
 	}
 }
@@ -231,7 +234,7 @@ func (rf *Raft) asLeader(){
 	rf.role = 2
 	rf.mu.Unlock()
 	// initialize a hearBeat interval
-	heartBeatInterval := rand.Intn(100)+150
+	heartBeatInterval := rand.Intn(200)+150
 	for{
 		select{
 		case term := <- rf.convertToFollower:
@@ -245,7 +248,7 @@ func (rf *Raft) asLeader(){
 			fmt.Printf("[Leader] %v has been terminated\n", rf.me)
 			return
 		default:
-            if rf.role == 2 {
+            if rf.role == 2 && !rf.killed(){
 				fmt.Printf("[Leader] %v sending heartBeat\n", rf.me)
                 rf.heartBeating()
                 time.Sleep(time.Duration(heartBeatInterval)*time.Millisecond)
@@ -424,13 +427,29 @@ func (rf *Raft) resetTimer(){
 	rf.timeout = time
 }
 
+func (rf *Raft) electionTiming(){
+	waitTime := rand.Intn(3000)+2000
+	for {
+		if rf.role != 1{
+			return
+		}
+		time.Sleep(time.Duration(500)*time.Millisecond)
+		waitTime -= 500
+		if waitTime <0 && rf.role==1{
+			rf.electionTimeout <- true
+		}
+	}
+}
+
 // used to judge whether we will need to initialize the voting process
 func (rf *Raft) timing(){
 	for {
 		time.Sleep(time.Duration(500)*time.Millisecond)
 		rf.timeout -= 500;
 		if rf.timeout < 0{
-			rf.followerTimeout <- true
+			if rf.role == 0{
+				rf.followerTimeout <- true
+			}
 			rf.resetTimer()
 		}
 	}
@@ -456,11 +475,12 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.mu = sync.Mutex{}
 	rf.term = 0
 	rf.total = len(peers)
-	rf.timeout = rand.Intn(2000)+1000
+	rf.timeout = rand.Intn(1000)+1000
 
 	rf.followerTimeout = make(chan bool)
 	rf.convertToFollower = make(chan int)
 	rf.terminated = make(chan bool)
+	rf.electionTimeout = make(chan bool)
 	go rf.asFollower()
 	go rf.timing()
 
