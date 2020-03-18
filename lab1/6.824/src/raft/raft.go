@@ -61,22 +61,18 @@ type Raft struct {
 	// Your data here (2A, 2B, 2C).
 	// Look at the paper's Figure 2 for a description of what
 	// state a Raft server must maintain.
-	currentTerm int
 	votedFor int
 	term int
 	entries []LogEntry
 	total int
-	foundLeader bool
 	// 0: follower, 1:candidate, 2:leader
 	role int
 	timeout int
-
-
 	followerTimeout chan bool
-	leaderTimeout   chan bool
 	electionTimeout chan bool
 	convertToFollower chan int
 	terminated chan bool
+	timeFormat string
 }
 
 // return currentTerm and whether this server
@@ -184,6 +180,7 @@ func (rf *Raft) asFollower(){
 	for{
 		select {
 		case <- rf.followerTimeout:
+			fmt.Printf("[%v Follower] %v timed out initialize a voting\n",time.Now().Format(rf.timeFormat), rf.me)
 			// if no communication received during this period
 			go rf.asCandidate()
 			return
@@ -192,7 +189,7 @@ func (rf *Raft) asFollower(){
 			rf.transferToFollower(term)
 			return
 		case <- rf.terminated:
-			fmt.Printf("[Follower] %v has been terminated\n", rf.me)
+			fmt.Printf("[%v Follower] %v has been terminated\n", time.Now().Format(rf.timeFormat), rf.me)
 			return
 		}
 	}
@@ -218,12 +215,12 @@ func (rf *Raft) asCandidate(){
 				return
 			}
 		case <- rf.terminated:
-			fmt.Printf("[Candidate] %v has been terminated\n", rf.me)
+			fmt.Printf("[%v Candidate] %v has been terminated\n", time.Now().Format(rf.timeFormat), rf.me)
 			return
 		case <- rf.electionTimeout:
 			// need some logic here to check when election hsa timed out
 			go rf.asCandidate()
-			fmt.Printf("[Candidate] Election initiated from %d has timed out, restart election\n",rf.me)
+			fmt.Printf("[%v Candidate] Election initiated from %d has timed out, restart election\n",time.Now().Format(rf.timeFormat), rf.me)
 			return
 		}
 	}
@@ -235,21 +232,21 @@ func (rf *Raft) asLeader(){
 	rf.mu.Unlock()
 	// initialize a hearBeat interval
 	heartBeatInterval := rand.Intn(200)+150
-	for{
+	for rf.role == 2{
 		select{
 		case term := <- rf.convertToFollower:
 			// if reveived an appendies >= my term, convert to follower
 			if term >= rf.term{
-				fmt.Printf("[Leader] %v found higher term: %v,convert to follower\n", rf.me, term)
+				fmt.Printf("[%v Leader] %v found higher term: %v,convert to follower\n",time.Now().Format(rf.timeFormat),  rf.me, term)
 				go rf.transferToFollower(term)
 				return
 			}
 		case <- rf.terminated:
-			fmt.Printf("[Leader] %v has been terminated\n", rf.me)
+			fmt.Printf("[%v Leader] %v has been terminated\n", time.Now().Format(rf.timeFormat), rf.me)
 			return
 		default:
             if rf.role == 2 && !rf.killed(){
-				fmt.Printf("[Leader] %v sending heartBeat\n", rf.me)
+				fmt.Printf("[%v Leader] %v sending heartBeat in term: %v\n", time.Now().Format(rf.timeFormat), rf.me, rf.term)
                 rf.heartBeating()
                 time.Sleep(time.Duration(heartBeatInterval)*time.Millisecond)
             }
@@ -278,9 +275,9 @@ func (rf *Raft) initialVoting(vote chan bool){
 		go func(server int, args *RequestVoteArgs){
 			reply := RequestVoteReply{}
 			// need to figure out what valid actually represents
-			valid := rf.sendRequestVote(server, args, &reply)
-
-			if valid {
+			valid :=false
+			for !valid {
+				valid = rf.sendRequestVote(server, args, &reply)
 				if reply.VoteGranted {
 					rf.mu.Lock()
 					numVoteForMe ++
@@ -289,9 +286,12 @@ func (rf *Raft) initialVoting(vote chan bool){
 					rf.convertToFollower <- reply.Term
 					return
 				}
-			}else {
-				fmt.Printf("[Candidate] %v did not receive reply from %v\n", rf.me, server)
 			}
+			/*
+			else {
+				fmt.Printf("[%v Candidate] %v did not receive reply from %v for term %v\n",time.Now().Format("15:04:05.000"), rf.me, server, term)
+			}
+			*/
 			if rf.role == 1 && numVoteForMe > rf.total/2 {
 				rf.votedFor = rf.me     // set voting for it self
 				vote <- true
@@ -311,8 +311,9 @@ func (rf *Raft) heartBeating(){
 		go func(i int){
 			args := AppendEntries{term,rf.me,0,0,rf.entries,0}
 			reply := AppendEntriesReply{}
-			reachable := rf.sendHeartbeat(i, &args, &reply)
-			if reachable {
+			reachable := false
+			for !reachable && rf.role==2 {
+				reachable = rf.sendHeartbeat(i, &args, &reply)
 				if reply.Term > term || !reply.Success {
 					// if found that a higher term is actually higher
 					rf.convertToFollower <- reply.Term
@@ -332,23 +333,23 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 	defer rf.mu.Unlock()
 	term := args.Term
 	leaderId := args.LeaderId
-	fmt.Printf("[AppendEntries] %v received HeartBeat from %v with term %v\n", rf.me, leaderId, term)
+	fmt.Printf("[%v AppendEntries] %v received HeartBeat from %v with term %v\n", time.Now().Format(rf.timeFormat), rf.me, leaderId, term)
 	if rf.term > term {
 		reply.Success = false
 		reply.Term = rf.term
-		fmt.Printf("[AppendEntries] term of %v[%v] is higher than %v[%v]\n", rf.me, rf.term, leaderId, term)
+		fmt.Printf("[%v AppendEntries] term of %v[%v] is higher than %v[%v]\n", time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
 	}else {
 		// even equals should return true, acknoledge the failure
 		rf.votedFor = leaderId
 		reply.Term = term
 		reply.Success = true
 		rf.convertToFollower <- term
-		fmt.Printf("[AppendEntries] term of %v[%v] is <= than %v[%v], accept it\n", rf.me, rf.term, leaderId, term)
+		fmt.Printf("[%v AppendEntries] term of %v[%v] is <= than %v[%v], accept it\n",time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
 	}
 }
 
 func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *RequestVoteReply) bool {
-	fmt.Printf("[Candidate] %v sending VoteRequest to %v for term %v\n", rf.me, server, rf.term)
+	fmt.Printf("[%v Candidate] %v sending VoteRequest to %v for term %v\n",time.Now().Format(rf.timeFormat),  rf.me, server, rf.term)
 	ok := rf.peers[server].Call("Raft.RequestVote", args, reply)
 	return ok
 }
@@ -359,7 +360,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	defer rf.mu.Unlock()
 	term := args.Term
 	candidateId := args.CandidateId
-	fmt.Printf("[VoteRequest] %v received a VoteRequest from %v for term %v\n",rf.me, candidateId, term)
+	fmt.Printf("[%v VoteRequest] %v received a VoteRequest from %v for term %v\n",time.Now().Format(rf.timeFormat), rf.me, candidateId, term)
 	if term > rf.term {
 		// if the received request has a higher term number
 		// accept it and change our term
@@ -368,11 +369,18 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		reply.Term = term
 		// set this as the follower channel
 		rf.convertToFollower <- term
-		fmt.Printf("[VoteRequest] %v accept request from %v\n", rf.me, candidateId)
+	}else if term == rf.term{
+		reply.Term = rf.term
+		reply.VoteGranted = rf.votedFor==candidateId
 	}else{
 		reply.Term = rf.term
 		reply.VoteGranted = false
-		fmt.Printf("[VoteRequest] %v reject request from %v\n", rf.me, candidateId)
+	}
+	if reply.VoteGranted {
+		fmt.Printf("[%v VoteRequest] %v has accepted the request from %v\n", time.Now().Format(rf.timeFormat), rf.me, candidateId)
+	}else{
+		fmt.Printf("[%v VoteRequest] %v has rejected the request from %v\n", time.Now().Format(rf.timeFormat), rf.me, candidateId)
+
 	}
 }
 
@@ -423,18 +431,15 @@ func (rf *Raft) killed() bool {
 
 // reset the timmer since a certain leader has been found
 func (rf *Raft) resetTimer(){
-	time := rand.Intn(2500)+2000
+	time := rand.Intn(500)+300
 	rf.timeout = time
 }
 
 func (rf *Raft) electionTiming(){
-	waitTime := rand.Intn(2000)+2000
-	for {
-		if rf.role != 1{
-			return
-		}
-		time.Sleep(time.Duration(500)*time.Millisecond)
-		waitTime -= 500
+	waitTime := rand.Intn(2000)+1000
+	for rf.role == 1{
+		time.Sleep(time.Duration(50)*time.Millisecond)
+		waitTime -= 50
 		if waitTime <0 && rf.role==1{
 			rf.electionTimeout <- true
 		}
@@ -443,9 +448,9 @@ func (rf *Raft) electionTiming(){
 
 // used to judge whether we will need to initialize the voting process
 func (rf *Raft) timing(){
-	for {
-		time.Sleep(time.Duration(500)*time.Millisecond)
-		rf.timeout -= 500;
+	for rf.role == 0{
+		time.Sleep(time.Duration(50)*time.Millisecond)
+		rf.timeout -= 50;
 		if rf.timeout < 0{
 			if rf.role == 0{
 				rf.followerTimeout <- true
@@ -475,12 +480,13 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.mu = sync.Mutex{}
 	rf.term = 0
 	rf.total = len(peers)
-	rf.timeout = rand.Intn(2500)+2000
+	rf.timeout = rand.Intn(2500)+1000
 
 	rf.followerTimeout = make(chan bool)
 	rf.convertToFollower = make(chan int)
 	rf.terminated = make(chan bool)
 	rf.electionTimeout = make(chan bool)
+	rf.timeFormat = "15:04:05.000"
 	go rf.asFollower()
 	go rf.timing()
 
