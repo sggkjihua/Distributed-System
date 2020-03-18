@@ -219,8 +219,8 @@ func (rf *Raft) asCandidate(){
 			return
 		case <- rf.electionTimeout:
 			// need some logic here to check when election hsa timed out
-			go rf.asCandidate()
 			fmt.Printf("[%v Candidate] Election initiated from %d has timed out, restart election\n",time.Now().Format(rf.timeFormat), rf.me)
+			go rf.asCandidate()
 			return
 		}
 	}
@@ -276,7 +276,7 @@ func (rf *Raft) initialVoting(vote chan bool){
 			reply := RequestVoteReply{}
 			// need to figure out what valid actually represents
 			valid :=false
-			for !valid {
+			for !valid && rf.role == 1 {
 				valid = rf.sendRequestVote(server, args, &reply)
 				if reply.VoteGranted {
 					rf.mu.Lock()
@@ -312,7 +312,7 @@ func (rf *Raft) heartBeating(){
 			args := AppendEntries{term,rf.me,0,0,rf.entries,0}
 			reply := AppendEntriesReply{}
 			reachable := false
-			for !reachable && rf.role==2 {
+			for !reachable && rf.role==2 && !rf.killed() {
 				reachable = rf.sendHeartbeat(i, &args, &reply)
 				if reply.Term > term || !reply.Success {
 					// if found that a higher term is actually higher
@@ -437,18 +437,21 @@ func (rf *Raft) resetTimer(){
 
 func (rf *Raft) electionTiming(){
 	waitTime := rand.Intn(2000)+1000
-	for rf.role == 1{
+	for{
 		time.Sleep(time.Duration(50)*time.Millisecond)
 		waitTime -= 50
-		if waitTime <0 && rf.role==1{
-			rf.electionTimeout <- true
+		if waitTime <0{
+			if rf.role == 1 {
+				rf.electionTimeout <- true
+			}
+			return
 		}
 	}
 }
 
 // used to judge whether we will need to initialize the voting process
 func (rf *Raft) timing(){
-	for rf.role == 0{
+	for{
 		time.Sleep(time.Duration(50)*time.Millisecond)
 		rf.timeout -= 50;
 		if rf.timeout < 0{
