@@ -231,7 +231,7 @@ func (rf *Raft) asLeader(){
 	rf.role = 2
 	rf.mu.Unlock()
 	// initialize a hearBeat interval
-	heartBeatInterval := rand.Intn(200)+150
+	heartBeatInterval := rand.Intn(100)+150
 	for rf.role == 2{
 		select{
 		case term := <- rf.convertToFollower:
@@ -275,9 +275,8 @@ func (rf *Raft) initialVoting(vote chan bool){
 		go func(server int, args *RequestVoteArgs){
 			reply := RequestVoteReply{}
 			// need to figure out what valid actually represents
-			valid :=false
-			for !valid && rf.role == 1 {
-				valid = rf.sendRequestVote(server, args, &reply)
+			valid := rf.sendRequestVote(server, args, &reply)
+			if valid && rf.role == 1 {
 				if reply.VoteGranted {
 					rf.mu.Lock()
 					numVoteForMe ++
@@ -311,8 +310,8 @@ func (rf *Raft) heartBeating(){
 		go func(i int){
 			args := AppendEntries{term,rf.me,0,0,rf.entries,0}
 			reply := AppendEntriesReply{}
-			reachable := false
-			for !reachable && rf.role==2 && !rf.killed() {
+			reachable := rf.sendHeartbeat(i, &args, &reply)
+			if reachable && !rf.killed() {
 				reachable = rf.sendHeartbeat(i, &args, &reply)
 				if reply.Term > term || !reply.Success {
 					// if found that a higher term is actually higher
