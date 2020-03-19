@@ -73,6 +73,7 @@ type Raft struct {
 	convertToFollower chan int
 	terminated chan bool
 	timeFormat string
+	timer *time.Timer
 }
 
 // return currentTerm and whether this server
@@ -149,6 +150,7 @@ type AppendEntriesReply struct {
 	Success bool
 }
 
+
 //
 // example RequestVote RPC arguments structure.
 // field names must start with capital letters!
@@ -174,12 +176,11 @@ type RequestVoteReply struct {
 
 
 func (rf *Raft) asFollower(){
-	// 0 indicates that 
 	rf.role = 0
-	//fmt.Printf("[Follower] %v currently as a fllower\n", rf.me)
+	rf.resetTimer()
 	for{
 		select {
-		case <- rf.followerTimeout:
+		case <- rf.timer.C:
 			fmt.Printf("[%v Follower] %v timed out initialize a voting\n",time.Now().Format(rf.timeFormat), rf.me)
 			// if no communication received during this period
 			go rf.asCandidate()
@@ -236,11 +237,9 @@ func (rf *Raft) asLeader(){
 		select{
 		case term := <- rf.convertToFollower:
 			// if reveived an appendies >= my term, convert to follower
-			if term >= rf.term{
-				fmt.Printf("[%v Leader] %v found higher term: %v,convert to follower\n",time.Now().Format(rf.timeFormat),  rf.me, term)
-				go rf.transferToFollower(term)
-				return
-			}
+			fmt.Printf("[%v Leader] %v found higher term: %v,convert to follower\n",time.Now().Format(rf.timeFormat),  rf.me, term)
+			go rf.transferToFollower(term)
+			return
 		case <- rf.terminated:
 			fmt.Printf("[%v Leader] %v has been terminated\n", time.Now().Format(rf.timeFormat), rf.me)
 			return
@@ -256,7 +255,7 @@ func (rf *Raft) asLeader(){
 
 func (rf *Raft) transferToFollower(term int){
 	rf.term = term
-	rf.resetTimer()
+	//rf.resetTimer()
 	go rf.asFollower()
 }
 
@@ -419,6 +418,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 //
 func (rf *Raft) Kill() {
 	atomic.StoreInt32(&rf.dead, 1)
+	rf.timer.Stop()
 	rf.terminated <- true
 	// Your code here, if desired.
 }
@@ -430,8 +430,7 @@ func (rf *Raft) killed() bool {
 
 // reset the timmer since a certain leader has been found
 func (rf *Raft) resetTimer(){
-	time := rand.Intn(500)+300
-	rf.timeout = time
+	rf.timer.Reset(rf.generateTimeout()*time.Millisecond)
 }
 
 func (rf *Raft) electionTiming(){
@@ -440,12 +439,23 @@ func (rf *Raft) electionTiming(){
 		time.Sleep(time.Duration(50)*time.Millisecond)
 		waitTime -= 50
 		if waitTime <0{
+			rf.mu.Lock()
 			if rf.role == 1 {
 				rf.electionTimeout <- true
 			}
+			rf.mu.Unlock()
 			return
 		}
 	}
+}
+
+func (rf*Raft) generateTimeout() time.Duration{
+	interval := time.Duration(rand.Intn(400)+300)
+	return interval
+}
+
+func (rf *Raft) resettimer(){
+	rf.timer.Reset(rf.generateTimeout()*time.Millisecond)
 }
 
 // used to judge whether we will need to initialize the voting process
@@ -489,8 +499,9 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.terminated = make(chan bool)
 	rf.electionTimeout = make(chan bool)
 	rf.timeFormat = "15:04:05.000"
+	rf.timer = time.NewTimer(time.Duration(rf.generateTimeout()) * time.Millisecond)
 	go rf.asFollower()
-	go rf.timing()
+	//go rf.timing()
 
 	// Your initialization code here (2A, 2B, 2C).
 	// Fill in the RequestVoteArgs and RequestVoteReply structs
