@@ -207,9 +207,8 @@ func (rf *Raft) asCandidate(){
 		select{
 		case term := <- rf.convertToFollower:
 			// need to judge more
-			if term > rf.term {
-				rf.transferToFollower(term)
-			}
+			rf.transferToFollower(term)
+			return 
 		case win := <- voteResult:
 			if win{
 				go rf.asLeader()
@@ -228,23 +227,28 @@ func (rf *Raft) asCandidate(){
 }
 
 func (rf *Raft) asLeader(){
-	rf.mu.Lock()
-	rf.role = 2
-	rf.mu.Unlock()
+	go func(){
+		rf.mu.Lock()
+		defer rf.mu.Unlock()
+		if rf.role != 1{
+			return
+		}
+		rf.role = 2
+	}()
 	// initialize a hearBeat interval
 	heartBeatInterval := rand.Intn(100)+150
-	for rf.role == 2{
+	for{
 		select{
 		case term := <- rf.convertToFollower:
 			// if reveived an appendies >= my term, convert to follower
-			fmt.Printf("[%v Leader] %v found higher term: %v,convert to follower\n",time.Now().Format(rf.timeFormat),  rf.me, term)
-			go rf.transferToFollower(term)
-			return
+				fmt.Printf("[%v Leader] %v found higher term: %v,convert to follower\n",time.Now().Format(rf.timeFormat),  rf.me, term)
+				go rf.transferToFollower(term)
+				return
 		case <- rf.terminated:
 			fmt.Printf("[%v Leader] %v has been terminated\n", time.Now().Format(rf.timeFormat), rf.me)
 			return
 		default:
-            if rf.role == 2 && !rf.killed(){
+            if rf.role == 2 {
 				fmt.Printf("[%v Leader] %v sending heartBeat in term: %v\n", time.Now().Format(rf.timeFormat), rf.me, rf.term)
                 rf.heartBeating()
                 time.Sleep(time.Duration(heartBeatInterval)*time.Millisecond)
@@ -255,7 +259,6 @@ func (rf *Raft) asLeader(){
 
 func (rf *Raft) transferToFollower(term int){
 	rf.term = term
-	//rf.resetTimer()
 	go rf.asFollower()
 }
 
@@ -450,7 +453,7 @@ func (rf *Raft) electionTiming(){
 }
 
 func (rf*Raft) generateTimeout() time.Duration{
-	interval := time.Duration(rand.Intn(400)+300)
+	interval := time.Duration(rand.Intn(200)+350)
 	return interval
 }
 
