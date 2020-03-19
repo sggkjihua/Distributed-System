@@ -63,17 +63,20 @@ type Raft struct {
 	// state a Raft server must maintain.
 	votedFor int
 	term int
-	entries []LogEntry
 	total int
 	// 0: follower, 1:candidate, 2:leader
 	role int
-	timeout int
-	followerTimeout chan bool
 	electionTimeout chan bool
 	convertToFollower chan int
 	terminated chan bool
 	timeFormat string
 	timer *time.Timer
+
+	entries []LogEntry
+	commitIndex int
+	lastApplied int
+	nextIndex []int
+	matchIndex []int
 }
 
 // return currentTerm and whether this server
@@ -130,6 +133,7 @@ func (rf *Raft) readPersist(data []byte) {
 type LogEntry struct {
 	Command string
 	Term int
+	Index int
 }
 
 // To implement heartbeats for empty entries
@@ -457,24 +461,6 @@ func (rf*Raft) generateTimeout() time.Duration{
 	return interval
 }
 
-func (rf *Raft) resettimer(){
-	rf.timer.Reset(rf.generateTimeout()*time.Millisecond)
-}
-
-// used to judge whether we will need to initialize the voting process
-func (rf *Raft) timing(){
-	for{
-		time.Sleep(time.Duration(50)*time.Millisecond)
-		rf.timeout -= 50;
-		if rf.timeout < 0{
-			if rf.role == 0{
-				rf.followerTimeout <- true
-			}
-			rf.resetTimer()
-		}
-	}
-}
-
 //
 // the service or tester wants to create a Raft server. the ports
 // of all the Raft servers (including this one) are in peers[]. this
@@ -495,14 +481,12 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.mu = sync.Mutex{}
 	rf.term = 0
 	rf.total = len(peers)
-	rf.timeout = rand.Intn(2500)+1000
-
-	rf.followerTimeout = make(chan bool)
 	rf.convertToFollower = make(chan int)
 	rf.terminated = make(chan bool)
 	rf.electionTimeout = make(chan bool)
 	rf.timeFormat = "15:04:05.000"
 	rf.timer = time.NewTimer(time.Duration(rf.generateTimeout()) * time.Millisecond)
+	rf.entries = []LogEntry{}
 	go rf.asFollower()
 	//go rf.timing()
 
