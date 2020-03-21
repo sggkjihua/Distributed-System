@@ -1,0 +1,356 @@
+Test (2A): initial election ...
+[03:04:41.612 Follower] 1 timed out initialize a voting
+[03:04:41.615 Candidate] 1 sending VoteRequest to 2 for term 1
+[03:04:41.615 Candidate] 1 sending VoteRequest to 0 for term 1
+[03:04:41.617 VoteRequest] 2 received a VoteRequest from 1 for term 1
+[03:04:41.617 VoteRequest] 2 has accepted the request from 1
+[03:04:41.617 VoteRequest] 0 received a VoteRequest from 1 for term 1
+[03:04:41.618 VoteRequest] 0 has accepted the request from 1
+[03:04:41.618 Leader] 1 sending heartBeat in term: 1
+[03:04:41.619 AppendEntries] 2 received from 1 with term 1
+[03:04:41.619 AppendEntries] notify true by 2
+[03:04:41.619 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:41.619 AppendEntries] 0 received from 1 with term 1
+[03:04:41.628 AppendEntries] notify true by 0
+[03:04:41.628 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:41.620 AppendEntries] 2 received from 1 with term 1
+[03:04:41.629 AppendEntries] notify true by 2
+[03:04:41.629 AppendEntries] term of 2[1] is <= than 1[1], accept it
+labgob warning: Decoding into a non-default variable/field Term may not work
+[03:04:41.629 AppendEntries] 0 received from 1 with term 1
+[03:04:41.629 AppendEntries] notify true by 0
+[03:04:41.629 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:41.836 Leader] 1 sending heartBeat in term: 1
+[03:04:41.837 AppendEntries] 2 received from 1 with term 1
+[03:04:41.837 AppendEntries] notify true by 2
+[03:04:41.837 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:41.837 AppendEntries] 0 received from 1 with term 1
+[03:04:41.837 AppendEntries] notify true by 0
+[03:04:41.837 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:41.837 AppendEntries] 2 received from 1 with term 1
+[03:04:41.837 AppendEntries] notify true by 2
+[03:04:41.837 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:41.838 AppendEntries] 0 received from 1 with term 1
+[03:04:41.838 AppendEntries] notify true by 0
+[03:04:41.838 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:42.054 Leader] 1 sending heartBeat in term: 1
+[03:04:42.054 AppendEntries] 2 received from 1 with term 1
+[03:04:42.054 AppendEntries] notify true by 2
+[03:04:42.054 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:42.054 AppendEntries] 0 received from 1 with term 1
+[03:04:42.054 AppendEntries] notify true by 0
+[03:04:42.054 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:42.054 AppendEntries] 2 received from 1 with term 1
+[03:04:42.054 AppendEntries] notify true by 2
+[03:04:42.054 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:42.054 AppendEntries] 0 received from 1 with term 1
+[03:04:42.055 AppendEntries] notify true by 0
+[03:04:42.055 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:42.271 Leader] 1 sending heartBeat in term: 1
+[03:04:42.272 AppendEntries] 2 received from 1 with term 1
+[03:04:42.272 AppendEntries] notify true by 2
+[03:04:42.272 AppendEntries] 0 received from 1 with term 1
+[03:04:42.272 AppendEntries] notify true by 0
+[03:04:42.272 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:42.272 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:42.273 AppendEntries] 2 received from 1 with term 1
+[03:04:42.273 AppendEntries] notify true by 2
+[03:04:42.273 AppendEntries] 0 received from 1 with term 1
+[03:04:42.274 AppendEntries] notify true by 0
+[03:04:42.273 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:42.274 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:42.488 Leader] 1 sending heartBeat in term: 1
+[03:04:42.488 AppendEntries] 2 received from 1 with term 1
+[03:04:42.488 AppendEntries] notify true by 2
+[03:04:42.488 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:42.489 AppendEntries] 2 received from 1 with term 1
+[03:04:42.489 AppendEntries] notify true by 2
+[03:04:42.488 AppendEntries] 0 received from 1 with term 1
+[03:04:42.489 AppendEntries] notify true by 0
+[03:04:42.489 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:42.489 AppendEntries] 0 received from 1 with term 1
+[03:04:42.489 AppendEntries] notify true by 0
+[03:04:42.489 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:42.489 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:42.706 Leader] 1 sending heartBeat in term: 1
+[03:04:42.706 AppendEntries] 2 received from 1 with term 1
+[03:04:42.706 AppendEntries] notify true by 2
+[03:04:42.706 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:42.707 AppendEntries] 2 received from 1 with term 1
+[03:04:42.707 AppendEntries] notify true by 2
+[03:04:42.707 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:42.706 AppendEntries] 0 received from 1 with term 1
+[03:04:42.707 AppendEntries] notify true by 0
+[03:04:42.707 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:42.708 AppendEntries] 0 received from 1 with term 1
+[03:04:42.708 AppendEntries] notify true by 0
+[03:04:42.708 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:42.924 Leader] 1 sending heartBeat in term: 1
+[03:04:42.925 AppendEntries] 0 received from 1 with term 1
+[03:04:42.925 AppendEntries] notify true by 0
+[03:04:42.925 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:42.925 AppendEntries] 2 received from 1 with term 1
+[03:04:42.925 AppendEntries] notify true by 2
+[03:04:42.925 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:42.926 AppendEntries] 0 received from 1 with term 1
+[03:04:42.926 AppendEntries] notify true by 0
+[03:04:42.926 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:42.926 AppendEntries] 2 received from 1 with term 1
+[03:04:42.926 AppendEntries] notify true by 2
+[03:04:42.926 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:43.141 Leader] 1 sending heartBeat in term: 1
+[03:04:43.142 AppendEntries] 2 received from 1 with term 1
+[03:04:43.143 AppendEntries] notify true by 2
+[03:04:43.143 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:43.142 AppendEntries] 0 received from 1 with term 1
+[03:04:43.143 AppendEntries] notify true by 0
+[03:04:43.143 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:43.143 AppendEntries] 2 received from 1 with term 1
+[03:04:43.143 AppendEntries] notify true by 2
+[03:04:43.143 AppendEntries] 0 received from 1 with term 1
+[03:04:43.143 AppendEntries] notify true by 0
+[03:04:43.144 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:43.143 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:43.360 Leader] 1 sending heartBeat in term: 1
+[03:04:43.361 AppendEntries] 0 received from 1 with term 1
+[03:04:43.361 AppendEntries] notify true by 0
+[03:04:43.361 AppendEntries] 2 received from 1 with term 1
+[03:04:43.361 AppendEntries] notify true by 2
+[03:04:43.361 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:43.361 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:43.362 AppendEntries] 2 received from 1 with term 1
+[03:04:43.362 AppendEntries] notify true by 2
+[03:04:43.362 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:43.362 AppendEntries] 0 received from 1 with term 1
+[03:04:43.363 AppendEntries] notify true by 0
+[03:04:43.363 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:43.577 Leader] 1 sending heartBeat in term: 1
+[03:04:43.578 AppendEntries] 0 received from 1 with term 1
+[03:04:43.579 AppendEntries] notify true by 0
+[03:04:43.579 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:43.578 AppendEntries] 2 received from 1 with term 1
+[03:04:43.579 AppendEntries] notify true by 2
+[03:04:43.579 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:43.579 AppendEntries] 0 received from 1 with term 1
+[03:04:43.579 AppendEntries] notify true by 0
+[03:04:43.579 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:43.580 AppendEntries] 2 received from 1 with term 1
+[03:04:43.580 AppendEntries] notify true by 2
+[03:04:43.580 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:43.796 Leader] 1 sending heartBeat in term: 1
+[03:04:43.797 AppendEntries] 2 received from 1 with term 1
+[03:04:43.797 AppendEntries] notify true by 2
+[03:04:43.797 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:43.797 AppendEntries] 0 received from 1 with term 1
+[03:04:43.797 AppendEntries] notify true by 0
+[03:04:43.797 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:43.798 AppendEntries] 2 received from 1 with term 1
+[03:04:43.798 AppendEntries] notify true by 2
+[03:04:43.798 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:43.798 AppendEntries] 0 received from 1 with term 1
+[03:04:43.798 AppendEntries] notify true by 0
+[03:04:43.798 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:44.013 Leader] 1 sending heartBeat in term: 1
+[03:04:44.014 AppendEntries] 2 received from 1 with term 1
+[03:04:44.015 AppendEntries] notify true by 2
+[03:04:44.015 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:44.014 AppendEntries] 0 received from 1 with term 1
+[03:04:44.015 AppendEntries] notify true by 0
+[03:04:44.015 AppendEntries] 2 received from 1 with term 1
+[03:04:44.016 AppendEntries] notify true by 2
+[03:04:44.016 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:44.015 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:44.016 AppendEntries] 0 received from 1 with term 1
+[03:04:44.017 AppendEntries] notify true by 0
+[03:04:44.017 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:44.231 Leader] 1 sending heartBeat in term: 1
+[03:04:44.232 AppendEntries] 2 received from 1 with term 1
+[03:04:44.232 AppendEntries] notify true by 2
+[03:04:44.232 AppendEntries] 0 received from 1 with term 1
+[03:04:44.232 AppendEntries] notify true by 0
+[03:04:44.232 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:44.233 AppendEntries] 0 received from 1 with term 1
+[03:04:44.233 AppendEntries] notify true by 0
+[03:04:44.233 AppendEntries] term of 0[1] is <= than 1[1], accept it
+[03:04:44.232 AppendEntries] term of 2[1] is <= than 1[1], accept it
+[03:04:44.234 AppendEntries] 2 received from 1 with term 1
+[03:04:44.234 AppendEntries] notify true by 2
+[03:04:44.234 AppendEntries] term of 2[1] is <= than 1[1], accept it
+  ... Passed --   3.1  3   54   13912    0
+[03:04:44.292 Follower] 0 has been terminated
+[03:04:44.449 Leader] 1 has been terminated
+[03:04:44.449 Follower] 2 has been terminated
+Test (2A): election after network failure ...
+[03:04:44.830 Follower] 2 timed out initialize a voting
+[03:04:44.830 Candidate] 2 sending VoteRequest to 1 for term 1
+[03:04:44.831 Candidate] 2 sending VoteRequest to 0 for term 1
+[03:04:44.831 VoteRequest] 1 received a VoteRequest from 2 for term 1
+[03:04:44.831 VoteRequest] 1 has accepted the request from 2
+[03:04:44.831 VoteRequest] 0 received a VoteRequest from 2 for term 1
+[03:04:44.832 VoteRequest] 0 has accepted the request from 2
+[03:04:44.832 Leader] 2 sending heartBeat in term: 1
+[03:04:44.832 AppendEntries] 1 received from 2 with term 1
+[03:04:44.832 AppendEntries] notify true by 1
+[03:04:44.832 AppendEntries] term of 1[1] is <= than 2[1], accept it
+[03:04:44.833 AppendEntries] 1 received from 2 with term 1
+[03:04:44.833 AppendEntries] notify true by 1
+[03:04:44.833 AppendEntries] term of 1[1] is <= than 2[1], accept it
+[03:04:44.833 AppendEntries] 0 received from 2 with term 1
+[03:04:44.834 AppendEntries] notify true by 0
+[03:04:44.834 AppendEntries] term of 0[1] is <= than 2[1], accept it
+[03:04:44.834 AppendEntries] 0 received from 2 with term 1
+[03:04:44.835 AppendEntries] notify true by 0
+[03:04:44.835 AppendEntries] term of 0[1] is <= than 2[1], accept it
+Pass one leader, removing 2
+[03:04:45.041 Leader] 2 sending heartBeat in term: 1
+[03:04:45.251 Leader] 2 sending heartBeat in term: 1
+[03:04:45.329 Follower] 1 timed out initialize a voting
+[03:04:45.329 Candidate] 1 sending VoteRequest to 0 for term 2
+[03:04:45.329 Candidate] 1 sending VoteRequest to 2 for term 2
+[03:04:45.330 VoteRequest] 0 received a VoteRequest from 1 for term 2
+[03:04:45.330 VoteRequest] 0 has accepted the request from 1
+[03:04:45.331 Leader] 1 sending heartBeat in term: 2
+[03:04:45.332 AppendEntries] 0 received from 1 with term 2
+[03:04:45.332 AppendEntries] notify true by 0
+[03:04:45.332 AppendEntries] term of 0[2] is <= than 1[2], accept it
+[03:04:45.332 AppendEntries] 0 received from 1 with term 2
+[03:04:45.332 AppendEntries] notify true by 0
+[03:04:45.332 AppendEntries] term of 0[2] is <= than 1[2], accept it
+Pass remove previous leader, will reconnect 2
+[03:04:45.460 Leader] 2 sending heartBeat in term: 1
+[03:04:45.461 AppendEntries] 1 received from 2 with term 1
+[03:04:45.461 AppendEntries] reject since term of 1[2] is higher than 2[1]
+[03:04:45.461 AppendEntries] 0 received from 2 with term 1
+[03:04:45.461 AppendEntries] reject since term of 0[2] is higher than 2[1]
+[03:04:45.461 AppendEntries] 1 received from 2 with term 1
+[03:04:45.461 AppendEntries] reject since term of 1[2] is higher than 2[1]
+[03:04:45.461 AppendEntries] 0 received from 2 with term 1
+[03:04:45.461 AppendEntries] reject since term of 0[2] is higher than 2[1]
+[03:04:45.524 Leader] 1 sending heartBeat in term: 2
+[03:04:45.525 AppendEntries] 0 received from 1 with term 2
+[03:04:45.525 AppendEntries] notify true by 0
+[03:04:45.525 AppendEntries] term of 0[2] is <= than 1[2], accept it
+[03:04:45.525 AppendEntries] 2 received from 1 with term 2
+[03:04:45.525 AppendEntries] notify true by 2
+[03:04:45.526 AppendEntries] 0 received from 1 with term 2
+[03:04:45.526 AppendEntries] notify true by 0
+[03:04:45.526 AppendEntries] term of 0[2] is <= than 1[2], accept it
+[03:04:45.670 Leader] 2 found higher term: 2,convert to follower
+[03:04:45.670 AppendEntries] term of 2[2] is <= than 1[2], accept it
+[03:04:45.670 AppendEntries] 2 received from 1 with term 2
+[03:04:45.670 AppendEntries] notify true by 2
+[03:04:45.670 AppendEntries] term of 2[2] is <= than 1[2], accept it
+[03:04:45.717 Leader] 1 sending heartBeat in term: 2
+[03:04:45.717 AppendEntries] 0 received from 1 with term 2
+[03:04:45.717 AppendEntries] notify true by 0
+[03:04:45.717 AppendEntries] term of 0[2] is <= than 1[2], accept it
+[03:04:45.718 AppendEntries] 2 received from 1 with term 2
+[03:04:45.718 AppendEntries] notify true by 2
+[03:04:45.718 AppendEntries] term of 2[2] is <= than 1[2], accept it
+[03:04:45.718 AppendEntries] 0 received from 1 with term 2
+[03:04:45.718 AppendEntries] notify true by 0
+[03:04:45.718 AppendEntries] 2 received from 1 with term 2
+[03:04:45.718 AppendEntries] notify true by 2
+[03:04:45.718 AppendEntries] term of 2[2] is <= than 1[2], accept it
+[03:04:45.718 AppendEntries] term of 0[2] is <= than 1[2], accept it
+Pass reconnect previous leader 2, will remove 1, 2
+Removed 1, 2
+[03:04:45.910 Leader] 1 sending heartBeat in term: 2
+[03:04:46.104 Leader] 1 sending heartBeat in term: 2
+[03:04:46.154 Follower] 2 timed out initialize a voting
+[03:04:46.154 Candidate] 2 sending VoteRequest to 1 for term 3
+[03:04:46.154 Candidate] 2 sending VoteRequest to 0 for term 3
+[03:04:46.190 Follower] 0 timed out initialize a voting
+[03:04:46.190 Candidate] 0 sending VoteRequest to 2 for term 3
+[03:04:46.190 Candidate] 0 sending VoteRequest to 1 for term 3
+[03:04:46.296 Leader] 1 sending heartBeat in term: 2
+[03:04:46.488 Leader] 1 sending heartBeat in term: 2
+[03:04:46.681 Leader] 1 sending heartBeat in term: 2
+[03:04:46.873 Leader] 1 sending heartBeat in term: 2
+[03:04:47.066 Leader] 1 sending heartBeat in term: 2
+[03:04:47.220 Candidate] Election initiated from 2 has timed out, restart election
+[03:04:47.221 Candidate] 2 sending VoteRequest to 1 for term 4
+[03:04:47.221 Candidate] 2 sending VoteRequest to 0 for term 4
+[03:04:47.259 Leader] 1 sending heartBeat in term: 2
+[03:04:47.452 Leader] 1 sending heartBeat in term: 2
+[03:04:47.508 Candidate] Election initiated from 2 has timed out, restart election
+[03:04:47.508 Candidate] 2 sending VoteRequest to 1 for term 5
+[03:04:47.508 Candidate] 2 sending VoteRequest to 0 for term 5
+[03:04:47.644 Leader] 1 sending heartBeat in term: 2
+[03:04:47.759 Candidate] Election initiated from 0 has timed out, restart election
+[03:04:47.759 Candidate] 0 sending VoteRequest to 2 for term 4
+[03:04:47.759 Candidate] 0 sending VoteRequest to 1 for term 4
+[03:04:47.837 Leader] 1 sending heartBeat in term: 2
+Pass disconnect 2 servers 1, 2, connecting 2 back
+Connected 2 back
+[03:04:48.030 Leader] 1 sending heartBeat in term: 2
+[03:04:48.223 Leader] 1 sending heartBeat in term: 2
+[03:04:48.416 Leader] 1 sending heartBeat in term: 2
+[03:04:48.486 Candidate] Election initiated from 2 has timed out, restart election
+[03:04:48.487 Candidate] 2 sending VoteRequest to 1 for term 6
+[03:04:48.487 Candidate] 2 sending VoteRequest to 0 for term 6
+[03:04:48.487 VoteRequest] 0 received a VoteRequest from 2 for term 6
+[03:04:48.487 VoteRequest] 0 has accepted the request from 2
+[03:04:48.488 Leader] 2 sending heartBeat in term: 6
+[03:04:48.489 AppendEntries] 0 received from 2 with term 6
+[03:04:48.489 AppendEntries] notify true by 0
+[03:04:48.489 AppendEntries] term of 0[6] is <= than 2[6], accept it
+[03:04:48.490 AppendEntries] 0 received from 2 with term 6
+[03:04:48.490 AppendEntries] notify true by 0
+[03:04:48.490 AppendEntries] term of 0[6] is <= than 2[6], accept it
+[03:04:48.609 Leader] 1 sending heartBeat in term: 2
+[03:04:48.716 Leader] 2 sending heartBeat in term: 6
+[03:04:48.716 AppendEntries] 0 received from 2 with term 6
+[03:04:48.716 AppendEntries] notify true by 0
+[03:04:48.716 AppendEntries] term of 0[6] is <= than 2[6], accept it
+[03:04:48.716 AppendEntries] 0 received from 2 with term 6
+[03:04:48.716 AppendEntries] notify true by 0
+[03:04:48.716 AppendEntries] term of 0[6] is <= than 2[6], accept it
+[03:04:48.802 Leader] 1 sending heartBeat in term: 2
+Pass connect one servers 2
+[03:04:48.942 Leader] 2 sending heartBeat in term: 6
+[03:04:48.942 AppendEntries] 1 received from 2 with term 6
+[03:04:48.942 AppendEntries] notify true by 1
+[03:04:48.942 AppendEntries] 0 received from 2 with term 6
+[03:04:48.942 AppendEntries] notify true by 0
+[03:04:48.942 AppendEntries] term of 0[6] is <= than 2[6], accept it
+[03:04:48.942 AppendEntries] 0 received from 2 with term 6
+[03:04:48.942 AppendEntries] notify true by 0
+[03:04:48.942 AppendEntries] term of 0[6] is <= than 2[6], accept it
+[03:04:48.995 Leader] 1 found higher term: 6,convert to follower
+[03:04:48.995 AppendEntries] term of 1[2] is <= than 2[6], accept it
+[03:04:48.995 AppendEntries] 1 received from 2 with term 6
+[03:04:48.995 AppendEntries] notify true by 1
+[03:04:48.995 AppendEntries] term of 1[6] is <= than 2[6], accept it
+[03:04:49.168 Leader] 2 sending heartBeat in term: 6
+[03:04:49.169 AppendEntries] 1 received from 2 with term 6
+[03:04:49.169 AppendEntries] notify true by 1
+[03:04:49.169 AppendEntries] 0 received from 2 with term 6
+[03:04:49.169 AppendEntries] notify true by 0
+[03:04:49.169 AppendEntries] term of 0[6] is <= than 2[6], accept it
+[03:04:49.169 AppendEntries] term of 1[6] is <= than 2[6], accept it
+[03:04:49.170 AppendEntries] 0 received from 2 with term 6
+[03:04:49.170 AppendEntries] notify true by 0
+[03:04:49.171 AppendEntries] term of 0[6] is <= than 2[6], accept it
+[03:04:49.171 AppendEntries] 1 received from 2 with term 6
+[03:04:49.171 AppendEntries] notify true by 1
+[03:04:49.171 AppendEntries] term of 1[6] is <= than 2[6], accept it
+[03:04:49.396 Leader] 2 sending heartBeat in term: 6
+[03:04:49.397 AppendEntries] 0 received from 2 with term 6
+[03:04:49.397 AppendEntries] notify true by 0
+[03:04:49.397 AppendEntries] term of 0[6] is <= than 2[6], accept it
+[03:04:49.397 AppendEntries] 1 received from 2 with term 6
+[03:04:49.397 AppendEntries] notify true by 1
+[03:04:49.397 AppendEntries] term of 1[6] is <= than 2[6], accept it
+[03:04:49.397 AppendEntries] 0 received from 2 with term 6
+[03:04:49.397 AppendEntries] notify true by 0
+[03:04:49.397 AppendEntries] term of 0[6] is <= than 2[6], accept it
+[03:04:49.397 AppendEntries] 1 received from 2 with term 6
+[03:04:49.397 AppendEntries] notify true by 1
+[03:04:49.397 AppendEntries] term of 1[6] is <= than 2[6], accept it
+  ... Passed --   5.0  3   89   19600    0
+[03:04:49.419 Follower] 1 has been terminated
+[03:04:49.419 Follower] 0 has been terminated
+[03:04:49.622 Leader] 2 has been terminated
+PASS
+ok  	_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft	8.434s

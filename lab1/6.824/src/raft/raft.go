@@ -69,6 +69,7 @@ type Raft struct {
 	electionTimeout chan bool
 	convertToFollower chan int
 	terminated chan bool
+	applyCh chan ApplyMsg
 	timeFormat string
 	timer *time.Timer
 
@@ -131,9 +132,8 @@ func (rf *Raft) readPersist(data []byte) {
 }
 
 type LogEntry struct {
-	Command string
+	Command interface{}
 	Term int
-	Index int
 }
 
 // To implement heartbeats for empty entries
@@ -165,7 +165,6 @@ type RequestVoteArgs struct {
 	CandidateId int
 	LastLogIndex int
 	LastLogTerm int
-	Entries []LogEntry
 }
 
 //
@@ -237,6 +236,8 @@ func (rf *Raft) asLeader(){
 		if rf.role != 1{
 			return
 		}
+		rf.initializeNext()
+        rf.matchIndex[rf.me] = rf.nextIndex[rf.me] - 1
 		rf.role = 2
 	}()
 	// initialize a hearBeat interval
@@ -253,7 +254,6 @@ func (rf *Raft) asLeader(){
 			return
 		default:
             if rf.role == 2 {
-				fmt.Printf("[%v Leader] %v sending heartBeat in term: %v\n", time.Now().Format(rf.timeFormat), rf.me, rf.term)
                 rf.heartBeating()
                 time.Sleep(time.Duration(heartBeatInterval)*time.Millisecond)
             }
@@ -269,11 +269,12 @@ func (rf *Raft) transferToFollower(term int){
 func (rf *Raft) initialVoting(vote chan bool){
 	rf.mu.Lock()
 	term := rf.term + 1
-	rf.term ++                 // increase term
-	numVoteForMe := 1          // counting the number voting for itself
-	rf.votedFor = -1           // set voting for it self
+	rf.term ++
+	rf.votedFor = -1
+	args := rf.GenerateVoteRequest(term)
 	rf.mu.Unlock()
-	args := RequestVoteArgs{term, rf.me, 0, 0, rf.entries}
+	voted := make([] bool, rf.total)
+	voted[rf.me] = true
 	for i:=0;i< rf.total ;i++ {
 		if i == rf.me {
 			continue
@@ -282,29 +283,42 @@ func (rf *Raft) initialVoting(vote chan bool){
 			reply := RequestVoteReply{}
 			// need to figure out what valid actually represents
 			valid := rf.sendRequestVote(server, args, &reply)
-			if valid && rf.role == 1 {
-				if reply.VoteGranted {
-					rf.mu.Lock()
-					numVoteForMe ++
-					rf.mu.Unlock()
-				} else if reply.Term > rf.term {
-					rf.convertToFollower <- reply.Term
-					return
-				}
-			}
-			/*
-			else {
-				fmt.Printf("[%v Candidate] %v did not receive reply from %v for term %v\n",time.Now().Format("15:04:05.000"), rf.me, server, term)
-			}
-			*/
-			if rf.role == 1 && numVoteForMe > rf.total/2 {
+			// if accepted and voteGranted by the receiver
+			voted[server] = valid && reply.VoteGranted
+			// the read of role == 1 here should we delete it?
+			if rf.role == 1 && WinMajority(voted) {
 				rf.votedFor = rf.me     // set voting for it self
 				vote <- true
 			}
 		}(i, &args)
-		
 	}
 }
+
+func WinMajority(voted []bool) bool {
+	// check whether the candidate has received the majority
+	cnt := 0
+	for i:=0;i<len(voted);i++{
+		if voted[i]{
+			cnt ++
+		}
+	}
+	return cnt > len(voted)/2
+}
+
+
+func (rf *Raft) GenerateVoteRequest(term int) RequestVoteArgs{
+	args := RequestVoteArgs{}
+	args.Term = term
+	args.CandidateId = rf.me
+	args.LastLogIndex = len(rf.entries)-1
+	args.LastLogTerm = func(index int) int{
+		if index>=0 {
+			return rf.entries[index].Term
+		}
+		return 0
+	}(args.LastLogIndex)
+	return args
+} 
 
 // HeartBeating logic
 func (rf *Raft) heartBeating(){
@@ -314,17 +328,81 @@ func (rf *Raft) heartBeating(){
 			continue
 		}
 		go func(i int){
-			args := AppendEntries{term,rf.me,0,0,rf.entries,0}
+			args := rf.GenerateAppendEntries(term, i)
+			fmt.Printf("[%v Leader] %v sending AppendEntries in term: %v to %v with logs %v \n", time.Now().Format(rf.timeFormat), rf.me, rf.term, i,args.Entries)
 			reply := AppendEntriesReply{}
 			reachable := rf.sendHeartbeat(i, &args, &reply)
-			if reachable && !rf.killed() {
-				reachable = rf.sendHeartbeat(i, &args, &reply)
-				if reply.Term > term || !reply.Success {
+			if reachable {
+				if reply.Term > term{
 					// if found that a higher term is actually higher
+					// might turn into a follower
 					rf.convertToFollower <- reply.Term
+				}else if reply.Success{
+					// if not success, meaning that it should be less
+					rf.matchIndex[i] = len(args.Entries)+ args.PrevLogIndex
+					rf.nextIndex[i] = rf.matchIndex[i] + 1
+					rf.updateCommit()
+				}else{
+					rf.nextIndex[i] --
+					rf.matchIndex[i] --
 				}
 			}
 		}(i)
+	}
+}
+
+func (rf *Raft) updateCommit(){
+	if rf.commitIndex == len(rf.entries)-1{
+		return
+	}
+	for index:=len(rf.entries)-1;index>=rf.commitIndex;index--{
+		cnt := 0
+		for _, otherCommit := range rf.nextIndex{
+			if otherCommit >= index {
+				cnt ++
+			}
+		}
+		if cnt > rf.total/2{
+			tmp := rf.commitIndex
+			rf.commitIndex = index
+			msg := ApplyMsg{true, rf.entries[rf.commitIndex].Command, rf.commitIndex}
+			for k:=0;k<cnt;k++{
+				rf.applyCh <- msg
+			}
+			fmt.Printf("[Update Commit Index] %v update its commit index from %v to %v\n", rf.me, tmp, rf.commitIndex)
+			return
+		}
+	}
+}
+
+func (rf *Raft) GenerateAppendEntries(term int, i int) AppendEntries{
+	args := AppendEntries{}
+	args.Term = term
+	args.LeaderId = rf.me
+	args.PrevLogIndex = rf.nextIndex[i]-1
+	args.PrevLogTerm = func(index int) int{
+		if index < len(rf.entries) && index >= 0{
+			return rf.entries[index].Term
+		}
+		return -1
+	}(args.PrevLogIndex)
+
+	if args.PrevLogIndex+1 == 0{
+		args.Entries = rf.entries
+	}else if args.PrevLogIndex+1 <= len(rf.entries){
+		args.Entries = rf.entries[args.PrevLogIndex+1:]
+	}
+	// the PrevLogTerm may set to 0 if it actually not exists
+
+
+	args.LeaderCommit = rf.commitIndex
+	return args
+}
+
+func (rf *Raft) initializeNext(){
+	for i:=0;i<rf.total;i++{
+		rf.matchIndex[i] = 0
+		rf.nextIndex[i] = len(rf.entries)
 	}
 }
 
@@ -338,20 +416,73 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 	defer rf.mu.Unlock()
 	term := args.Term
 	leaderId := args.LeaderId
-	fmt.Printf("[%v AppendEntries] %v received HeartBeat from %v with term %v\n", time.Now().Format(rf.timeFormat), rf.me, leaderId, term)
+	prevLogIndex := args.PrevLogIndex
+	prevLogTerm  := args.PrevLogTerm
+	logs := args.Entries
+	leaderCommit := args.LeaderCommit
+	fmt.Printf("[%v AppendEntries] %v received from %v with logs: %v in term %v\n", time.Now().Format(rf.timeFormat), rf.me, leaderId,args.Entries,term)
 	if rf.term > term {
+		// first judge the term, if the term of the leader is lower, reject
 		reply.Success = false
 		reply.Term = rf.term
-		fmt.Printf("[%v AppendEntries] term of %v[%v] is higher than %v[%v]\n", time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
+		fmt.Printf("[%v AppendEntries] reject since term of %v[%v] is higher than %v[%v]\n", time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
 	}else {
-		// even equals should return true, acknoledge the failure
-		rf.votedFor = leaderId
 		reply.Term = term
-		reply.Success = true
+		// possibily be -1
+		if prevLogIndex < len(rf.entries){
+			// if at least it has that much logs, then it should be accepted
+			reply.Success = true
+			// should we consider the index out of range? 
+			if prevLogIndex>=0 && rf.entries[prevLogIndex].Term != prevLogTerm {
+				// delete the log after 
+				rf.entries = rf.entries[:prevLogIndex]
+				reply.Success = false
+			}
+		}else{
+			fmt.Printf("[%v AppendEntries] notify false since %v has less logs than %v \n", time.Now().Format(rf.timeFormat), rf.me, rf.term)
+			reply.Success = false
+		}
+	}
+	if reply.Success {
+		// if a success reply
+		rf.entries = append(rf.entries, logs...)
+		if leaderCommit > rf.commitIndex {
+			tmp := rf.commitIndex
+			rf.commitIndex = GetMin(leaderCommit, len(rf.entries)-1)
+			fmt.Printf("%v update its commit index from %v to %v\n", rf.me, tmp, rf.commitIndex)
+		}
+		go func(){
+			for index:= rf.lastApplied+1; index<=rf.commitIndex;index++{
+				msg := ApplyMsg{true, rf.entries[index].Command, index}
+				rf.applyCh <- msg
+				//fmt.Printf("me:%d %v\n",rf.me,msg)
+				rf.lastApplied = index
+			}
+		}()
+		rf.votedFor = leaderId
 		rf.convertToFollower <- term
 		fmt.Printf("[%v AppendEntries] term of %v[%v] is <= than %v[%v], accept it\n",time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
+		if len(logs) >0 {
+			//fmt.Printf("[AppendEntries] %v logs is currently %v\n", rf.me, rf.entries)
+		}
 	}
 }
+
+func GetMin(a, b int) int {
+	if a > b{
+		return b
+	}
+	return a
+}
+
+func GetMax(a, b int) int {
+	if a > b{
+		return a
+	}
+	return b
+}
+
+
 
 func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *RequestVoteReply) bool {
 	fmt.Printf("[%v Candidate] %v sending VoteRequest to %v for term %v\n",time.Now().Format(rf.timeFormat),  rf.me, server, rf.term)
@@ -365,27 +496,42 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	defer rf.mu.Unlock()
 	term := args.Term
 	candidateId := args.CandidateId
+	lastLogIndex := args.LastLogIndex
+	lastLogTerm  := args.LastLogTerm 
+
 	fmt.Printf("[%v VoteRequest] %v received a VoteRequest from %v for term %v\n",time.Now().Format(rf.timeFormat), rf.me, candidateId, term)
-	if term > rf.term {
-		// if the received request has a higher term number
-		// accept it and change our term
-		rf.votedFor = candidateId
-		reply.VoteGranted = true
-		reply.Term = term
-		// set this as the follower channel
-		rf.convertToFollower <- term
-	}else if term == rf.term{
-		reply.Term = rf.term
-		reply.VoteGranted = rf.votedFor==candidateId
-	}else{
-		reply.Term = rf.term
+	// 1. Reply false if term < currentTerm (§5.1)
+	// 2. If votedFor is null or candidateId, and candidate’s log is at 
+	// least as up-to-date as receiver’s log, grant vote (§5.2, §5.4)
+	if term < rf.term {
+		// if my term is actually higher than the candidate, reject
 		reply.VoteGranted = false
+		reply.Term = rf.term
+	}else{
+		mlastLogIndex, mlastLogTerm := len(rf.entries)-1, 0
+		if mlastLogIndex >= 0{
+			mlastLogTerm = rf.entries[mlastLogIndex].Term
+		}
+		if lastLogTerm < mlastLogTerm || (lastLogTerm==mlastLogTerm && lastLogIndex<mlastLogIndex){
+			// last log of candidate is stale than mine in term or index
+			reply.VoteGranted = false
+			reply.Term = args.Term
+		}else if rf.term < term {
+			// if candidate at higher term, accept
+			reply.VoteGranted = true
+			reply.Term = args.Term
+		}else{
+			// if at the same term, reject
+			reply.VoteGranted = false
+			reply.Term = rf.term
+		}
 	}
 	if reply.VoteGranted {
+		rf.votedFor = candidateId
+		rf.convertToFollower <- term
 		fmt.Printf("[%v VoteRequest] %v has accepted the request from %v\n", time.Now().Format(rf.timeFormat), rf.me, candidateId)
 	}else{
 		fmt.Printf("[%v VoteRequest] %v has rejected the request from %v\n", time.Now().Format(rf.timeFormat), rf.me, candidateId)
-
 	}
 }
 
@@ -404,12 +550,51 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 // the leader.
 //
 func (rf *Raft) Start(command interface{}) (int, int, bool) {
-	index := -1
-	term := -1
-	isLeader := true
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 
+	index := rf.term
+	term := rf.term
+	isLeader := rf.role == 2
+	if isLeader {
+		index = len(rf.entries)
+		rf.entries = append(rf.entries, LogEntry{Term:term,Command:command}) // append new entry from client
+		rf.nextIndex[rf.me] = len(rf.entries)
+		rf.matchIndex[rf.me] = len(rf.entries)-1
+		go rf.heartBeating()
+		//rf.persist()
+	}
+	return index, term, isLeader
+	/*
+	index := rf.commitIndex
+	term := rf.term
+	log := LogEntry{command, term}
+	isLeader := (rf.role == 2)
+	found := false
+	for i:=0;i< len(rf.entries);i++ {
+		if i< len(rf.entries) && rf.entries[i].Command == command{
+			index = i
+			found = true
+			break
+		}
+	}
+	if found && isLeader {
+		fmt.Printf("Leader %v has found the command %v and it is commited in index %v\n!", rf.me, command, index)
+	}
+	//fmt.Printf("%v checking command %v and found index %v\n", rf.me, command, index)
+	if isLeader && !found {
+		log.Term = rf.term
+		rf.entries = append(rf.entries, log)
+		rf.nextIndex[rf.me] = len(rf.entries)
+		rf.matchIndex[rf.me] = len(rf.entries)-1
+		fmt.Printf("%v is a leader and now logs are: %v\n", rf.me, rf.entries)
+	}
+	if index > rf.commitIndex{
+		index = -1
+	}
 	// Your code here (2B).
 	return index, term, isLeader
+	*/
 }
 
 //
@@ -487,8 +672,14 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.timeFormat = "15:04:05.000"
 	rf.timer = time.NewTimer(time.Duration(rf.generateTimeout()) * time.Millisecond)
 	rf.entries = []LogEntry{}
+	rf.commitIndex = -1
+	rf.lastApplied = -1
+	rf.votedFor = -1
+	// the index of the log that the ith server should receive
+	rf.nextIndex = make([]int, rf.total)
+	rf.matchIndex = make([]int, rf.total)
+	rf.applyCh = applyCh
 	go rf.asFollower()
-	//go rf.timing()
 
 	// Your initialization code here (2A, 2B, 2C).
 	// Fill in the RequestVoteArgs and RequestVoteReply structs
