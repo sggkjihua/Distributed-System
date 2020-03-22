@@ -183,7 +183,7 @@ func TestFailAgree2A(t *testing.T) {
 	cfg.end()
 }
 
-func TestFailNoAgree2B(t *testing.T) {
+func TestFailNoAgree2A(t *testing.T) {
 	servers := 5
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -234,7 +234,7 @@ func TestFailNoAgree2B(t *testing.T) {
 	cfg.end()
 }
 
-func TestConcurrentStarts2B(t *testing.T) {
+func TestConcurrentStarts2A(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -335,7 +335,7 @@ loop:
 	cfg.end()
 }
 
-func TestRejoin2B(t *testing.T) {
+func TestRejoin2A(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
