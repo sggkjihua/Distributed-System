@@ -254,6 +254,7 @@ func (rf *Raft) asLeader(){
 			return
 		default:
             if rf.role == 2 {
+				fmt.Printf("[%v Leader] logs are: %v\n", rf.me, rf.entries)
                 rf.heartBeating()
                 time.Sleep(time.Duration(heartBeatInterval)*time.Millisecond)
             }
@@ -322,6 +323,8 @@ func (rf *Raft) GenerateVoteRequest(term int) RequestVoteArgs{
 
 // HeartBeating logic
 func (rf *Raft) heartBeating(){
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 	term := rf.term
 	for i :=0 ;i< rf.total;i++ {
 		if i == rf.me{
@@ -338,7 +341,7 @@ func (rf *Raft) heartBeating(){
 					// might turn into a follower
 					rf.convertToFollower <- reply.Term
 				}else if reply.Success{
-					// if not success, meaning that it should be less
+					// if success
 					rf.matchIndex[i] = len(args.Entries)+ args.PrevLogIndex
 					rf.nextIndex[i] = rf.matchIndex[i] + 1
 					rf.updateCommit()
@@ -355,9 +358,9 @@ func (rf *Raft) updateCommit(){
 	if rf.commitIndex == len(rf.entries)-1{
 		return
 	}
-	for index:=len(rf.entries)-1;index>=rf.commitIndex;index--{
+	for index:=len(rf.entries)-1;index>rf.commitIndex;index--{
 		cnt := 0
-		for _, otherCommit := range rf.nextIndex{
+		for _, otherCommit := range rf.matchIndex{
 			if otherCommit >= index {
 				cnt ++
 			}
@@ -365,10 +368,17 @@ func (rf *Raft) updateCommit(){
 		if cnt > rf.total/2{
 			tmp := rf.commitIndex
 			rf.commitIndex = index
-			msg := ApplyMsg{true, rf.entries[rf.commitIndex].Command, rf.commitIndex}
-			for k:=0;k<cnt;k++{
-				rf.applyCh <- msg
-			}
+			//msg := ApplyMsg{true, rf.entries[rf.commitIndex].Command, rf.commitIndex}
+			go func(){
+				//rf.mu.Lock()
+				//defer rf.mu.Unlock()
+				for index:= rf.lastApplied+1; index<=rf.commitIndex;index++{
+					msg := ApplyMsg{true, rf.entries[index].Command, index}
+					rf.applyCh <- msg
+					//fmt.Printf("me:%d %v\n",rf.me,msg)
+					rf.lastApplied = index
+				}
+			}()
 			fmt.Printf("[Update Commit Index] %v update its commit index from %v to %v\n", rf.me, tmp, rf.commitIndex)
 			return
 		}
@@ -428,7 +438,6 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 		fmt.Printf("[%v AppendEntries] reject since term of %v[%v] is higher than %v[%v]\n", time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
 	}else {
 		reply.Term = term
-		// possibily be -1
 		if prevLogIndex < len(rf.entries){
 			// if at least it has that much logs, then it should be accepted
 			reply.Success = true
@@ -463,7 +472,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 		rf.convertToFollower <- term
 		fmt.Printf("[%v AppendEntries] term of %v[%v] is <= than %v[%v], accept it\n",time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
 		if len(logs) >0 {
-			//fmt.Printf("[AppendEntries] %v logs is currently %v\n", rf.me, rf.entries)
+			fmt.Printf("[AppendEntries] %v logs is currently %v\n", rf.me, rf.entries)
 		}
 	}
 }
@@ -508,6 +517,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		reply.VoteGranted = false
 		reply.Term = rf.term
 	}else{
+		// compare whether the candidate is at least up to date as mine
 		mlastLogIndex, mlastLogTerm := len(rf.entries)-1, 0
 		if mlastLogIndex >= 0{
 			mlastLogTerm = rf.entries[mlastLogIndex].Term
@@ -525,6 +535,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 			reply.VoteGranted = false
 			reply.Term = rf.term
 		}
+		rf.term = args.Term
 	}
 	if reply.VoteGranted {
 		rf.votedFor = candidateId
@@ -561,40 +572,9 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		rf.entries = append(rf.entries, LogEntry{Term:term,Command:command}) // append new entry from client
 		rf.nextIndex[rf.me] = len(rf.entries)
 		rf.matchIndex[rf.me] = len(rf.entries)-1
-		go rf.heartBeating()
-		//rf.persist()
+		//go rf.heartBeating()
 	}
 	return index, term, isLeader
-	/*
-	index := rf.commitIndex
-	term := rf.term
-	log := LogEntry{command, term}
-	isLeader := (rf.role == 2)
-	found := false
-	for i:=0;i< len(rf.entries);i++ {
-		if i< len(rf.entries) && rf.entries[i].Command == command{
-			index = i
-			found = true
-			break
-		}
-	}
-	if found && isLeader {
-		fmt.Printf("Leader %v has found the command %v and it is commited in index %v\n!", rf.me, command, index)
-	}
-	//fmt.Printf("%v checking command %v and found index %v\n", rf.me, command, index)
-	if isLeader && !found {
-		log.Term = rf.term
-		rf.entries = append(rf.entries, log)
-		rf.nextIndex[rf.me] = len(rf.entries)
-		rf.matchIndex[rf.me] = len(rf.entries)-1
-		fmt.Printf("%v is a leader and now logs are: %v\n", rf.me, rf.entries)
-	}
-	if index > rf.commitIndex{
-		index = -1
-	}
-	// Your code here (2B).
-	return index, term, isLeader
-	*/
 }
 
 //
@@ -672,7 +652,8 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.timeFormat = "15:04:05.000"
 	rf.timer = time.NewTimer(time.Duration(rf.generateTimeout()) * time.Millisecond)
 	rf.entries = []LogEntry{}
-	rf.commitIndex = -1
+	rf.entries = append(rf.entries, LogEntry{nil, 0})
+	rf.commitIndex = 0
 	rf.lastApplied = -1
 	rf.votedFor = -1
 	// the index of the log that the ith server should receive
