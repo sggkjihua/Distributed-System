@@ -456,18 +456,22 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 		// if a success reply
 		rf.entries = append(rf.entries, logs...)
 		if leaderCommit > rf.commitIndex {
-			tmp := rf.commitIndex
+			pre := rf.commitIndex
 			rf.commitIndex = GetMin(leaderCommit, len(rf.entries)-1)
-			fmt.Printf("%v update its commit index from %v to %v\n", rf.me, tmp, rf.commitIndex)
-		}
-		go func(){
-			for index:= rf.lastApplied+1; index<=rf.commitIndex;index++{
-				msg := ApplyMsg{true, rf.entries[index].Command, index}
-				rf.applyCh <- msg
-				//fmt.Printf("me:%d %v\n",rf.me,msg)
-				rf.lastApplied = index
+			if rf.commitIndex > pre{
+				go func(){
+					//rf.mu.Lock()
+					//defer rf.mu.Unlock()
+					for index:= rf.lastApplied+1; index<=rf.commitIndex;index++{
+						msg := ApplyMsg{true, rf.entries[index].Command, index}
+						rf.applyCh <- msg
+						//fmt.Printf("me:%d %v\n",rf.me,msg)
+						rf.lastApplied = index
+					}
+				}()
 			}
-		}()
+			fmt.Printf("%v update its commit index from %v to %v\n", rf.me, pre, rf.commitIndex)
+		}
 		rf.votedFor = leaderId
 		rf.convertToFollower <- term
 		fmt.Printf("[%v AppendEntries] term of %v[%v] is <= than %v[%v], accept it\n",time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
