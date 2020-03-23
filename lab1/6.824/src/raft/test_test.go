@@ -91,7 +91,7 @@ func TestReElection2A(t *testing.T) {
 	cfg.end()
 }
 
-func TestBasicAgree2A(t *testing.T) {
+func TestBasicAgree2B(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -118,7 +118,7 @@ func TestBasicAgree2A(t *testing.T) {
 // check, based on counting bytes of RPCs, that
 // each command is sent to each peer just once.
 //
-func TestRPCBytes2A(t *testing.T) {
+func TestRPCBytes2B(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -149,7 +149,7 @@ func TestRPCBytes2A(t *testing.T) {
 	cfg.end()
 }
 
-func TestFailAgree2A(t *testing.T) {
+func TestFailAgree2B(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -183,7 +183,7 @@ func TestFailAgree2A(t *testing.T) {
 	cfg.end()
 }
 
-func TestFailNoAgree2A(t *testing.T) {
+func TestFailNoAgree2B(t *testing.T) {
 	servers := 5
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -234,7 +234,7 @@ func TestFailNoAgree2A(t *testing.T) {
 	cfg.end()
 }
 
-func TestConcurrentStarts2A(t *testing.T) {
+func TestConcurrentStarts2B(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -335,7 +335,7 @@ loop:
 	cfg.end()
 }
 
-func TestRejoin2D(t *testing.T) {
+func TestRejoin2B(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -344,30 +344,38 @@ func TestRejoin2D(t *testing.T) {
 
 	cfg.one(101, servers, true)
 
+	// 这里基本不会有问题，3个选一个leader出来并且进行vote
 	// leader network failure
 	leader1 := cfg.checkOneLeader()
 	cfg.disconnect(leader1)
 
 	// make old leader try to agree on some entries
+	// leader 突然间傻了，但是还是有很多command这时候找到leader,3个
 	cfg.rafts[leader1].Start(102)
 	cfg.rafts[leader1].Start(103)
 	cfg.rafts[leader1].Start(104)
 
+	// 两个之间又要重新选出leader，兵器有一个commit为index = 2
 	// new leader commits, also for index=2
 	cfg.one(103, 2, true)
 
 	// new leader network failure
 	leader2 := cfg.checkOneLeader()
 	cfg.disconnect(leader2)
+	// leader 2此时也diconnect了
 
 	// old leader connected again
+	// 把leader 1 添加回来，但此时1里面的log有4个，index=1是符合的，但是后面的102， 103， 104不满足
+	// 而此时里面的应该是 103，但是term要高一点，所以还是选择当前的这个term,所以应该是101 103才对
 	cfg.connect(leader1)
 
 	cfg.one(104, 2, true)
+	// 此时应该为101 103 104
 
 	// all together now
 	cfg.connect(leader2)
 
+	// 101 103 104 105 miss掉了102
 	cfg.one(105, servers, true)
 
 	cfg.end()
