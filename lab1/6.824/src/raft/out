@@ -1,356 +1,3419 @@
-Test (2A): initial election ...
-[03:04:41.612 Follower] 1 timed out initialize a voting
-[03:04:41.615 Candidate] 1 sending VoteRequest to 2 for term 1
-[03:04:41.615 Candidate] 1 sending VoteRequest to 0 for term 1
-[03:04:41.617 VoteRequest] 2 received a VoteRequest from 1 for term 1
-[03:04:41.617 VoteRequest] 2 has accepted the request from 1
-[03:04:41.617 VoteRequest] 0 received a VoteRequest from 1 for term 1
-[03:04:41.618 VoteRequest] 0 has accepted the request from 1
-[03:04:41.618 Leader] 1 sending heartBeat in term: 1
-[03:04:41.619 AppendEntries] 2 received from 1 with term 1
-[03:04:41.619 AppendEntries] notify true by 2
-[03:04:41.619 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:41.619 AppendEntries] 0 received from 1 with term 1
-[03:04:41.628 AppendEntries] notify true by 0
-[03:04:41.628 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:41.620 AppendEntries] 2 received from 1 with term 1
-[03:04:41.629 AppendEntries] notify true by 2
-[03:04:41.629 AppendEntries] term of 2[1] is <= than 1[1], accept it
-labgob warning: Decoding into a non-default variable/field Term may not work
-[03:04:41.629 AppendEntries] 0 received from 1 with term 1
-[03:04:41.629 AppendEntries] notify true by 0
-[03:04:41.629 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:41.836 Leader] 1 sending heartBeat in term: 1
-[03:04:41.837 AppendEntries] 2 received from 1 with term 1
-[03:04:41.837 AppendEntries] notify true by 2
-[03:04:41.837 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:41.837 AppendEntries] 0 received from 1 with term 1
-[03:04:41.837 AppendEntries] notify true by 0
-[03:04:41.837 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:41.837 AppendEntries] 2 received from 1 with term 1
-[03:04:41.837 AppendEntries] notify true by 2
-[03:04:41.837 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:41.838 AppendEntries] 0 received from 1 with term 1
-[03:04:41.838 AppendEntries] notify true by 0
-[03:04:41.838 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:42.054 Leader] 1 sending heartBeat in term: 1
-[03:04:42.054 AppendEntries] 2 received from 1 with term 1
-[03:04:42.054 AppendEntries] notify true by 2
-[03:04:42.054 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:42.054 AppendEntries] 0 received from 1 with term 1
-[03:04:42.054 AppendEntries] notify true by 0
-[03:04:42.054 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:42.054 AppendEntries] 2 received from 1 with term 1
-[03:04:42.054 AppendEntries] notify true by 2
-[03:04:42.054 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:42.054 AppendEntries] 0 received from 1 with term 1
-[03:04:42.055 AppendEntries] notify true by 0
-[03:04:42.055 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:42.271 Leader] 1 sending heartBeat in term: 1
-[03:04:42.272 AppendEntries] 2 received from 1 with term 1
-[03:04:42.272 AppendEntries] notify true by 2
-[03:04:42.272 AppendEntries] 0 received from 1 with term 1
-[03:04:42.272 AppendEntries] notify true by 0
-[03:04:42.272 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:42.272 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:42.273 AppendEntries] 2 received from 1 with term 1
-[03:04:42.273 AppendEntries] notify true by 2
-[03:04:42.273 AppendEntries] 0 received from 1 with term 1
-[03:04:42.274 AppendEntries] notify true by 0
-[03:04:42.273 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:42.274 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:42.488 Leader] 1 sending heartBeat in term: 1
-[03:04:42.488 AppendEntries] 2 received from 1 with term 1
-[03:04:42.488 AppendEntries] notify true by 2
-[03:04:42.488 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:42.489 AppendEntries] 2 received from 1 with term 1
-[03:04:42.489 AppendEntries] notify true by 2
-[03:04:42.488 AppendEntries] 0 received from 1 with term 1
-[03:04:42.489 AppendEntries] notify true by 0
-[03:04:42.489 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:42.489 AppendEntries] 0 received from 1 with term 1
-[03:04:42.489 AppendEntries] notify true by 0
-[03:04:42.489 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:42.489 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:42.706 Leader] 1 sending heartBeat in term: 1
-[03:04:42.706 AppendEntries] 2 received from 1 with term 1
-[03:04:42.706 AppendEntries] notify true by 2
-[03:04:42.706 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:42.707 AppendEntries] 2 received from 1 with term 1
-[03:04:42.707 AppendEntries] notify true by 2
-[03:04:42.707 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:42.706 AppendEntries] 0 received from 1 with term 1
-[03:04:42.707 AppendEntries] notify true by 0
-[03:04:42.707 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:42.708 AppendEntries] 0 received from 1 with term 1
-[03:04:42.708 AppendEntries] notify true by 0
-[03:04:42.708 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:42.924 Leader] 1 sending heartBeat in term: 1
-[03:04:42.925 AppendEntries] 0 received from 1 with term 1
-[03:04:42.925 AppendEntries] notify true by 0
-[03:04:42.925 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:42.925 AppendEntries] 2 received from 1 with term 1
-[03:04:42.925 AppendEntries] notify true by 2
-[03:04:42.925 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:42.926 AppendEntries] 0 received from 1 with term 1
-[03:04:42.926 AppendEntries] notify true by 0
-[03:04:42.926 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:42.926 AppendEntries] 2 received from 1 with term 1
-[03:04:42.926 AppendEntries] notify true by 2
-[03:04:42.926 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:43.141 Leader] 1 sending heartBeat in term: 1
-[03:04:43.142 AppendEntries] 2 received from 1 with term 1
-[03:04:43.143 AppendEntries] notify true by 2
-[03:04:43.143 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:43.142 AppendEntries] 0 received from 1 with term 1
-[03:04:43.143 AppendEntries] notify true by 0
-[03:04:43.143 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:43.143 AppendEntries] 2 received from 1 with term 1
-[03:04:43.143 AppendEntries] notify true by 2
-[03:04:43.143 AppendEntries] 0 received from 1 with term 1
-[03:04:43.143 AppendEntries] notify true by 0
-[03:04:43.144 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:43.143 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:43.360 Leader] 1 sending heartBeat in term: 1
-[03:04:43.361 AppendEntries] 0 received from 1 with term 1
-[03:04:43.361 AppendEntries] notify true by 0
-[03:04:43.361 AppendEntries] 2 received from 1 with term 1
-[03:04:43.361 AppendEntries] notify true by 2
-[03:04:43.361 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:43.361 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:43.362 AppendEntries] 2 received from 1 with term 1
-[03:04:43.362 AppendEntries] notify true by 2
-[03:04:43.362 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:43.362 AppendEntries] 0 received from 1 with term 1
-[03:04:43.363 AppendEntries] notify true by 0
-[03:04:43.363 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:43.577 Leader] 1 sending heartBeat in term: 1
-[03:04:43.578 AppendEntries] 0 received from 1 with term 1
-[03:04:43.579 AppendEntries] notify true by 0
-[03:04:43.579 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:43.578 AppendEntries] 2 received from 1 with term 1
-[03:04:43.579 AppendEntries] notify true by 2
-[03:04:43.579 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:43.579 AppendEntries] 0 received from 1 with term 1
-[03:04:43.579 AppendEntries] notify true by 0
-[03:04:43.579 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:43.580 AppendEntries] 2 received from 1 with term 1
-[03:04:43.580 AppendEntries] notify true by 2
-[03:04:43.580 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:43.796 Leader] 1 sending heartBeat in term: 1
-[03:04:43.797 AppendEntries] 2 received from 1 with term 1
-[03:04:43.797 AppendEntries] notify true by 2
-[03:04:43.797 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:43.797 AppendEntries] 0 received from 1 with term 1
-[03:04:43.797 AppendEntries] notify true by 0
-[03:04:43.797 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:43.798 AppendEntries] 2 received from 1 with term 1
-[03:04:43.798 AppendEntries] notify true by 2
-[03:04:43.798 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:43.798 AppendEntries] 0 received from 1 with term 1
-[03:04:43.798 AppendEntries] notify true by 0
-[03:04:43.798 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:44.013 Leader] 1 sending heartBeat in term: 1
-[03:04:44.014 AppendEntries] 2 received from 1 with term 1
-[03:04:44.015 AppendEntries] notify true by 2
-[03:04:44.015 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:44.014 AppendEntries] 0 received from 1 with term 1
-[03:04:44.015 AppendEntries] notify true by 0
-[03:04:44.015 AppendEntries] 2 received from 1 with term 1
-[03:04:44.016 AppendEntries] notify true by 2
-[03:04:44.016 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:44.015 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:44.016 AppendEntries] 0 received from 1 with term 1
-[03:04:44.017 AppendEntries] notify true by 0
-[03:04:44.017 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:44.231 Leader] 1 sending heartBeat in term: 1
-[03:04:44.232 AppendEntries] 2 received from 1 with term 1
-[03:04:44.232 AppendEntries] notify true by 2
-[03:04:44.232 AppendEntries] 0 received from 1 with term 1
-[03:04:44.232 AppendEntries] notify true by 0
-[03:04:44.232 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:44.233 AppendEntries] 0 received from 1 with term 1
-[03:04:44.233 AppendEntries] notify true by 0
-[03:04:44.233 AppendEntries] term of 0[1] is <= than 1[1], accept it
-[03:04:44.232 AppendEntries] term of 2[1] is <= than 1[1], accept it
-[03:04:44.234 AppendEntries] 2 received from 1 with term 1
-[03:04:44.234 AppendEntries] notify true by 2
-[03:04:44.234 AppendEntries] term of 2[1] is <= than 1[1], accept it
-  ... Passed --   3.1  3   54   13912    0
-[03:04:44.292 Follower] 0 has been terminated
-[03:04:44.449 Leader] 1 has been terminated
-[03:04:44.449 Follower] 2 has been terminated
-Test (2A): election after network failure ...
-[03:04:44.830 Follower] 2 timed out initialize a voting
-[03:04:44.830 Candidate] 2 sending VoteRequest to 1 for term 1
-[03:04:44.831 Candidate] 2 sending VoteRequest to 0 for term 1
-[03:04:44.831 VoteRequest] 1 received a VoteRequest from 2 for term 1
-[03:04:44.831 VoteRequest] 1 has accepted the request from 2
-[03:04:44.831 VoteRequest] 0 received a VoteRequest from 2 for term 1
-[03:04:44.832 VoteRequest] 0 has accepted the request from 2
-[03:04:44.832 Leader] 2 sending heartBeat in term: 1
-[03:04:44.832 AppendEntries] 1 received from 2 with term 1
-[03:04:44.832 AppendEntries] notify true by 1
-[03:04:44.832 AppendEntries] term of 1[1] is <= than 2[1], accept it
-[03:04:44.833 AppendEntries] 1 received from 2 with term 1
-[03:04:44.833 AppendEntries] notify true by 1
-[03:04:44.833 AppendEntries] term of 1[1] is <= than 2[1], accept it
-[03:04:44.833 AppendEntries] 0 received from 2 with term 1
-[03:04:44.834 AppendEntries] notify true by 0
-[03:04:44.834 AppendEntries] term of 0[1] is <= than 2[1], accept it
-[03:04:44.834 AppendEntries] 0 received from 2 with term 1
-[03:04:44.835 AppendEntries] notify true by 0
-[03:04:44.835 AppendEntries] term of 0[1] is <= than 2[1], accept it
-Pass one leader, removing 2
-[03:04:45.041 Leader] 2 sending heartBeat in term: 1
-[03:04:45.251 Leader] 2 sending heartBeat in term: 1
-[03:04:45.329 Follower] 1 timed out initialize a voting
-[03:04:45.329 Candidate] 1 sending VoteRequest to 0 for term 2
-[03:04:45.329 Candidate] 1 sending VoteRequest to 2 for term 2
-[03:04:45.330 VoteRequest] 0 received a VoteRequest from 1 for term 2
-[03:04:45.330 VoteRequest] 0 has accepted the request from 1
-[03:04:45.331 Leader] 1 sending heartBeat in term: 2
-[03:04:45.332 AppendEntries] 0 received from 1 with term 2
-[03:04:45.332 AppendEntries] notify true by 0
-[03:04:45.332 AppendEntries] term of 0[2] is <= than 1[2], accept it
-[03:04:45.332 AppendEntries] 0 received from 1 with term 2
-[03:04:45.332 AppendEntries] notify true by 0
-[03:04:45.332 AppendEntries] term of 0[2] is <= than 1[2], accept it
-Pass remove previous leader, will reconnect 2
-[03:04:45.460 Leader] 2 sending heartBeat in term: 1
-[03:04:45.461 AppendEntries] 1 received from 2 with term 1
-[03:04:45.461 AppendEntries] reject since term of 1[2] is higher than 2[1]
-[03:04:45.461 AppendEntries] 0 received from 2 with term 1
-[03:04:45.461 AppendEntries] reject since term of 0[2] is higher than 2[1]
-[03:04:45.461 AppendEntries] 1 received from 2 with term 1
-[03:04:45.461 AppendEntries] reject since term of 1[2] is higher than 2[1]
-[03:04:45.461 AppendEntries] 0 received from 2 with term 1
-[03:04:45.461 AppendEntries] reject since term of 0[2] is higher than 2[1]
-[03:04:45.524 Leader] 1 sending heartBeat in term: 2
-[03:04:45.525 AppendEntries] 0 received from 1 with term 2
-[03:04:45.525 AppendEntries] notify true by 0
-[03:04:45.525 AppendEntries] term of 0[2] is <= than 1[2], accept it
-[03:04:45.525 AppendEntries] 2 received from 1 with term 2
-[03:04:45.525 AppendEntries] notify true by 2
-[03:04:45.526 AppendEntries] 0 received from 1 with term 2
-[03:04:45.526 AppendEntries] notify true by 0
-[03:04:45.526 AppendEntries] term of 0[2] is <= than 1[2], accept it
-[03:04:45.670 Leader] 2 found higher term: 2,convert to follower
-[03:04:45.670 AppendEntries] term of 2[2] is <= than 1[2], accept it
-[03:04:45.670 AppendEntries] 2 received from 1 with term 2
-[03:04:45.670 AppendEntries] notify true by 2
-[03:04:45.670 AppendEntries] term of 2[2] is <= than 1[2], accept it
-[03:04:45.717 Leader] 1 sending heartBeat in term: 2
-[03:04:45.717 AppendEntries] 0 received from 1 with term 2
-[03:04:45.717 AppendEntries] notify true by 0
-[03:04:45.717 AppendEntries] term of 0[2] is <= than 1[2], accept it
-[03:04:45.718 AppendEntries] 2 received from 1 with term 2
-[03:04:45.718 AppendEntries] notify true by 2
-[03:04:45.718 AppendEntries] term of 2[2] is <= than 1[2], accept it
-[03:04:45.718 AppendEntries] 0 received from 1 with term 2
-[03:04:45.718 AppendEntries] notify true by 0
-[03:04:45.718 AppendEntries] 2 received from 1 with term 2
-[03:04:45.718 AppendEntries] notify true by 2
-[03:04:45.718 AppendEntries] term of 2[2] is <= than 1[2], accept it
-[03:04:45.718 AppendEntries] term of 0[2] is <= than 1[2], accept it
-Pass reconnect previous leader 2, will remove 1, 2
-Removed 1, 2
-[03:04:45.910 Leader] 1 sending heartBeat in term: 2
-[03:04:46.104 Leader] 1 sending heartBeat in term: 2
-[03:04:46.154 Follower] 2 timed out initialize a voting
-[03:04:46.154 Candidate] 2 sending VoteRequest to 1 for term 3
-[03:04:46.154 Candidate] 2 sending VoteRequest to 0 for term 3
-[03:04:46.190 Follower] 0 timed out initialize a voting
-[03:04:46.190 Candidate] 0 sending VoteRequest to 2 for term 3
-[03:04:46.190 Candidate] 0 sending VoteRequest to 1 for term 3
-[03:04:46.296 Leader] 1 sending heartBeat in term: 2
-[03:04:46.488 Leader] 1 sending heartBeat in term: 2
-[03:04:46.681 Leader] 1 sending heartBeat in term: 2
-[03:04:46.873 Leader] 1 sending heartBeat in term: 2
-[03:04:47.066 Leader] 1 sending heartBeat in term: 2
-[03:04:47.220 Candidate] Election initiated from 2 has timed out, restart election
-[03:04:47.221 Candidate] 2 sending VoteRequest to 1 for term 4
-[03:04:47.221 Candidate] 2 sending VoteRequest to 0 for term 4
-[03:04:47.259 Leader] 1 sending heartBeat in term: 2
-[03:04:47.452 Leader] 1 sending heartBeat in term: 2
-[03:04:47.508 Candidate] Election initiated from 2 has timed out, restart election
-[03:04:47.508 Candidate] 2 sending VoteRequest to 1 for term 5
-[03:04:47.508 Candidate] 2 sending VoteRequest to 0 for term 5
-[03:04:47.644 Leader] 1 sending heartBeat in term: 2
-[03:04:47.759 Candidate] Election initiated from 0 has timed out, restart election
-[03:04:47.759 Candidate] 0 sending VoteRequest to 2 for term 4
-[03:04:47.759 Candidate] 0 sending VoteRequest to 1 for term 4
-[03:04:47.837 Leader] 1 sending heartBeat in term: 2
-Pass disconnect 2 servers 1, 2, connecting 2 back
-Connected 2 back
-[03:04:48.030 Leader] 1 sending heartBeat in term: 2
-[03:04:48.223 Leader] 1 sending heartBeat in term: 2
-[03:04:48.416 Leader] 1 sending heartBeat in term: 2
-[03:04:48.486 Candidate] Election initiated from 2 has timed out, restart election
-[03:04:48.487 Candidate] 2 sending VoteRequest to 1 for term 6
-[03:04:48.487 Candidate] 2 sending VoteRequest to 0 for term 6
-[03:04:48.487 VoteRequest] 0 received a VoteRequest from 2 for term 6
-[03:04:48.487 VoteRequest] 0 has accepted the request from 2
-[03:04:48.488 Leader] 2 sending heartBeat in term: 6
-[03:04:48.489 AppendEntries] 0 received from 2 with term 6
-[03:04:48.489 AppendEntries] notify true by 0
-[03:04:48.489 AppendEntries] term of 0[6] is <= than 2[6], accept it
-[03:04:48.490 AppendEntries] 0 received from 2 with term 6
-[03:04:48.490 AppendEntries] notify true by 0
-[03:04:48.490 AppendEntries] term of 0[6] is <= than 2[6], accept it
-[03:04:48.609 Leader] 1 sending heartBeat in term: 2
-[03:04:48.716 Leader] 2 sending heartBeat in term: 6
-[03:04:48.716 AppendEntries] 0 received from 2 with term 6
-[03:04:48.716 AppendEntries] notify true by 0
-[03:04:48.716 AppendEntries] term of 0[6] is <= than 2[6], accept it
-[03:04:48.716 AppendEntries] 0 received from 2 with term 6
-[03:04:48.716 AppendEntries] notify true by 0
-[03:04:48.716 AppendEntries] term of 0[6] is <= than 2[6], accept it
-[03:04:48.802 Leader] 1 sending heartBeat in term: 2
-Pass connect one servers 2
-[03:04:48.942 Leader] 2 sending heartBeat in term: 6
-[03:04:48.942 AppendEntries] 1 received from 2 with term 6
-[03:04:48.942 AppendEntries] notify true by 1
-[03:04:48.942 AppendEntries] 0 received from 2 with term 6
-[03:04:48.942 AppendEntries] notify true by 0
-[03:04:48.942 AppendEntries] term of 0[6] is <= than 2[6], accept it
-[03:04:48.942 AppendEntries] 0 received from 2 with term 6
-[03:04:48.942 AppendEntries] notify true by 0
-[03:04:48.942 AppendEntries] term of 0[6] is <= than 2[6], accept it
-[03:04:48.995 Leader] 1 found higher term: 6,convert to follower
-[03:04:48.995 AppendEntries] term of 1[2] is <= than 2[6], accept it
-[03:04:48.995 AppendEntries] 1 received from 2 with term 6
-[03:04:48.995 AppendEntries] notify true by 1
-[03:04:48.995 AppendEntries] term of 1[6] is <= than 2[6], accept it
-[03:04:49.168 Leader] 2 sending heartBeat in term: 6
-[03:04:49.169 AppendEntries] 1 received from 2 with term 6
-[03:04:49.169 AppendEntries] notify true by 1
-[03:04:49.169 AppendEntries] 0 received from 2 with term 6
-[03:04:49.169 AppendEntries] notify true by 0
-[03:04:49.169 AppendEntries] term of 0[6] is <= than 2[6], accept it
-[03:04:49.169 AppendEntries] term of 1[6] is <= than 2[6], accept it
-[03:04:49.170 AppendEntries] 0 received from 2 with term 6
-[03:04:49.170 AppendEntries] notify true by 0
-[03:04:49.171 AppendEntries] term of 0[6] is <= than 2[6], accept it
-[03:04:49.171 AppendEntries] 1 received from 2 with term 6
-[03:04:49.171 AppendEntries] notify true by 1
-[03:04:49.171 AppendEntries] term of 1[6] is <= than 2[6], accept it
-[03:04:49.396 Leader] 2 sending heartBeat in term: 6
-[03:04:49.397 AppendEntries] 0 received from 2 with term 6
-[03:04:49.397 AppendEntries] notify true by 0
-[03:04:49.397 AppendEntries] term of 0[6] is <= than 2[6], accept it
-[03:04:49.397 AppendEntries] 1 received from 2 with term 6
-[03:04:49.397 AppendEntries] notify true by 1
-[03:04:49.397 AppendEntries] term of 1[6] is <= than 2[6], accept it
-[03:04:49.397 AppendEntries] 0 received from 2 with term 6
-[03:04:49.397 AppendEntries] notify true by 0
-[03:04:49.397 AppendEntries] term of 0[6] is <= than 2[6], accept it
-[03:04:49.397 AppendEntries] 1 received from 2 with term 6
-[03:04:49.397 AppendEntries] notify true by 1
-[03:04:49.397 AppendEntries] term of 1[6] is <= than 2[6], accept it
-  ... Passed --   5.0  3   89   19600    0
-[03:04:49.419 Follower] 1 has been terminated
-[03:04:49.419 Follower] 0 has been terminated
-[03:04:49.622 Leader] 2 has been terminated
-PASS
-ok  	_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft	8.434s
+Test (2B): leader backs up quickly over incorrect follower logs ...
+[02:08:30.682 Follower] 2 timed out initialize a voting
+[02:08:30.684 Candidate] 2 sending VoteRequest to 4 for term 1
+[02:08:30.685 Candidate] 2 sending VoteRequest to 1 for term 1
+[02:08:30.685 Candidate] 2 sending VoteRequest to 0 for term 1
+[02:08:30.685 Candidate] 2 sending VoteRequest to 3 for term 1
+[02:08:30.687 VoteRequest] 3 received a VoteRequest from 2 for term 1
+[02:08:30.687 VoteRequest] 4 received a VoteRequest from 2 for term 1
+[02:08:30.687 VoteRequest] 1 received a VoteRequest from 2 for term 1
+[02:08:30.687 VoteRequest] 0 received a VoteRequest from 2 for term 1
+..... 2 is now a leader
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:30.688 AppendEntries] term of 0[1] is <= than 2[1], accept it
+[02:08:30.689 AppendEntries] term of 1[1] is <= than 2[1], accept it
+[02:08:30.688 AppendEntries] term of 4[1] is <= than 2[1], accept it
+[02:08:30.689 AppendEntries] term of 3[1] is <= than 2[1], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:30.852 AppendEntries] term of 4[1] is <= than 2[1], accept it
+[02:08:30.852 AppendEntries] term of 1[1] is <= than 2[1], accept it
+[Leader] 2 is now sending heartbeating
+[Update Commit Index] 2 update its commit index from 0 to 1
+[Leader] 2 is now sending heartbeating
+[02:08:30.852 AppendEntries] term of 3[1] is <= than 2[1], accept it
+[02:08:30.853 AppendEntries] term of 0[1] is <= than 2[1], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+4 update its commit index from 0 to 1
+[02:08:31.012 AppendEntries] term of 4[1] is <= than 2[1], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+0 update its commit index from 0 to 1
+[02:08:31.013 AppendEntries] term of 0[1] is <= than 2[1], accept it
+3 update its commit index from 0 to 1
+[02:08:31.014 AppendEntries] term of 3[1] is <= than 2[1], accept it
+1 update its commit index from 0 to 1
+[02:08:31.014 AppendEntries] term of 1[1] is <= than 2[1], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:31.174 AppendEntries] term of 4[1] is <= than 2[1], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:31.175 AppendEntries] term of 0[1] is <= than 2[1], accept it
+[02:08:31.175 AppendEntries] term of 3[1] is <= than 2[1], accept it
+[02:08:31.175 AppendEntries] term of 1[1] is <= than 2[1], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:31.343 AppendEntries] term of 4[1] is <= than 2[1], accept it
+[02:08:31.343 AppendEntries] term of 3[1] is <= than 2[1], accept it
+[02:08:31.343 AppendEntries] term of 0[1] is <= than 2[1], accept it
+[02:08:31.343 AppendEntries] term of 1[1] is <= than 2[1], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:31.497 AppendEntries] term of 4[1] is <= than 2[1], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:31.498 AppendEntries] term of 1[1] is <= than 2[1], accept it
+[02:08:31.498 AppendEntries] term of 3[1] is <= than 2[1], accept it
+[02:08:31.498 AppendEntries] term of 0[1] is <= than 2[1], accept it
+Disconnected 4 0 1
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:31.659 AppendEntries] term of 3[1] is <= than 2[1], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:31.813 AppendEntries] term of 3[1] is <= than 2[1], accept it
+[02:08:31.915 Follower] 0 timed out initialize a voting
+[02:08:31.915 Candidate] 0 sending VoteRequest to 4 for term 2
+[02:08:31.915 Candidate] 0 sending VoteRequest to 1 for term 2
+[02:08:31.916 Candidate] 0 sending VoteRequest to 2 for term 2
+[02:08:31.916 Candidate] 0 sending VoteRequest to 3 for term 2
+[02:08:31.950 Follower] 1 timed out initialize a voting
+[02:08:31.950 Candidate] 1 sending VoteRequest to 4 for term 2
+[02:08:31.951 Candidate] 1 sending VoteRequest to 0 for term 2
+[02:08:31.951 Candidate] 1 sending VoteRequest to 2 for term 2
+[02:08:31.951 Candidate] 1 sending VoteRequest to 3 for term 2
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:31.967 AppendEntries] term of 3[1] is <= than 2[1], accept it
+[02:08:31.981 Follower] 4 timed out initialize a voting
+[02:08:31.981 Candidate] 4 sending VoteRequest to 3 for term 2
+[02:08:31.981 Candidate] 4 sending VoteRequest to 1 for term 2
+[02:08:31.981 Candidate] 4 sending VoteRequest to 2 for term 2
+[02:08:31.981 Candidate] 4 sending VoteRequest to 0 for term 2
+Disconnected 2 3 namely All 
+Connected back 4 0 1 
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:32.405 Candidate] Election initiated from 0 has timed out, restart election
+[02:08:32.405 Candidate] 0 sending VoteRequest to 4 for term 3
+[02:08:32.405 Candidate] 0 sending VoteRequest to 1 for term 3
+[02:08:32.406 Candidate] 0 sending VoteRequest to 3 for term 3
+[02:08:32.405 Candidate] 0 sending VoteRequest to 2 for term 3
+[02:08:32.406 VoteRequest] 4 received a VoteRequest from 0 for term 3
+[02:08:32.407 VoteRequest] 1 received a VoteRequest from 0 for term 3
+..... 0 is now a leader
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:32.408 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:32.409 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:32.436 Follower] 3 timed out initialize a voting
+[02:08:32.436 Candidate] 3 sending VoteRequest to 4 for term 2
+[02:08:32.436 Candidate] 3 sending VoteRequest to 1 for term 2
+[02:08:32.436 Candidate] 3 sending VoteRequest to 2 for term 2
+[02:08:32.437 Candidate] 3 sending VoteRequest to 0 for term 2
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:32.626 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:32.626 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Update Commit Index] 0 update its commit index from 1 to 2
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 1 to 2
+[02:08:32.844 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 1 to 2
+[02:08:32.844 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:32.971 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:32.971 Candidate] 3 sending VoteRequest to 4 for term 3
+[02:08:32.971 Candidate] 3 sending VoteRequest to 0 for term 3
+[02:08:32.971 Candidate] 3 sending VoteRequest to 1 for term 3
+[02:08:32.971 Candidate] 3 sending VoteRequest to 2 for term 3
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:33.067 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:33.067 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 2 to 3
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 2 to 3
+[02:08:33.285 AppendEntries] term of 1[3] is <= than 0[3], accept it
+4 update its commit index from 2 to 3
+[02:08:33.286 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:33.456 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:33.456 Candidate] 3 sending VoteRequest to 4 for term 4
+[02:08:33.456 Candidate] 3 sending VoteRequest to 0 for term 4
+[02:08:33.456 Candidate] 3 sending VoteRequest to 1 for term 4
+[02:08:33.456 Candidate] 3 sending VoteRequest to 2 for term 4
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:33.501 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:33.501 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 3 to 4
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 3 to 4
+[02:08:33.715 AppendEntries] term of 1[3] is <= than 0[3], accept it
+4 update its commit index from 3 to 4
+[02:08:33.715 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:33.936 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:33.935 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:33.937 Candidate] 3 sending VoteRequest to 4 for term 5
+[02:08:33.937 Candidate] 3 sending VoteRequest to 2 for term 5
+[02:08:33.937 Candidate] 3 sending VoteRequest to 1 for term 5
+[02:08:33.937 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 4 to 5
+[02:08:33.937 Candidate] 3 sending VoteRequest to 0 for term 5
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 4 to 5
+[02:08:34.151 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 4 to 5
+[02:08:34.151 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:34.364 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:34.364 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 5 to 6
+[02:08:34.393 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:34.394 Candidate] 3 sending VoteRequest to 4 for term 6
+[02:08:34.394 Candidate] 3 sending VoteRequest to 0 for term 6
+[02:08:34.394 Candidate] 3 sending VoteRequest to 2 for term 6
+[02:08:34.394 Candidate] 3 sending VoteRequest to 1 for term 6
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 5 to 6
+[02:08:34.577 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 5 to 6
+[02:08:34.577 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:34.803 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:34.804 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 6 to 7
+[02:08:34.875 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:34.875 Candidate] 3 sending VoteRequest to 4 for term 7
+[02:08:34.875 Candidate] 3 sending VoteRequest to 1 for term 7
+[02:08:34.875 Candidate] 3 sending VoteRequest to 0 for term 7
+[02:08:34.876 Candidate] 3 sending VoteRequest to 2 for term 7
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 6 to 7
+4 update its commit index from 6 to 7
+[02:08:35.029 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:35.029 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:35.238 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:35.238 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 7 to 8
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:35.270 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:35.270 Candidate] 3 sending VoteRequest to 4 for term 8
+[02:08:35.270 Candidate] 3 sending VoteRequest to 1 for term 8
+[02:08:35.271 Candidate] 3 sending VoteRequest to 2 for term 8
+[02:08:35.271 Candidate] 3 sending VoteRequest to 0 for term 8
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 7 to 8
+1 update its commit index from 7 to 8
+[Leader] 0 is now sending heartbeating
+[02:08:35.450 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:35.450 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:35.661 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:35.661 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 8 to 9
+[02:08:35.676 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:35.676 Candidate] 3 sending VoteRequest to 0 for term 9
+[02:08:35.676 Candidate] 3 sending VoteRequest to 1 for term 9
+[02:08:35.676 Candidate] 3 sending VoteRequest to 4 for term 9
+[02:08:35.676 Candidate] 3 sending VoteRequest to 2 for term 9
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 8 to 9
+[02:08:35.877 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 8 to 9
+[02:08:35.877 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:36.095 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:36.095 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Update Commit Index] 0 update its commit index from 9 to 10
+[02:08:36.166 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:36.166 Candidate] 3 sending VoteRequest to 4 for term 10
+[02:08:36.166 Candidate] 3 sending VoteRequest to 0 for term 10
+[02:08:36.166 Candidate] 3 sending VoteRequest to 1 for term 10
+[02:08:36.166 Candidate] 3 sending VoteRequest to 2 for term 10
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 9 to 10
+[02:08:36.314 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 9 to 10
+[02:08:36.315 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:36.526 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:36.527 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 10 to 11
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:36.718 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:36.719 Candidate] 3 sending VoteRequest to 4 for term 11
+[Leader] 2 is now sending heartbeating
+[02:08:36.719 Candidate] 3 sending VoteRequest to 1 for term 11
+[02:08:36.720 Candidate] 3 sending VoteRequest to 2 for term 11
+[02:08:36.720 Candidate] 3 sending VoteRequest to 0 for term 11
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 10 to 11
+[02:08:36.752 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 10 to 11
+[02:08:36.753 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:36.966 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:36.966 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 11 to 12
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:37.149 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:37.149 Candidate] 3 sending VoteRequest to 4 for term 12
+[02:08:37.149 Candidate] 3 sending VoteRequest to 2 for term 12
+[02:08:37.149 Candidate] 3 sending VoteRequest to 0 for term 12
+[02:08:37.149 Candidate] 3 sending VoteRequest to 1 for term 12
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 11 to 12
+4 update its commit index from 11 to 12
+[02:08:37.182 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:37.182 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:37.398 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:37.399 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 12 to 13
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:37.617 Candidate] Election initiated from 3 has timed out, restart election
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 12 to 13
+[02:08:37.617 Candidate] 3 sending VoteRequest to 2 for term 13
+[Leader] 0 is now sending heartbeating
+[02:08:37.617 Candidate] 3 sending VoteRequest to 0 for term 13
+[02:08:37.617 Candidate] 3 sending VoteRequest to 1 for term 13
+[02:08:37.617 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:37.617 Candidate] 3 sending VoteRequest to 4 for term 13
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 12 to 13
+[02:08:37.619 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:37.839 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:37.840 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 13 to 14
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 13 to 14
+[02:08:38.060 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 13 to 14
+[02:08:38.060 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:38.105 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:38.106 Candidate] 3 sending VoteRequest to 4 for term 14
+[02:08:38.106 Candidate] 3 sending VoteRequest to 0 for term 14
+[02:08:38.106 Candidate] 3 sending VoteRequest to 1 for term 14
+[02:08:38.107 Candidate] 3 sending VoteRequest to 2 for term 14
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:38.280 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:38.281 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 14 to 15
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 14 to 15
+[02:08:38.498 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 14 to 15
+[02:08:38.500 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:38.584 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:38.584 Candidate] 3 sending VoteRequest to 4 for term 15
+[02:08:38.584 Candidate] 3 sending VoteRequest to 0 for term 15
+[02:08:38.584 Candidate] 3 sending VoteRequest to 1 for term 15
+[02:08:38.585 Candidate] 3 sending VoteRequest to 2 for term 15
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:38.725 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:38.725 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Update Commit Index] 0 update its commit index from 15 to 16
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 15 to 16
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 15 to 16
+[02:08:38.938 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:38.938 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:38.982 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:38.983 Candidate] 3 sending VoteRequest to 4 for term 16
+[02:08:38.984 Candidate] 3 sending VoteRequest to 1 for term 16
+[02:08:38.984 Candidate] 3 sending VoteRequest to 2 for term 16
+[02:08:38.984 Candidate] 3 sending VoteRequest to 0 for term 16
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:39.161 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:39.162 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 16 to 17
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 16 to 17
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 16 to 17
+[02:08:39.383 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:39.383 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:39.466 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:39.466 Candidate] 3 sending VoteRequest to 4 for term 17
+[02:08:39.467 Candidate] 3 sending VoteRequest to 0 for term 17
+[02:08:39.467 Candidate] 3 sending VoteRequest to 1 for term 17
+[02:08:39.467 Candidate] 3 sending VoteRequest to 2 for term 17
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:39.608 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:39.609 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Update Commit Index] 0 update its commit index from 17 to 18
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 17 to 18
+[02:08:39.828 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 17 to 18
+[02:08:39.828 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:39.845 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:39.846 Candidate] 3 sending VoteRequest to 4 for term 18
+[02:08:39.846 Candidate] 3 sending VoteRequest to 2 for term 18
+[02:08:39.846 Candidate] 3 sending VoteRequest to 0 for term 18
+[02:08:39.846 Candidate] 3 sending VoteRequest to 1 for term 18
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:40.038 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:40.039 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 18 to 19
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 18 to 19
+[02:08:40.250 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 18 to 19
+[02:08:40.250 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:40.380 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:40.381 Candidate] 3 sending VoteRequest to 4 for term 19
+[02:08:40.381 Candidate] 3 sending VoteRequest to 0 for term 19
+[02:08:40.381 Candidate] 3 sending VoteRequest to 1 for term 19
+[02:08:40.381 Candidate] 3 sending VoteRequest to 2 for term 19
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:40.470 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:40.470 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 19 to 20
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 19 to 20
+[02:08:40.698 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 19 to 20
+[02:08:40.699 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:40.763 Candidate] Election initiated from 3 has timed out, restart election
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:40.763 Candidate] 3 sending VoteRequest to 4 for term 20
+[02:08:40.763 Candidate] 3 sending VoteRequest to 2 for term 20
+[02:08:40.763 Candidate] 3 sending VoteRequest to 1 for term 20
+[02:08:40.763 Candidate] 3 sending VoteRequest to 0 for term 20
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:40.914 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:40.915 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 20 to 21
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 20 to 21
+[02:08:41.124 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 20 to 21
+[02:08:41.126 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:41.189 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:41.189 Candidate] 3 sending VoteRequest to 4 for term 21
+[02:08:41.189 Candidate] 3 sending VoteRequest to 2 for term 21
+[02:08:41.189 Candidate] 3 sending VoteRequest to 0 for term 21
+[02:08:41.189 Candidate] 3 sending VoteRequest to 1 for term 21
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:41.342 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:41.342 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 21 to 22
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 21 to 22
+[02:08:41.563 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 21 to 22
+[02:08:41.563 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[02:08:41.577 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:41.577 Candidate] 3 sending VoteRequest to 4 for term 22
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:41.577 Candidate] 3 sending VoteRequest to 1 for term 22
+[02:08:41.578 Candidate] 3 sending VoteRequest to 2 for term 22
+[02:08:41.577 Candidate] 3 sending VoteRequest to 0 for term 22
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:41.776 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:41.776 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 22 to 23
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 22 to 23
+[Leader] 0 is now sending heartbeating
+[02:08:41.997 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 22 to 23
+[02:08:41.999 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:42.125 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:42.125 Candidate] 3 sending VoteRequest to 4 for term 23
+[02:08:42.125 Candidate] 3 sending VoteRequest to 2 for term 23
+[02:08:42.125 Candidate] 3 sending VoteRequest to 1 for term 23
+[02:08:42.125 Candidate] 3 sending VoteRequest to 0 for term 23
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:42.208 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:42.209 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Update Commit Index] 0 update its commit index from 23 to 24
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 23 to 24
+[02:08:42.429 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 23 to 24
+[02:08:42.430 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:42.543 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:42.543 Candidate] 3 sending VoteRequest to 4 for term 24
+[02:08:42.543 Candidate] 3 sending VoteRequest to 0 for term 24
+[02:08:42.543 Candidate] 3 sending VoteRequest to 1 for term 24
+[02:08:42.543 Candidate] 3 sending VoteRequest to 2 for term 24
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:42.655 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:42.657 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 24 to 25
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 24 to 25
+[02:08:42.873 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 24 to 25
+[02:08:42.874 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:43.052 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:43.052 Candidate] 3 sending VoteRequest to 4 for term 25
+[02:08:43.052 Candidate] 3 sending VoteRequest to 0 for term 25
+[02:08:43.052 Candidate] 3 sending VoteRequest to 1 for term 25
+[02:08:43.052 Candidate] 3 sending VoteRequest to 2 for term 25
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:43.083 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:43.083 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 25 to 26
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 25 to 26
+[02:08:43.301 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 25 to 26
+[02:08:43.301 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:43.460 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:43.460 Candidate] 3 sending VoteRequest to 4 for term 26
+[02:08:43.460 Candidate] 3 sending VoteRequest to 0 for term 26
+[02:08:43.460 Candidate] 3 sending VoteRequest to 1 for term 26
+[02:08:43.460 Candidate] 3 sending VoteRequest to 2 for term 26
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:43.512 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:43.513 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 26 to 27
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 26 to 27
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:43.724 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 26 to 27
+[02:08:43.724 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:43.922 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:43.922 Candidate] 3 sending VoteRequest to 4 for term 27
+[02:08:43.922 Candidate] 3 sending VoteRequest to 0 for term 27
+[02:08:43.922 Candidate] 3 sending VoteRequest to 1 for term 27
+[02:08:43.922 Candidate] 3 sending VoteRequest to 2 for term 27
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:43.938 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:43.939 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 27 to 28
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 27 to 28
+[02:08:44.158 AppendEntries] term of 1[3] is <= than 0[3], accept it
+4 update its commit index from 27 to 28
+[02:08:44.158 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:44.341 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:44.341 Candidate] 3 sending VoteRequest to 4 for term 28
+[02:08:44.341 Candidate] 3 sending VoteRequest to 2 for term 28
+[02:08:44.341 Candidate] 3 sending VoteRequest to 1 for term 28
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:44.341 Candidate] 3 sending VoteRequest to 0 for term 28
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:44.373 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:44.378 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 28 to 29
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 28 to 29
+[02:08:44.589 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 28 to 29
+[02:08:44.590 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:44.816 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:44.817 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 29 to 30
+[02:08:44.852 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:44.852 Candidate] 3 sending VoteRequest to 4 for term 29
+[02:08:44.852 Candidate] 3 sending VoteRequest to 2 for term 29
+[02:08:44.852 Candidate] 3 sending VoteRequest to 1 for term 29
+[02:08:44.852 Candidate] 3 sending VoteRequest to 0 for term 29
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 29 to 30
+[02:08:45.038 AppendEntries] term of 1[3] is <= than 0[3], accept it
+4 update its commit index from 29 to 30
+[02:08:45.038 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:45.250 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:45.251 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 30 to 31
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:45.368 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:45.368 Candidate] 3 sending VoteRequest to 4 for term 30
+[02:08:45.368 Candidate] 3 sending VoteRequest to 2 for term 30
+[02:08:45.368 Candidate] 3 sending VoteRequest to 1 for term 30
+[02:08:45.368 Candidate] 3 sending VoteRequest to 0 for term 30
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 30 to 31
+[02:08:45.470 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 30 to 31
+[02:08:45.470 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:45.682 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:45.683 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 31 to 32
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:45.770 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:45.770 Candidate] 3 sending VoteRequest to 4 for term 31
+[02:08:45.771 Candidate] 3 sending VoteRequest to 1 for term 31
+[02:08:45.771 Candidate] 3 sending VoteRequest to 0 for term 31
+[02:08:45.771 Candidate] 3 sending VoteRequest to 2 for term 31
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 31 to 32
+[02:08:45.900 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 31 to 32
+[02:08:45.900 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:46.130 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:46.133 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 32 to 33
+[02:08:46.158 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:46.159 Candidate] 3 sending VoteRequest to 4 for term 32
+[02:08:46.159 Candidate] 3 sending VoteRequest to 0 for term 32
+[02:08:46.159 Candidate] 3 sending VoteRequest to 1 for term 32
+[02:08:46.159 Candidate] 3 sending VoteRequest to 2 for term 32
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 32 to 33
+[Leader] 0 is now sending heartbeating
+[02:08:46.341 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 32 to 33
+[02:08:46.342 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:46.570 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:46.570 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 33 to 34
+[02:08:46.685 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:46.685 Candidate] 3 sending VoteRequest to 4 for term 33
+[02:08:46.685 Candidate] 3 sending VoteRequest to 1 for term 33
+[02:08:46.685 Candidate] 3 sending VoteRequest to 2 for term 33
+[02:08:46.685 Candidate] 3 sending VoteRequest to 0 for term 33
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 33 to 34
+[02:08:46.804 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 33 to 34
+[02:08:46.805 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:47.014 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:47.015 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 34 to 35
+[02:08:47.044 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:47.044 Candidate] 3 sending VoteRequest to 4 for term 34
+[02:08:47.044 Candidate] 3 sending VoteRequest to 0 for term 34
+[02:08:47.045 Candidate] 3 sending VoteRequest to 1 for term 34
+[02:08:47.045 Candidate] 3 sending VoteRequest to 2 for term 34
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 34 to 35
+1 update its commit index from 34 to 35
+[02:08:47.234 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:47.234 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:47.420 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:47.420 Candidate] 3 sending VoteRequest to 4 for term 35
+[02:08:47.420 Candidate] 3 sending VoteRequest to 0 for term 35
+[02:08:47.420 Candidate] 3 sending VoteRequest to 1 for term 35
+[02:08:47.420 Candidate] 3 sending VoteRequest to 2 for term 35
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:47.461 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:47.461 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Update Commit Index] 0 update its commit index from 35 to 36
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 35 to 36
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 35 to 36
+[02:08:47.682 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:47.682 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:47.912 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:47.913 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 36 to 37
+[02:08:47.989 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:47.989 Candidate] 3 sending VoteRequest to 4 for term 36
+[02:08:47.990 Candidate] 3 sending VoteRequest to 0 for term 36
+[02:08:47.990 Candidate] 3 sending VoteRequest to 2 for term 36
+[02:08:47.990 Candidate] 3 sending VoteRequest to 1 for term 36
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 36 to 37
+[02:08:48.125 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 36 to 37
+[02:08:48.127 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:48.349 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:48.351 Candidate] 3 sending VoteRequest to 4 for term 37
+[Leader] 0 is now sending heartbeating
+[02:08:48.351 Candidate] 3 sending VoteRequest to 0 for term 37
+[02:08:48.351 Candidate] 3 sending VoteRequest to 2 for term 37
+[02:08:48.351 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[02:08:48.351 Candidate] 3 sending VoteRequest to 1 for term 37
+[Leader] 0 is now sending heartbeating
+[02:08:48.352 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 37 to 38
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 37 to 38
+[02:08:48.570 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 37 to 38
+[02:08:48.571 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:48.782 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:48.783 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 38 to 39
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:48.875 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:48.875 Candidate] 3 sending VoteRequest to 4 for term 38
+[02:08:48.875 Candidate] 3 sending VoteRequest to 0 for term 38
+[02:08:48.875 Candidate] 3 sending VoteRequest to 1 for term 38
+[02:08:48.876 Candidate] 3 sending VoteRequest to 2 for term 38
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 38 to 39
+[02:08:48.994 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 38 to 39
+[02:08:48.995 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:49.210 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:49.211 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 39 to 40
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:49.375 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:49.375 Candidate] 3 sending VoteRequest to 4 for term 39
+[02:08:49.375 Candidate] 3 sending VoteRequest to 0 for term 39
+[02:08:49.375 Candidate] 3 sending VoteRequest to 1 for term 39
+[02:08:49.376 Candidate] 3 sending VoteRequest to 2 for term 39
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 39 to 40
+[Leader] 0 is now sending heartbeating
+[02:08:49.431 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 39 to 40
+[02:08:49.432 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:49.646 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:49.648 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 40 to 41
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 40 to 41
+[02:08:49.854 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 40 to 41
+[02:08:49.854 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:49.858 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:49.858 Candidate] 3 sending VoteRequest to 4 for term 40
+[02:08:49.858 Candidate] 3 sending VoteRequest to 0 for term 40
+[02:08:49.858 Candidate] 3 sending VoteRequest to 1 for term 40
+[02:08:49.858 Candidate] 3 sending VoteRequest to 2 for term 40
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:50.067 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:50.068 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 41 to 42
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:50.253 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:50.253 Candidate] 3 sending VoteRequest to 4 for term 41
+[02:08:50.253 Candidate] 3 sending VoteRequest to 1 for term 41
+[02:08:50.253 Candidate] 3 sending VoteRequest to 0 for term 41
+[02:08:50.253 Candidate] 3 sending VoteRequest to 2 for term 41
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 41 to 42
+[02:08:50.277 AppendEntries] term of 1[3] is <= than 0[3], accept it
+4 update its commit index from 41 to 42
+[02:08:50.278 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:50.488 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:50.489 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 42 to 43
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 42 to 43
+[02:08:50.703 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 42 to 43
+[02:08:50.703 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:50.760 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:50.761 Candidate] 3 sending VoteRequest to 4 for term 42
+[02:08:50.761 Candidate] 3 sending VoteRequest to 0 for term 42
+[02:08:50.761 Candidate] 3 sending VoteRequest to 2 for term 42
+[02:08:50.761 Candidate] 3 sending VoteRequest to 1 for term 42
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:50.914 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:50.915 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Update Commit Index] 0 update its commit index from 43 to 44
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 43 to 44
+4 update its commit index from 43 to 44
+[02:08:51.130 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:51.131 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:51.193 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:51.193 Candidate] 3 sending VoteRequest to 4 for term 43
+[02:08:51.193 Candidate] 3 sending VoteRequest to 0 for term 43
+[02:08:51.193 Candidate] 3 sending VoteRequest to 1 for term 43
+[02:08:51.193 Candidate] 3 sending VoteRequest to 2 for term 43
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:51.343 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:51.343 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 44 to 45
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 44 to 45
+[02:08:51.555 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 44 to 45
+[02:08:51.555 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:51.637 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:51.637 Candidate] 3 sending VoteRequest to 0 for term 44
+[02:08:51.637 Candidate] 3 sending VoteRequest to 1 for term 44
+[02:08:51.637 Candidate] 3 sending VoteRequest to 4 for term 44
+[02:08:51.637 Candidate] 3 sending VoteRequest to 2 for term 44
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:51.781 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:51.781 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 45 to 46
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:52.002 Candidate] Election initiated from 3 has timed out, restart election
+[Leader] 0 is now sending heartbeating
+[02:08:52.002 Candidate] 3 sending VoteRequest to 2 for term 45
+[Leader] 0 is now sending heartbeating
+[02:08:52.002 Candidate] 3 sending VoteRequest to 4 for term 45
+1 update its commit index from 45 to 46
+[02:08:52.002 Candidate] 3 sending VoteRequest to 1 for term 45
+4 update its commit index from 45 to 46
+[02:08:52.003 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:52.003 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:52.003 Candidate] 3 sending VoteRequest to 0 for term 45
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:52.226 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:52.227 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 46 to 47
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:52.439 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:52.439 Candidate] 3 sending VoteRequest to 4 for term 46
+[02:08:52.439 Candidate] 3 sending VoteRequest to 2 for term 46
+[02:08:52.439 Candidate] 3 sending VoteRequest to 1 for term 46
+[02:08:52.439 Candidate] 3 sending VoteRequest to 0 for term 46
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 46 to 47
+[02:08:52.441 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 46 to 47
+[02:08:52.441 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:52.660 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:52.660 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Update Commit Index] 0 update its commit index from 47 to 48
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:52.820 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:52.821 Candidate] 3 sending VoteRequest to 4 for term 47
+[02:08:52.821 Candidate] 3 sending VoteRequest to 1 for term 47
+[02:08:52.821 Candidate] 3 sending VoteRequest to 0 for term 47
+[02:08:52.821 Candidate] 3 sending VoteRequest to 2 for term 47
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 47 to 48
+[02:08:52.886 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 47 to 48
+[02:08:52.886 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:53.110 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:53.110 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 48 to 49
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:53.234 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:53.234 Candidate] 3 sending VoteRequest to 4 for term 48
+[02:08:53.235 Candidate] 3 sending VoteRequest to 1 for term 48
+[02:08:53.235 Candidate] 3 sending VoteRequest to 2 for term 48
+[02:08:53.235 Candidate] 3 sending VoteRequest to 0 for term 48
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+4 update its commit index from 48 to 49
+[02:08:53.324 AppendEntries] term of 4[3] is <= than 0[3], accept it
+1 update its commit index from 48 to 49
+[02:08:53.325 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:53.543 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[02:08:53.543 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Update Commit Index] 0 update its commit index from 49 to 50
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:53.649 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:53.649 Candidate] 3 sending VoteRequest to 4 for term 49
+[02:08:53.649 Candidate] 3 sending VoteRequest to 2 for term 49
+[02:08:53.649 Candidate] 3 sending VoteRequest to 1 for term 49
+[02:08:53.649 Candidate] 3 sending VoteRequest to 0 for term 49
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 49 to 50
+[02:08:53.766 AppendEntries] term of 1[3] is <= than 0[3], accept it
+4 update its commit index from 49 to 50
+[02:08:53.766 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:53.976 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:53.976 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Update Commit Index] 0 update its commit index from 50 to 51
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:54.191 Candidate] Election initiated from 3 has timed out, restart election
+4 update its commit index from 50 to 51
+[02:08:54.192 Candidate] 3 sending VoteRequest to 4 for term 50
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:54.192 Candidate] 3 sending VoteRequest to 1 for term 50
+[02:08:54.192 Candidate] 3 sending VoteRequest to 0 for term 50
+[Leader] 0 is now sending heartbeating
+1 update its commit index from 50 to 51
+[02:08:54.193 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:54.192 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:54.192 Candidate] 3 sending VoteRequest to 2 for term 50
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:54.410 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[02:08:54.410 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:54.624 AppendEntries] term of 4[3] is <= than 0[3], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:54.625 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[02:08:54.643 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:54.643 Candidate] 3 sending VoteRequest to 4 for term 51
+[02:08:54.643 Candidate] 3 sending VoteRequest to 1 for term 51
+[02:08:54.643 Candidate] 3 sending VoteRequest to 2 for term 51
+[02:08:54.643 Candidate] 3 sending VoteRequest to 0 for term 51
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+Disconnected 4 
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:54.854 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:55.078 AppendEntries] term of 1[3] is <= than 0[3], accept it
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:55.148 Candidate] Election initiated from 3 has timed out, restart election
+[02:08:55.149 Follower] 4 timed out initialize a voting
+[02:08:55.149 Candidate] 3 sending VoteRequest to 4 for term 52
+[02:08:55.149 Candidate] 3 sending VoteRequest to 0 for term 52
+[02:08:55.149 Candidate] 3 sending VoteRequest to 1 for term 52
+[02:08:55.149 Candidate] 3 sending VoteRequest to 2 for term 52
+[02:08:55.149 Candidate] 4 sending VoteRequest to 3 for term 4
+[02:08:55.149 Candidate] 4 sending VoteRequest to 0 for term 4
+[02:08:55.149 Candidate] 4 sending VoteRequest to 1 for term 4
+[02:08:55.149 Candidate] 4 sending VoteRequest to 2 for term 4
+Disconnected All 4 
+Connecting back... 2 3 4 
+[Leader] 0 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[Leader] 2 is now sending heartbeating
+[02:08:55.294 AppendEntries] reject since term of 4[4] is higher than 2[1]
+[Leader] 2 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:55.295 AppendEntries] reject since term of 3[52] is higher than 2[1]
+[Leader] 0 is now sending heartbeating
+[02:08:55.458 Leader] 2 found higher term: {4 -1 false},convert to follower
+[02:08:55.458 Follower] 2 timed out initialize a voting
+[02:08:55.458 Candidate] 2 sending VoteRequest to 4 for term 53
+[02:08:55.458 Candidate] 2 sending VoteRequest to 1 for term 53
+[02:08:55.458 Candidate] 2 sending VoteRequest to 3 for term 53
+[02:08:55.459 VoteRequest] 4 received a VoteRequest from 2 for term 53
+[02:08:55.458 Candidate] 2 sending VoteRequest to 0 for term 53
+[02:08:55.459 VoteRequest] 3 received a VoteRequest from 2 for term 53
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:55.539 Follower] 4 timed out initialize a voting
+[02:08:55.540 Candidate] 4 sending VoteRequest to 3 for term 54
+[02:08:55.540 Candidate] 4 sending VoteRequest to 1 for term 54
+[02:08:55.540 VoteRequest] 3 received a VoteRequest from 4 for term 54
+[02:08:55.540 Candidate] 4 sending VoteRequest to 0 for term 54
+[02:08:55.540 Candidate] 4 sending VoteRequest to 2 for term 54
+[02:08:55.541 VoteRequest] 2 received a VoteRequest from 4 for term 54
+..... 4 is now a leader
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[HeartBeating] Leader Entries Length 52,  conflictIndex 1 
+[HeartBeating] Leader Entries Length 52,  conflictIndex 1 
+[02:08:55.577 Follower] 1 timed out initialize a voting
+[02:08:55.577 Candidate] 1 sending VoteRequest to 4 for term 4
+[02:08:55.577 Candidate] 1 sending VoteRequest to 0 for term 4
+[02:08:55.577 Candidate] 1 sending VoteRequest to 2 for term 4
+[02:08:55.578 Candidate] 1 sending VoteRequest to 3 for term 4
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 1 to 51
+[02:08:55.796 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 1 to 51
+[02:08:55.796 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:56.054 Candidate] Election initiated from 1 has timed out, restart election
+[Leader] 4 is now sending heartbeating
+[02:08:56.054 Candidate] 1 sending VoteRequest to 4 for term 5
+[02:08:56.054 Candidate] 1 sending VoteRequest to 0 for term 5
+[02:08:56.055 Candidate] 1 sending VoteRequest to 3 for term 5
+[02:08:56.054 Candidate] 1 sending VoteRequest to 2 for term 5
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:56.056 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:08:56.057 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:56.304 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:08:56.304 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:56.531 Candidate] Election initiated from 1 has timed out, restart election
+[02:08:56.531 Candidate] 1 sending VoteRequest to 4 for term 6
+[02:08:56.531 Candidate] 1 sending VoteRequest to 0 for term 6
+[02:08:56.531 Candidate] 1 sending VoteRequest to 3 for term 6
+[02:08:56.531 Candidate] 1 sending VoteRequest to 2 for term 6
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:56.566 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:56.567 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:56.828 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:08:56.830 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:08:56.939 Candidate] Election initiated from 1 has timed out, restart election
+[02:08:56.939 Candidate] 1 sending VoteRequest to 4 for term 7
+[02:08:56.939 Candidate] 1 sending VoteRequest to 2 for term 7
+[02:08:56.939 Candidate] 1 sending VoteRequest to 0 for term 7
+[02:08:56.939 Candidate] 1 sending VoteRequest to 3 for term 7
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:57.080 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:57.081 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:57.346 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:57.347 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 51 to 52
+[02:08:57.377 Candidate] Election initiated from 1 has timed out, restart election
+[02:08:57.377 Candidate] 1 sending VoteRequest to 4 for term 8
+[02:08:57.377 Candidate] 1 sending VoteRequest to 3 for term 8
+[02:08:57.377 Candidate] 1 sending VoteRequest to 2 for term 8
+[02:08:57.377 Candidate] 1 sending VoteRequest to 0 for term 8
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 51 to 52
+[02:08:57.607 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 51 to 52
+[02:08:57.607 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:57.795 Candidate] Election initiated from 1 has timed out, restart election
+[02:08:57.795 Candidate] 1 sending VoteRequest to 4 for term 9
+[02:08:57.795 Candidate] 1 sending VoteRequest to 0 for term 9
+[02:08:57.795 Candidate] 1 sending VoteRequest to 2 for term 9
+[02:08:57.795 Candidate] 1 sending VoteRequest to 3 for term 9
+[Leader] 4 is now sending heartbeating
+[02:08:57.868 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:57.869 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 52 to 53
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 52 to 53
+[02:08:58.122 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 52 to 53
+[02:08:58.122 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:08:58.289 Candidate] Election initiated from 1 has timed out, restart election
+[02:08:58.289 Candidate] 1 sending VoteRequest to 4 for term 10
+[02:08:58.289 Candidate] 1 sending VoteRequest to 3 for term 10
+[02:08:58.289 Candidate] 1 sending VoteRequest to 2 for term 10
+[02:08:58.289 Candidate] 1 sending VoteRequest to 0 for term 10
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:58.385 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:08:58.385 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 53 to 54
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 53 to 54
+[02:08:58.642 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 53 to 54
+[02:08:58.643 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:08:58.746 Candidate] Election initiated from 1 has timed out, restart election
+[02:08:58.746 Candidate] 1 sending VoteRequest to 4 for term 11
+[02:08:58.746 Candidate] 1 sending VoteRequest to 0 for term 11
+[02:08:58.746 Candidate] 1 sending VoteRequest to 3 for term 11
+[02:08:58.746 Candidate] 1 sending VoteRequest to 2 for term 11
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:58.902 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:08:58.901 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 54 to 55
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 54 to 55
+[02:08:59.167 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 54 to 55
+[02:08:59.168 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:59.185 Candidate] Election initiated from 1 has timed out, restart election
+[02:08:59.185 Candidate] 1 sending VoteRequest to 4 for term 12
+[02:08:59.186 Candidate] 1 sending VoteRequest to 2 for term 12
+[02:08:59.186 Candidate] 1 sending VoteRequest to 3 for term 12
+[02:08:59.186 Candidate] 1 sending VoteRequest to 0 for term 12
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:59.428 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:08:59.429 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Update Commit Index] 4 update its commit index from 55 to 56
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:08:59.677 Candidate] Election initiated from 1 has timed out, restart election
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:59.677 Candidate] 1 sending VoteRequest to 4 for term 13
+2 update its commit index from 55 to 56
+[02:08:59.678 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:08:59.677 Candidate] 1 sending VoteRequest to 0 for term 13
+3 update its commit index from 55 to 56
+[02:08:59.679 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:08:59.677 Candidate] 1 sending VoteRequest to 2 for term 13
+[02:08:59.677 Candidate] 1 sending VoteRequest to 3 for term 13
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:59.938 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:08:59.939 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 56 to 57
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:00.121 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:00.121 Candidate] 1 sending VoteRequest to 4 for term 14
+[02:09:00.122 Candidate] 1 sending VoteRequest to 0 for term 14
+[02:09:00.122 Candidate] 1 sending VoteRequest to 2 for term 14
+[02:09:00.122 Candidate] 1 sending VoteRequest to 3 for term 14
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 56 to 57
+[02:09:00.192 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 56 to 57
+[02:09:00.194 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:00.458 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:00.459 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 57 to 58
+[02:09:00.507 Candidate] Election initiated from 1 has timed out, restart election
+[Leader] 0 is now sending heartbeating
+[02:09:00.507 Candidate] 1 sending VoteRequest to 4 for term 15
+[02:09:00.508 Candidate] 1 sending VoteRequest to 0 for term 15
+[02:09:00.508 Candidate] 1 sending VoteRequest to 3 for term 15
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:00.508 Candidate] 1 sending VoteRequest to 2 for term 15
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 57 to 58
+[02:09:00.714 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 57 to 58
+[02:09:00.715 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:00.895 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:00.895 Candidate] 1 sending VoteRequest to 4 for term 16
+[02:09:00.895 Candidate] 1 sending VoteRequest to 0 for term 16
+[02:09:00.895 Candidate] 1 sending VoteRequest to 2 for term 16
+[02:09:00.895 Candidate] 1 sending VoteRequest to 3 for term 16
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:00.968 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:00.968 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 58 to 59
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 58 to 59
+[02:09:01.229 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 58 to 59
+[02:09:01.230 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:01.368 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:01.368 Candidate] 1 sending VoteRequest to 4 for term 17
+[02:09:01.368 Candidate] 1 sending VoteRequest to 2 for term 17
+[02:09:01.368 Candidate] 1 sending VoteRequest to 3 for term 17
+[02:09:01.368 Candidate] 1 sending VoteRequest to 0 for term 17
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:01.496 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:01.497 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Update Commit Index] 4 update its commit index from 59 to 60
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:01.734 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:01.735 Candidate] 1 sending VoteRequest to 4 for term 18
+[02:09:01.735 Candidate] 1 sending VoteRequest to 0 for term 18
+[02:09:01.735 Candidate] 1 sending VoteRequest to 2 for term 18
+[02:09:01.735 Candidate] 1 sending VoteRequest to 3 for term 18
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 59 to 60
+[02:09:01.750 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 59 to 60
+[02:09:01.750 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:02.006 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:02.007 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 60 to 61
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:02.203 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:02.204 Candidate] 1 sending VoteRequest to 4 for term 19
+[02:09:02.204 Candidate] 1 sending VoteRequest to 2 for term 19
+[02:09:02.204 Candidate] 1 sending VoteRequest to 3 for term 19
+[02:09:02.204 Candidate] 1 sending VoteRequest to 0 for term 19
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 60 to 61
+[Leader] 4 is now sending heartbeating
+[02:09:02.254 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 60 to 61
+[02:09:02.254 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:02.511 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:02.511 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 61 to 62
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:02.754 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:02.754 Candidate] 1 sending VoteRequest to 4 for term 20
+[02:09:02.754 Candidate] 1 sending VoteRequest to 3 for term 20
+[02:09:02.754 Candidate] 1 sending VoteRequest to 2 for term 20
+[02:09:02.754 Candidate] 1 sending VoteRequest to 0 for term 20
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 61 to 62
+[Leader] 4 is now sending heartbeating
+[02:09:02.770 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 61 to 62
+[02:09:02.770 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:03.033 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:03.034 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 62 to 63
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:03.252 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:03.253 Candidate] 1 sending VoteRequest to 4 for term 21
+[02:09:03.253 Candidate] 1 sending VoteRequest to 2 for term 21
+[02:09:03.253 Candidate] 1 sending VoteRequest to 3 for term 21
+[02:09:03.253 Candidate] 1 sending VoteRequest to 0 for term 21
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 62 to 63
+[02:09:03.290 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 62 to 63
+[02:09:03.291 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:03.554 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:03.554 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 63 to 64
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:03.634 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:03.634 Candidate] 1 sending VoteRequest to 4 for term 22
+[02:09:03.634 Candidate] 1 sending VoteRequest to 3 for term 22
+[02:09:03.635 Candidate] 1 sending VoteRequest to 0 for term 22
+[02:09:03.634 Candidate] 1 sending VoteRequest to 2 for term 22
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 63 to 64
+[02:09:03.804 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 63 to 64
+[02:09:03.805 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:04.028 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:04.028 Candidate] 1 sending VoteRequest to 4 for term 23
+[02:09:04.028 Candidate] 1 sending VoteRequest to 0 for term 23
+[02:09:04.028 Candidate] 1 sending VoteRequest to 2 for term 23
+[02:09:04.028 Candidate] 1 sending VoteRequest to 3 for term 23
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:04.066 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:04.068 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 64 to 65
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 64 to 65
+[02:09:04.338 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 64 to 65
+[02:09:04.339 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:04.432 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:04.432 Candidate] 1 sending VoteRequest to 4 for term 24
+[02:09:04.433 Candidate] 1 sending VoteRequest to 0 for term 24
+[02:09:04.433 Candidate] 1 sending VoteRequest to 2 for term 24
+[02:09:04.433 Candidate] 1 sending VoteRequest to 3 for term 24
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:04.610 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:04.612 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 65 to 66
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 65 to 66
+[02:09:04.874 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 65 to 66
+[02:09:04.875 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:04.923 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:04.923 Candidate] 1 sending VoteRequest to 4 for term 25
+[02:09:04.923 Candidate] 1 sending VoteRequest to 2 for term 25
+[02:09:04.923 Candidate] 1 sending VoteRequest to 3 for term 25
+[02:09:04.923 Candidate] 1 sending VoteRequest to 0 for term 25
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:05.133 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:05.133 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 66 to 67
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:05.371 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:05.371 Candidate] 1 sending VoteRequest to 4 for term 26
+[02:09:05.371 Candidate] 1 sending VoteRequest to 0 for term 26
+[02:09:05.371 Candidate] 1 sending VoteRequest to 2 for term 26
+[02:09:05.372 Candidate] 1 sending VoteRequest to 3 for term 26
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 66 to 67
+[02:09:05.390 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 66 to 67
+[02:09:05.390 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:05.651 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:05.652 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 67 to 68
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:05.815 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:05.815 Candidate] 1 sending VoteRequest to 4 for term 27
+[02:09:05.816 Candidate] 1 sending VoteRequest to 3 for term 27
+[02:09:05.816 Candidate] 1 sending VoteRequest to 2 for term 27
+[02:09:05.816 Candidate] 1 sending VoteRequest to 0 for term 27
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 67 to 68
+[Leader] 4 is now sending heartbeating
+[02:09:05.914 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 67 to 68
+[02:09:05.915 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:06.165 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:06.165 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 68 to 69
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:06.201 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:06.202 Candidate] 1 sending VoteRequest to 4 for term 28
+[Leader] 0 is now sending heartbeating
+[02:09:06.202 Candidate] 1 sending VoteRequest to 2 for term 28
+[Leader] 0 is now sending heartbeating
+[02:09:06.202 Candidate] 1 sending VoteRequest to 3 for term 28
+[02:09:06.202 Candidate] 1 sending VoteRequest to 0 for term 28
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+3 update its commit index from 68 to 69
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 68 to 69
+[02:09:06.428 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:06.427 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:06.684 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:06.685 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 69 to 70
+[02:09:06.698 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:06.698 Candidate] 1 sending VoteRequest to 4 for term 29
+[02:09:06.698 Candidate] 1 sending VoteRequest to 0 for term 29
+[02:09:06.698 Candidate] 1 sending VoteRequest to 3 for term 29
+[02:09:06.698 Candidate] 1 sending VoteRequest to 2 for term 29
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 69 to 70
+[02:09:06.936 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 69 to 70
+[02:09:06.936 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:07.185 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:07.186 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 70 to 71
+[02:09:07.202 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:07.202 Candidate] 1 sending VoteRequest to 4 for term 30
+[02:09:07.202 Candidate] 1 sending VoteRequest to 2 for term 30
+[02:09:07.202 Candidate] 1 sending VoteRequest to 0 for term 30
+[02:09:07.203 Candidate] 1 sending VoteRequest to 3 for term 30
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 70 to 71
+[02:09:07.449 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 70 to 71
+[02:09:07.451 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:07.677 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:07.677 Candidate] 1 sending VoteRequest to 4 for term 31
+[02:09:07.677 Candidate] 1 sending VoteRequest to 0 for term 31
+[02:09:07.677 Candidate] 1 sending VoteRequest to 3 for term 31
+[02:09:07.677 Candidate] 1 sending VoteRequest to 2 for term 31
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:07.711 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:07.712 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 71 to 72
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 71 to 72
+[02:09:07.971 AppendEntries] term of 2[54] is <= than 4[54], accept it
+3 update its commit index from 71 to 72
+[02:09:07.971 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:08.204 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:08.204 Candidate] 1 sending VoteRequest to 4 for term 32
+[02:09:08.204 Candidate] 1 sending VoteRequest to 0 for term 32
+[02:09:08.204 Candidate] 1 sending VoteRequest to 3 for term 32
+[02:09:08.204 Candidate] 1 sending VoteRequest to 2 for term 32
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:08.221 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:08.222 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 72 to 73
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 72 to 73
+[02:09:08.470 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 72 to 73
+[02:09:08.471 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:08.655 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:08.655 Candidate] 1 sending VoteRequest to 4 for term 33
+[02:09:08.655 Candidate] 1 sending VoteRequest to 0 for term 33
+[02:09:08.655 Candidate] 1 sending VoteRequest to 2 for term 33
+[02:09:08.655 Candidate] 1 sending VoteRequest to 3 for term 33
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:08.735 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:08.736 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 73 to 74
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 73 to 74
+3 update its commit index from 73 to 74
+[02:09:09.001 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:09.000 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:09.018 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:09.019 Candidate] 1 sending VoteRequest to 4 for term 34
+[02:09:09.019 Candidate] 1 sending VoteRequest to 0 for term 34
+[02:09:09.019 Candidate] 1 sending VoteRequest to 2 for term 34
+[02:09:09.019 Candidate] 1 sending VoteRequest to 3 for term 34
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:09.252 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:09.253 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 74 to 75
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 74 to 75
+[02:09:09.502 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 74 to 75
+[02:09:09.503 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:09.566 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:09.566 Candidate] 1 sending VoteRequest to 4 for term 35
+[02:09:09.566 Candidate] 1 sending VoteRequest to 0 for term 35
+[02:09:09.567 Candidate] 1 sending VoteRequest to 3 for term 35
+[02:09:09.566 Candidate] 1 sending VoteRequest to 2 for term 35
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:09.755 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:09.756 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 75 to 76
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:09.960 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:09.960 Candidate] 1 sending VoteRequest to 4 for term 36
+[02:09:09.960 Candidate] 1 sending VoteRequest to 2 for term 36
+[02:09:09.960 Candidate] 1 sending VoteRequest to 3 for term 36
+[02:09:09.960 Candidate] 1 sending VoteRequest to 0 for term 36
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 75 to 76
+[02:09:10.007 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 75 to 76
+[02:09:10.007 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:10.262 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:10.263 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 76 to 77
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:10.468 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:10.468 Candidate] 1 sending VoteRequest to 4 for term 37
+[02:09:10.468 Candidate] 1 sending VoteRequest to 0 for term 37
+[02:09:10.469 Candidate] 1 sending VoteRequest to 2 for term 37
+[02:09:10.469 Candidate] 1 sending VoteRequest to 3 for term 37
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 76 to 77
+[02:09:10.520 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 76 to 77
+[02:09:10.521 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:10.774 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:10.773 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Update Commit Index] 4 update its commit index from 77 to 78
+[02:09:10.890 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:10.890 Candidate] 1 sending VoteRequest to 4 for term 38
+[02:09:10.890 Candidate] 1 sending VoteRequest to 3 for term 38
+[02:09:10.891 Candidate] 1 sending VoteRequest to 0 for term 38
+[02:09:10.890 Candidate] 1 sending VoteRequest to 2 for term 38
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 77 to 78
+[02:09:11.027 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 77 to 78
+[02:09:11.028 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:11.273 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:11.273 Candidate] 1 sending VoteRequest to 4 for term 39
+[02:09:11.274 Candidate] 1 sending VoteRequest to 2 for term 39
+[02:09:11.274 Candidate] 1 sending VoteRequest to 3 for term 39
+[02:09:11.274 Candidate] 1 sending VoteRequest to 0 for term 39
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:11.292 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:11.293 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 78 to 79
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 78 to 79
+3 update its commit index from 78 to 79
+[02:09:11.562 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:11.562 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:11.795 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:11.795 Candidate] 1 sending VoteRequest to 4 for term 40
+[02:09:11.795 Candidate] 1 sending VoteRequest to 0 for term 40
+[02:09:11.796 Candidate] 1 sending VoteRequest to 3 for term 40
+[02:09:11.795 Candidate] 1 sending VoteRequest to 2 for term 40
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:11.812 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:11.812 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 79 to 80
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 79 to 80
+[02:09:12.061 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 79 to 80
+[02:09:12.062 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:12.266 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:12.266 Candidate] 1 sending VoteRequest to 4 for term 41
+[02:09:12.266 Candidate] 1 sending VoteRequest to 3 for term 41
+[02:09:12.266 Candidate] 1 sending VoteRequest to 2 for term 41
+[02:09:12.266 Candidate] 1 sending VoteRequest to 0 for term 41
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:12.320 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:12.321 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 80 to 81
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 80 to 81
+[02:09:12.584 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 80 to 81
+[02:09:12.584 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:12.797 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:12.797 Candidate] 1 sending VoteRequest to 4 for term 42
+[02:09:12.797 Candidate] 1 sending VoteRequest to 0 for term 42
+[02:09:12.798 Candidate] 1 sending VoteRequest to 2 for term 42
+[02:09:12.798 Candidate] 1 sending VoteRequest to 3 for term 42
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:12.836 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:12.837 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 81 to 82
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 81 to 82
+[02:09:13.095 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 81 to 82
+[02:09:13.096 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:13.248 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:13.248 Candidate] 1 sending VoteRequest to 4 for term 43
+[02:09:13.248 Candidate] 1 sending VoteRequest to 2 for term 43
+[02:09:13.249 Candidate] 1 sending VoteRequest to 0 for term 43
+[02:09:13.249 Candidate] 1 sending VoteRequest to 3 for term 43
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:13.346 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:13.347 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 82 to 83
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+3 update its commit index from 82 to 83
+[02:09:13.609 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 82 to 83
+[02:09:13.610 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:13.661 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:13.662 Candidate] 1 sending VoteRequest to 4 for term 44
+[02:09:13.662 Candidate] 1 sending VoteRequest to 2 for term 44
+[02:09:13.662 Candidate] 1 sending VoteRequest to 0 for term 44
+[02:09:13.662 Candidate] 1 sending VoteRequest to 3 for term 44
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:13.874 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:13.875 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 83 to 84
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 83 to 84
+[02:09:14.129 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 83 to 84
+[02:09:14.129 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:14.165 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:14.165 Candidate] 1 sending VoteRequest to 4 for term 45
+[02:09:14.165 Candidate] 1 sending VoteRequest to 2 for term 45
+[02:09:14.166 Candidate] 1 sending VoteRequest to 3 for term 45
+[02:09:14.166 Candidate] 1 sending VoteRequest to 0 for term 45
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:14.392 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:14.392 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 84 to 85
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:14.535 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:14.535 Candidate] 1 sending VoteRequest to 4 for term 46
+[02:09:14.535 Candidate] 1 sending VoteRequest to 0 for term 46
+[02:09:14.535 Candidate] 1 sending VoteRequest to 2 for term 46
+[02:09:14.535 Candidate] 1 sending VoteRequest to 3 for term 46
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 84 to 85
+[Leader] 4 is now sending heartbeating
+[02:09:14.649 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 84 to 85
+[02:09:14.650 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:14.913 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:14.914 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 85 to 86
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:14.985 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:14.985 Candidate] 1 sending VoteRequest to 4 for term 47
+[02:09:14.986 Candidate] 1 sending VoteRequest to 0 for term 47
+[02:09:14.986 Candidate] 1 sending VoteRequest to 2 for term 47
+[02:09:14.986 Candidate] 1 sending VoteRequest to 3 for term 47
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 85 to 86
+[02:09:15.175 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 85 to 86
+[02:09:15.177 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:15.401 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:15.401 Candidate] 1 sending VoteRequest to 4 for term 48
+[02:09:15.401 Candidate] 1 sending VoteRequest to 2 for term 48
+[02:09:15.401 Candidate] 1 sending VoteRequest to 3 for term 48
+[02:09:15.401 Candidate] 1 sending VoteRequest to 0 for term 48
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:15.447 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:15.448 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 86 to 87
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 86 to 87
+[02:09:15.708 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 86 to 87
+[02:09:15.709 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:15.890 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:15.890 Candidate] 1 sending VoteRequest to 4 for term 49
+[02:09:15.890 Candidate] 1 sending VoteRequest to 2 for term 49
+[02:09:15.891 Candidate] 1 sending VoteRequest to 3 for term 49
+[02:09:15.891 Candidate] 1 sending VoteRequest to 0 for term 49
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:15.958 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:15.958 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 87 to 88
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 87 to 88
+[02:09:16.214 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 87 to 88
+[02:09:16.215 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:16.264 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:16.264 Candidate] 1 sending VoteRequest to 4 for term 50
+[02:09:16.264 Candidate] 1 sending VoteRequest to 0 for term 50
+[02:09:16.265 Candidate] 1 sending VoteRequest to 2 for term 50
+[02:09:16.265 Candidate] 1 sending VoteRequest to 3 for term 50
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:16.477 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:16.478 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 88 to 89
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:16.750 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:16.751 Candidate] 1 sending VoteRequest to 4 for term 51
+[02:09:16.751 Candidate] 1 sending VoteRequest to 2 for term 51
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 88 to 89
+[02:09:16.752 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:16.751 Candidate] 1 sending VoteRequest to 0 for term 51
+[02:09:16.751 Candidate] 1 sending VoteRequest to 3 for term 51
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 88 to 89
+[02:09:16.754 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:17.009 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:17.011 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 89 to 90
+[Leader] 0 is now sending heartbeating
+[02:09:17.144 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:17.144 Candidate] 1 sending VoteRequest to 4 for term 52
+[02:09:17.145 Candidate] 1 sending VoteRequest to 0 for term 52
+[02:09:17.145 Candidate] 1 sending VoteRequest to 3 for term 52
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:17.145 Candidate] 1 sending VoteRequest to 2 for term 52
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 89 to 90
+2 update its commit index from 89 to 90
+[02:09:17.263 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:17.263 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:17.511 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:17.512 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 90 to 91
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:17.664 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:17.665 Candidate] 1 sending VoteRequest to 4 for term 53
+[02:09:17.665 Candidate] 1 sending VoteRequest to 2 for term 53
+[02:09:17.665 Candidate] 1 sending VoteRequest to 0 for term 53
+[02:09:17.665 Candidate] 1 sending VoteRequest to 3 for term 53
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 90 to 91
+2 update its commit index from 90 to 91
+[02:09:17.764 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:17.764 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:18.016 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:18.016 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 91 to 92
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:18.163 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:18.163 Candidate] 1 sending VoteRequest to 4 for term 54
+[02:09:18.163 Candidate] 1 sending VoteRequest to 0 for term 54
+[02:09:18.164 Candidate] 1 sending VoteRequest to 3 for term 54
+[02:09:18.163 Candidate] 1 sending VoteRequest to 2 for term 54
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 91 to 92
+2 update its commit index from 91 to 92
+[02:09:18.266 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:18.266 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:18.524 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:18.527 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 92 to 93
+[02:09:18.620 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:18.620 Candidate] 1 sending VoteRequest to 2 for term 55
+[02:09:18.620 Candidate] 1 sending VoteRequest to 4 for term 55
+[02:09:18.620 Candidate] 1 sending VoteRequest to 3 for term 55
+[02:09:18.620 Candidate] 1 sending VoteRequest to 0 for term 55
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 92 to 93
+[02:09:18.797 AppendEntries] term of 3[54] is <= than 4[54], accept it
+2 update its commit index from 92 to 93
+[02:09:18.797 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:18.995 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:18.996 Candidate] 1 sending VoteRequest to 4 for term 56
+[02:09:18.996 Candidate] 1 sending VoteRequest to 0 for term 56
+[02:09:18.996 Candidate] 1 sending VoteRequest to 2 for term 56
+[02:09:18.996 Candidate] 1 sending VoteRequest to 3 for term 56
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:19.053 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:19.054 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 93 to 94
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 93 to 94
+[02:09:19.315 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 93 to 94
+[02:09:19.315 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:19.370 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:19.370 Candidate] 1 sending VoteRequest to 4 for term 57
+[02:09:19.370 Candidate] 1 sending VoteRequest to 2 for term 57
+[02:09:19.370 Candidate] 1 sending VoteRequest to 0 for term 57
+[02:09:19.370 Candidate] 1 sending VoteRequest to 3 for term 57
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:19.564 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:19.564 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Update Commit Index] 4 update its commit index from 94 to 95
+[02:09:19.731 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:19.731 Candidate] 1 sending VoteRequest to 4 for term 58
+[02:09:19.731 Candidate] 1 sending VoteRequest to 0 for term 58
+[02:09:19.731 Candidate] 1 sending VoteRequest to 2 for term 58
+[02:09:19.731 Candidate] 1 sending VoteRequest to 3 for term 58
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 94 to 95
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 94 to 95
+[Leader] 4 is now sending heartbeating
+[02:09:19.816 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:19.817 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:20.069 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:20.070 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 95 to 96
+[02:09:20.207 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:20.208 Candidate] 1 sending VoteRequest to 4 for term 59
+[02:09:20.208 Candidate] 1 sending VoteRequest to 3 for term 59
+[02:09:20.208 Candidate] 1 sending VoteRequest to 0 for term 59
+[02:09:20.208 Candidate] 1 sending VoteRequest to 2 for term 59
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 95 to 96
+[02:09:20.322 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 95 to 96
+[02:09:20.322 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:20.583 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:20.584 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 96 to 97
+[02:09:20.646 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:20.647 Candidate] 1 sending VoteRequest to 4 for term 60
+[02:09:20.647 Candidate] 1 sending VoteRequest to 0 for term 60
+[02:09:20.647 Candidate] 1 sending VoteRequest to 2 for term 60
+[02:09:20.647 Candidate] 1 sending VoteRequest to 3 for term 60
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 96 to 97
+[02:09:20.844 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 96 to 97
+[02:09:20.845 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:21.092 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:21.093 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 97 to 98
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:21.129 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:21.129 Candidate] 1 sending VoteRequest to 4 for term 61
+[02:09:21.129 Candidate] 1 sending VoteRequest to 3 for term 61
+[02:09:21.130 Candidate] 1 sending VoteRequest to 0 for term 61
+[02:09:21.129 Candidate] 1 sending VoteRequest to 2 for term 61
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 97 to 98
+[02:09:21.347 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 97 to 98
+[02:09:21.348 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[02:09:21.534 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:21.534 Candidate] 1 sending VoteRequest to 0 for term 62
+[02:09:21.534 Candidate] 1 sending VoteRequest to 2 for term 62
+[02:09:21.534 Candidate] 1 sending VoteRequest to 4 for term 62
+[02:09:21.535 Candidate] 1 sending VoteRequest to 3 for term 62
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:21.608 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[02:09:21.609 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 98 to 99
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 98 to 99
+[02:09:21.863 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 98 to 99
+[02:09:21.864 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:22.010 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:22.010 Candidate] 1 sending VoteRequest to 4 for term 63
+[02:09:22.010 Candidate] 1 sending VoteRequest to 2 for term 63
+[02:09:22.010 Candidate] 1 sending VoteRequest to 3 for term 63
+[02:09:22.010 Candidate] 1 sending VoteRequest to 0 for term 63
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:22.113 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:22.113 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 99 to 100
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 99 to 100
+[02:09:22.362 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 99 to 100
+[02:09:22.363 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[02:09:22.514 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:22.514 Candidate] 1 sending VoteRequest to 4 for term 64
+[02:09:22.514 Candidate] 1 sending VoteRequest to 3 for term 64
+[02:09:22.514 Candidate] 1 sending VoteRequest to 0 for term 64
+[02:09:22.514 Candidate] 1 sending VoteRequest to 2 for term 64
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[02:09:22.619 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:22.620 AppendEntries] term of 2[54] is <= than 4[54], accept it
+[Update Commit Index] 4 update its commit index from 100 to 101
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 0 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+3 update its commit index from 100 to 101
+[Leader] 4 is now sending heartbeating
+2 update its commit index from 100 to 101
+[02:09:22.883 AppendEntries] term of 3[54] is <= than 4[54], accept it
+[02:09:22.883 AppendEntries] term of 2[54] is <= than 4[54], accept it
+Passed 50 more new  
+[02:09:22.992 Candidate] Election initiated from 1 has timed out, restart election
+[02:09:22.993 Candidate] 1 sending VoteRequest to 4 for term 65
+[02:09:22.993 Candidate] 1 sending VoteRequest to 3 for term 65
+[02:09:22.993 Candidate] 1 sending VoteRequest to 0 for term 65
+[02:09:22.993 Candidate] 1 sending VoteRequest to 2 for term 65
+[02:09:22.994 VoteRequest] 0 received a VoteRequest from 1 for term 65
+[02:09:22.994 VoteRequest] 4 received a VoteRequest from 1 for term 65
+[02:09:22.994 VoteRequest] 3 received a VoteRequest from 1 for term 65
+[02:09:22.994 VoteRequest] 2 received a VoteRequest from 1 for term 65
+[02:09:23.082 Leader] 0 found higher term: {65 1 true},convert to follower
+[02:09:23.082 Follower] 0 timed out initialize a voting
+[02:09:23.082 Candidate] 0 sending VoteRequest to 4 for term 66
+[02:09:23.082 Candidate] 0 sending VoteRequest to 2 for term 66
+[02:09:23.082 Candidate] 0 sending VoteRequest to 3 for term 66
+[02:09:23.083 VoteRequest] 2 received a VoteRequest from 0 for term 66
+[02:09:23.082 Candidate] 0 sending VoteRequest to 1 for term 66
+[02:09:23.083 VoteRequest] 3 received a VoteRequest from 0 for term 66
+[02:09:23.083 VoteRequest] 1 received a VoteRequest from 0 for term 66
+[02:09:23.132 Leader] 4 found higher term: {65 1 false},convert to follower
+[02:09:23.132 Follower] 4 timed out initialize a voting
+[02:09:23.132 Candidate] 4 sending VoteRequest to 3 for term 66
+[02:09:23.132 VoteRequest] 4 received a VoteRequest from 0 for term 66
+[02:09:23.132 Candidate] 4 sending VoteRequest to 1 for term 66
+[02:09:23.132 Candidate] 4 sending VoteRequest to 0 for term 66
+[02:09:23.132 Candidate] 4 sending VoteRequest to 2 for term 66
+[02:09:23.133 VoteRequest] 1 received a VoteRequest from 4 for term 66
+[02:09:23.133 VoteRequest] 0 received a VoteRequest from 4 for term 66
+[02:09:23.134 VoteRequest] 2 received a VoteRequest from 4 for term 66
+[02:09:23.133 VoteRequest] 3 received a VoteRequest from 4 for term 66
+[02:09:23.373 Follower] 3 timed out initialize a voting
+[02:09:23.374 Follower] 2 timed out initialize a voting
+[02:09:23.374 Candidate] 3 sending VoteRequest to 4 for term 67
+[02:09:23.374 Candidate] 2 sending VoteRequest to 0 for term 67
+[02:09:23.374 Candidate] 3 sending VoteRequest to 1 for term 67
+[02:09:23.374 VoteRequest] 4 received a VoteRequest from 3 for term 67
+[02:09:23.374 Candidate] 3 sending VoteRequest to 2 for term 67
+[02:09:23.375 VoteRequest] 0 received a VoteRequest from 2 for term 67
+[02:09:23.375 Candidate] 2 sending VoteRequest to 1 for term 67
+[02:09:23.375 Candidate] 2 sending VoteRequest to 3 for term 67
+[02:09:23.375 VoteRequest] 2 received a VoteRequest from 3 for term 67
+[02:09:23.374 Candidate] 2 sending VoteRequest to 4 for term 67
+[02:09:23.375 VoteRequest] 3 received a VoteRequest from 2 for term 67
+[02:09:23.375 Candidate] 3 sending VoteRequest to 0 for term 67
+[02:09:23.375 VoteRequest] 1 received a VoteRequest from 3 for term 67
+[02:09:23.375 VoteRequest] 1 received a VoteRequest from 2 for term 67
+[02:09:23.376 VoteRequest] 4 received a VoteRequest from 2 for term 67
+[02:09:23.376 VoteRequest] 0 received a VoteRequest from 3 for term 67
+[02:09:23.540 Follower] 4 timed out initialize a voting
+[02:09:23.540 Candidate] 4 sending VoteRequest to 3 for term 68
+[02:09:23.540 Candidate] 4 sending VoteRequest to 1 for term 68
+[02:09:23.540 Candidate] 4 sending VoteRequest to 2 for term 68
+[02:09:23.541 VoteRequest] 3 received a VoteRequest from 4 for term 68
+[02:09:23.541 Candidate] 4 sending VoteRequest to 0 for term 68
+[02:09:23.541 VoteRequest] 1 received a VoteRequest from 4 for term 68
+[02:09:23.541 VoteRequest] 0 received a VoteRequest from 4 for term 68
+..... 4 is now a leader
+[02:09:23.541 VoteRequest] 2 received a VoteRequest from 4 for term 68
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[Leader] 4 is now sending heartbeating
+[HeartBeating] Leader Entries Length 103,  conflictIndex 2 
+panic: runtime error: index out of range [52] with length 5
+
+goroutine 7804 [running]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).heartBeating.func1(0xc0000ce3c0, 0x44, 0x0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:432 +0x5cb
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).heartBeating
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:401 +0x6a
+exit status 2
+FAIL	_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft	53.232s

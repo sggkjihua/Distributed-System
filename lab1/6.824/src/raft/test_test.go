@@ -335,7 +335,7 @@ loop:
 	cfg.end()
 }
 
-func TestRejoin2A(t *testing.T) {
+func TestRejoin2D(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -388,22 +388,27 @@ func TestBackup2B(t *testing.T) {
 	cfg.disconnect((leader1 + 3) % servers)
 	cfg.disconnect((leader1 + 4) % servers)
 
+	fmt.Printf("Disconnected %v %v %v\n",(leader1 + 2) % servers,(leader1 + 3) % servers,(leader1 + 4) % servers )
 	// submit lots of commands that won't commit
 	for i := 0; i < 50; i++ {
 		cfg.rafts[leader1].Start(rand.Int())
 	}
+	// 此时是50个没有commit的记录
 
 	time.Sleep(RaftElectionTimeout / 2)
 
 	cfg.disconnect((leader1 + 0) % servers)
 	cfg.disconnect((leader1 + 1) % servers)
 
+	fmt.Printf("Disconnected %v %v namely All \n",(leader1 + 0) % servers,(leader1 + 1) % servers )
 	// allow other partition to recover
 	cfg.connect((leader1 + 2) % servers)
 	cfg.connect((leader1 + 3) % servers)
 	cfg.connect((leader1 + 4) % servers)
+	fmt.Printf("Connected back %v %v %v \n",(leader1 + 2) % servers,(leader1 + 3) % servers,(leader1 + 4) % servers )
 
 	// lots of successful commands to new group.
+	// 另外三个新增了50条新的记录并且commit
 	for i := 0; i < 50; i++ {
 		cfg.one(rand.Int(), 3, true)
 	}
@@ -414,12 +419,16 @@ func TestBackup2B(t *testing.T) {
 	if leader2 == other {
 		other = (leader2 + 1) % servers
 	}
+	// 断掉了非leader的那个，此时还剩下2两个51记录的
 	cfg.disconnect(other)
+	fmt.Printf("Disconnected %v \n",other)
 
 	// lots more commands that won't commit
 	for i := 0; i < 50; i++ {
 		cfg.rafts[leader2].Start(rand.Int())
 	}
+	// 再次新增50条记录并且不能commit
+	// other那个现在已经落后了50个记录
 
 	time.Sleep(RaftElectionTimeout / 2)
 
@@ -427,14 +436,24 @@ func TestBackup2B(t *testing.T) {
 	for i := 0; i < servers; i++ {
 		cfg.disconnect(i)
 	}
+	// 断掉所有的连接
+
+	fmt.Printf("Disconnected All %v \n",other)
+
+	// 把只有一个记录的前两个弄回来，还有51个记录的other，此时应该是other被选作领导
+	// 一开始应该是把51作为next发过去，此时都发现比自己的大，那么短时间内应该把冲突的index发过去，
 	cfg.connect((leader1 + 0) % servers)
 	cfg.connect((leader1 + 1) % servers)
 	cfg.connect(other)
+	fmt.Printf("Connecting back... %v %v %v \n",(leader1 + 0) % servers,(leader1 + 1) % servers,other)
 
 	// lots of successful commands to new group.
 	for i := 0; i < 50; i++ {
 		cfg.one(rand.Int(), 3, true)
 	}
+
+	fmt.Printf("Passed 50 more new  \n")
+
 
 	// now everyone
 	for i := 0; i < servers; i++ {

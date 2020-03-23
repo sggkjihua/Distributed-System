@@ -153,6 +153,8 @@ type AppendEntriesReply struct {
 	Term int 
 	// true if follower contained entry matching prevLogIndex and prevLogTerm
 	Success bool
+	ConflictIndex int
+	ConflictEntries []LogEntry
 }
 
 
@@ -264,6 +266,7 @@ func (rf *Raft) asLeader(){
 	}()
 	// initialize a hearBeat interval
 	heartBeatInterval := rand.Intn(100)+150
+	fmt.Printf("..... %v is now a leader\n", rf.me)
 	for{
 		select{
 		case info := <- rf.convertToFollower:
@@ -397,6 +400,7 @@ func (rf *Raft) heartBeating(){
 		}
 		go func(i int){
 			args := rf.GenerateAppendEntries(term, i)
+			//fmt.Printf("[Leader] %v is now sending heartbeating\n", rf.me)
 			//fmt.Printf("[%v Leader] %v sending AppendEntries in term: %v to %v with logs %v \n", time.Now().Format(rf.timeFormat), rf.me, rf.term, i,args.Entries)
 			reply := AppendEntriesReply{}
 			reachable := rf.sendHeartbeat(i, &args, &reply)
@@ -415,8 +419,27 @@ func (rf *Raft) heartBeating(){
 					rf.nextIndex[i] = rf.matchIndex[i] + 1
 					rf.updateCommit()
 				}else{
-					rf.nextIndex[i] --
-					rf.matchIndex[i] --
+					conflictIndex := reply.ConflictIndex
+					conflictEntries := reply.ConflictEntries
+					tmp := rf.nextIndex[i]
+					//fmt.Printf("[HeartBeating] Leader Entries Length %v, Follower entries len %v,  conflictIndex %v \n", len(rf.entries), len(conflictEntries), conflictIndex)
+
+					//fmt.Printf("[HeartBeating] Leader Entries %v,  index %v \n", rf.entries[conflictIndex:], conflictIndex)
+					//fmt.Printf("[HeartBeating] Follower Entries %v, index %v \n", conflictEntries, conflictIndex)
+					maxMatchIndex := conflictIndex
+					for index:= conflictIndex;index<len(rf.entries) && index-conflictIndex < len(conflictEntries);index++{
+						if rf.entries[index].Term != conflictEntries[index-conflictIndex].Term{
+							rf.nextIndex[i] = index
+							rf.matchIndex[i] = rf.nextIndex[i]-1
+							break
+						}else{
+							maxMatchIndex = index
+						}
+					}
+					if rf.nextIndex[i] == tmp {
+						rf.nextIndex[i] = maxMatchIndex + 1
+						rf.matchIndex[i] = rf.nextIndex[i]-1
+					}
 				}
 			}
 		}(i)
@@ -511,10 +534,13 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 		if lessEntriesThanExpected || doesNotMatch {
 			reply.Success = false
 			if doesNotMatch {
-				rf.entries = rf.entries[:prevLogIndex+1]
+				rf.entries = rf.entries[:prevLogIndex]
 			}else{
 				less = true
 			}
+			lastIndex := rf.handleConflict()
+			reply.ConflictIndex = lastIndex
+			reply.ConflictEntries = rf.entries[lastIndex:]
 		}else{
 			if len(rf.entries)-1 != prevLogIndex {
 				// now we have more than expected
@@ -555,6 +581,19 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 		info := FollowerInfo{args.Term, args.LeaderId, true}
 		rf.pushChangeToFollower(info)
 	}
+}
+
+func (rf *Raft) handleConflict() int {
+	lastTerm := rf.entries[len(rf.entries)-1].Term
+	lastIndex := len(rf.entries)-1
+	for i:= len(rf.entries)-1; i>=0;i--{
+		if rf.entries[i].Term == lastTerm {
+			lastIndex = i
+		}else{
+			break
+		}
+	}
+	return lastIndex
 }
 
 func GetMin(a, b int) int {
