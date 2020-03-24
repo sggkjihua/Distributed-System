@@ -266,7 +266,7 @@ func (rf *Raft) asLeader(){
 	}()
 	// initialize a hearBeat interval
 	heartBeatInterval := rand.Intn(100)+150
-	fmt.Printf("..... %v is now a leader, logs are %v\n", rf.me, rf.entries)
+	//fmt.Printf("..... %v is now a leader, logs are %v\n", rf.me, rf.entries)
 	for{
 		select{
 		case info := <- rf.convertToFollower:
@@ -422,10 +422,10 @@ func (rf *Raft) heartBeating(){
 					conflictIndex := reply.ConflictIndex
 					conflictEntries := reply.ConflictEntries
 					tmp := rf.nextIndex[i]
-					fmt.Printf("[HeartBeating] Leader %v Entries Length %v, Follower entries len %v,  conflictIndex %v \n", rf.me, len(rf.entries), len(conflictEntries), conflictIndex)
+					//fmt.Printf("[HeartBeating] Leader %v Entries Length %v, Follower entries len %v,  conflictIndex %v \n", rf.me, len(rf.entries), len(conflictEntries), conflictIndex)
 
-					fmt.Printf("[HeartBeating] Leader %v Entries %v,  index %v \n",rf.me,  rf.entries, conflictIndex)
-					fmt.Printf("[HeartBeating] Follower %v Entries %v, index %v \n",i, conflictEntries, conflictIndex)
+					//fmt.Printf("[HeartBeating] Leader %v Entries %v,  index %v \n",rf.me,  rf.entries, conflictIndex)
+					//fmt.Printf("[HeartBeating] Follower %v Entries %v, index %v \n",i, conflictEntries, conflictIndex)
 					maxMatchIndex := conflictIndex
 					rf.mu.Lock()
 					for index:= conflictIndex;index<len(rf.entries) && index-conflictIndex < len(conflictEntries);index++{
@@ -525,7 +525,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 	logs := args.Entries
 	leaderCommit := args.LeaderCommit
 	less := false
-	fmt.Printf("[%v AppendEntries] %v received from %v with logs: %v in term %v\n", time.Now().Format(rf.timeFormat), rf.me, leaderId,args.Entries,term)
+	//fmt.Printf("[%v AppendEntries] %v received from %v with logs: %v in term %v\n", time.Now().Format(rf.timeFormat), rf.me, leaderId,args.Entries,term)
 	if rf.term > term {
 		// first judge the term, if the term of the leader is lower, reject
 		reply.Success = false
@@ -562,12 +562,11 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 						for index:= rf.lastApplied+1; index<=rf.commitIndex;index++{
 							msg := ApplyMsg{true, rf.entries[index].Command, index}
 							rf.applyCh <- msg
-							//fmt.Printf("me:%d %v\n",rf.me,msg)
 							rf.lastApplied = index
 						}
 					}()
 				}
-				fmt.Printf("%v update its commit index from %v to %v entries %v\n", rf.me, pre, rf.commitIndex, rf.entries)
+				//fmt.Printf("%v update its commit index from %v to %v entries %v\n", rf.me, pre, rf.commitIndex, rf.entries)
 			}
 		}
 	}
@@ -577,9 +576,10 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 		info := FollowerInfo{args.Term, args.LeaderId, true}
 		rf.pushChangeToFollower(info)
 		fmt.Printf("[%v AppendEntries] term of %v[%v] is <= than %v[%v], accept it\n",time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
-		if len(logs) >0 {
-			fmt.Printf("[AppendEntries] %v logs is currently %v\n", rf.me, rf.entries)
+		/*if len(logs) >0 {
+			//fmt.Printf("[AppendEntries] %v logs is currently %v\n", rf.me, rf.entries)
 		}
+		*/
 	}else if less {
 		info := FollowerInfo{args.Term, args.LeaderId, true}
 		rf.pushChangeToFollower(info)
@@ -658,20 +658,11 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 			reply.Term = rf.term
 		}
 	}
-	    //set currentTerm = T, convert to follower
+	//set currentTerm = T, convert to follower
 	if rf.term < args.Term {
 		info := FollowerInfo{args.Term ,args.CandidateId, reply.VoteGranted}
 		rf.pushChangeToFollower(info)
 	}
-	/*
-	if reply.VoteGranted {
-		rf.votedFor = candidateId
-		rf.pushChangeToFollower(term)
-		fmt.Printf("[%v VoteRequest] %v has accepted the request from %v\n", time.Now().Format(rf.timeFormat), rf.me, candidateId)
-	}else{
-		fmt.Printf("[%v VoteRequest] %v has rejected the request from %v\n", time.Now().Format(rf.timeFormat), rf.me, candidateId)
-	}
-	*/
 }
 
 //
@@ -699,8 +690,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		rf.entries = append(rf.entries, LogEntry{Term:term,Command:command}) // append new entry from client
 		rf.nextIndex[rf.me] = len(rf.entries)
 		rf.matchIndex[rf.me] = len(rf.entries)-1
-		fmt.Printf("[Start] %v receive new log, now entries is %v\n", rf.me, rf.entries)
-		//go rf.heartBeating()
+		//fmt.Printf("[Start] %v receive new log, now entries is %v\n", rf.me, rf.entries)
 	}
 	return index, term, isLeader
 }
@@ -720,7 +710,6 @@ func (rf *Raft) Kill() {
 	atomic.StoreInt32(&rf.dead, 1)
 	rf.timer.Stop()
 	rf.terminated <- true
-	// Your code here, if desired.
 }
 
 func (rf *Raft) killed() bool {
@@ -731,22 +720,6 @@ func (rf *Raft) killed() bool {
 // reset the timmer since a certain leader has been found
 func (rf *Raft) resetTimer(){
 	rf.timer.Reset(rf.generateTimeout()*time.Millisecond)
-}
-
-func (rf *Raft) electionTiming(){
-	waitTime := rand.Intn(2000)+1000
-	for{
-		time.Sleep(time.Duration(50)*time.Millisecond)
-		waitTime -= 50
-		if waitTime <0{
-			rf.mu.Lock()
-			if rf.role == 1 {
-				rf.electionTimeout <- true
-			}
-			rf.mu.Unlock()
-			return
-		}
-	}
 }
 
 func (rf*Raft) generateTimeout() time.Duration{
