@@ -26,8 +26,8 @@ import (
 	"../labrpc"
 )
 
-// import "bytes"
-// import "../labgob"
+import "bytes"
+import "../labgob"
 
 
 
@@ -101,12 +101,14 @@ func (rf *Raft) GetState() (int, bool) {
 func (rf *Raft) persist() {
 	// Your code here (2C).
 	// Example:
-	// w := new(bytes.Buffer)
-	// e := labgob.NewEncoder(w)
-	// e.Encode(rf.xxx)
-	// e.Encode(rf.yyy)
-	// data := w.Bytes()
-	// rf.persister.SaveRaftState(data)
+	w := new(bytes.Buffer)
+	e := labgob.NewEncoder(w)
+
+	e.Encode(rf.term)
+	e.Encode(rf.votedFor)
+	e.Encode(rf.entries)
+	data := w.Bytes()
+	rf.persister.SaveRaftState(data)
 }
 
 
@@ -119,17 +121,21 @@ func (rf *Raft) readPersist(data []byte) {
 	}
 	// Your code here (2C).
 	// Example:
-	// r := bytes.NewBuffer(data)
-	// d := labgob.NewDecoder(r)
-	// var xxx
-	// var yyy
-	// if d.Decode(&xxx) != nil ||
-	//    d.Decode(&yyy) != nil {
-	//   error...
-	// } else {
-	//   rf.xxx = xxx
-	//   rf.yyy = yyy
-	// }
+	r := bytes.NewBuffer(data)
+	d := labgob.NewDecoder(r)
+	var term int
+	var votedFor int
+	var logs []LogEntry
+	if d.Decode(&term) != nil ||
+		d.Decode(&votedFor) != nil ||
+		d.Decode(&logs)!=nil {
+		fmt.Printf("[Error!]: occured when reading from persistence!\n")
+	} else {
+	   rf.term = term
+	   rf.votedFor = votedFor
+	   rf.entries  = logs
+	}
+	//fmt.Printf("[Read from persistence]: %v : term: %v votedFor: %v logs: %v\n", rf.me, rf.term, rf.votedFor, rf.entries)
 }
 
 type LogEntry struct {
@@ -179,6 +185,22 @@ type RequestVoteReply struct {
 	Term int
 	VoteGranted bool
 }
+
+
+type InstallSnapshotArgs struct {
+	Term int
+	LeaderId int
+	LastIncludeIndex int
+	LastIncludeTerm int
+	Offset int
+	Data []LogEntry
+	Done bool
+}
+
+type SnapshotReply struct {
+	Term int
+}
+
 
 
 type FollowerInfo struct {
@@ -306,7 +328,7 @@ func (rf *Raft) transferToFollower(info FollowerInfo){
     //5. go rf.TransitionToFollower(v)异步运行到这里，才设置nextIndex = len(rf.Logs)
 	
 	rf.InitNextIndex()
-    //rf.persist()
+    rf.persist()
     rf.convertToFollowerDone <- true
 
     if info.ShouldResetTimer {
@@ -337,6 +359,8 @@ func (rf *Raft) initialVoting(vote chan bool){
 	term := rf.term + 1
 	rf.term ++
 	rf.votedFor = rf.me
+
+	rf.persist()
 	args := rf.GenerateVoteRequest(term)
 	rf.mu.Unlock()
 
@@ -462,7 +486,7 @@ func (rf *Raft) updateCommit(){
 				cnt ++
 			}
 		}
-		if cnt > rf.total/2{
+		if cnt > rf.total/2 && rf.entries[index].Term == rf.term{
 			tmp := rf.commitIndex
 			rf.commitIndex = index
 			//msg := ApplyMsg{true, rf.entries[rf.commitIndex].Command, rf.commitIndex}
@@ -551,7 +575,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 			}
 			rf.entries = append(rf.entries, logs...)
 			reply.Success = true
-
+			rf.persist()
 			if leaderCommit > rf.commitIndex {
 				pre := rf.commitIndex
 				rf.commitIndex = GetMin(leaderCommit, len(rf.entries)-1)
@@ -690,6 +714,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		rf.entries = append(rf.entries, LogEntry{Term:term,Command:command}) // append new entry from client
 		rf.nextIndex[rf.me] = len(rf.entries)
 		rf.matchIndex[rf.me] = len(rf.entries)-1
+		rf.persist()
 		//fmt.Printf("[Start] %v receive new log, now entries is %v\n", rf.me, rf.entries)
 	}
 	return index, term, isLeader
@@ -709,7 +734,11 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 func (rf *Raft) Kill() {
 	atomic.StoreInt32(&rf.dead, 1)
 	rf.timer.Stop()
+	//close(rf.convertToFollower)
+	//close(rf.convertToFollowerDone)
+	//close(rf.applyCh)
 	rf.terminated <- true
+	//close(rf.terminated)
 }
 
 func (rf *Raft) killed() bool {
@@ -723,7 +752,7 @@ func (rf *Raft) resetTimer(){
 }
 
 func (rf*Raft) generateTimeout() time.Duration{
-	interval := time.Duration(rand.Intn(200)+350)
+	interval := time.Duration(rand.Intn(300)+300)
 	return interval
 }
 
@@ -762,6 +791,10 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.nextIndex = make([]int, rf.total)
 	rf.matchIndex = make([]int, rf.total)
 	rf.applyCh = applyCh
+	
+	// initialize from state persisted before a crash
+	rf.readPersist(persister.ReadRaftState())
+
 	go rf.asFollower()
 
 	// Your initialization code here (2A, 2B, 2C).
@@ -774,8 +807,5 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	// if there is already a leader, or become the leader itself. 
 
 	// Implement the RequestVote() RPC handler so that servers will vote for one another.
-
-	// initialize from state persisted before a crash
-	rf.readPersist(persister.ReadRaftState())
 	return rf
 }
