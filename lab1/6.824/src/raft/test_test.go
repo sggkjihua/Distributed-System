@@ -73,12 +73,14 @@ func TestReElection2A(t *testing.T) {
 	// be elected.
 	cfg.disconnect(leader2)
 	cfg.disconnect((leader2 + 1) % servers)
+	fmt.Printf("Removed %v, %v\n", leader2, (leader2+1)%servers)
 	time.Sleep(2 * RaftElectionTimeout)
 	cfg.checkNoLeader()
 	fmt.Printf("Pass disconnect 2 servers %v, %v, connecting %v back\n", leader2, (leader2+1)%servers, (leader2+1)%servers)
 
 	// if a quorum arises, it should elect a leader.
 	cfg.connect((leader2 + 1) % servers)
+	fmt.Printf("Connected %v back\n", (leader2+1)%servers)
 	cfg.checkOneLeader()
 	fmt.Printf("Pass connect one servers %v\n", (leader2+1)%servers)
 
@@ -219,6 +221,7 @@ func TestFailNoAgree2B(t *testing.T) {
 	// the disconnected majority may have chosen a leader from
 	// among their own ranks, forgetting index 2.
 	leader2 := cfg.checkOneLeader()
+	//fmt.Printf("Leader2 has been picked up to be: %v\n",leader2)
 	index2, _, ok2 := cfg.rafts[leader2].Start(30)
 	if ok2 == false {
 		t.Fatalf("leader2 rejected Start()")
@@ -226,7 +229,6 @@ func TestFailNoAgree2B(t *testing.T) {
 	if index2 < 2 || index2 > 3 {
 		t.Fatalf("unexpected index %v", index2)
 	}
-
 	cfg.one(1000, servers, true)
 
 	cfg.end()
@@ -342,30 +344,38 @@ func TestRejoin2B(t *testing.T) {
 
 	cfg.one(101, servers, true)
 
+	// 这里基本不会有问题，3个选一个leader出来并且进行vote
 	// leader network failure
 	leader1 := cfg.checkOneLeader()
 	cfg.disconnect(leader1)
 
 	// make old leader try to agree on some entries
+	// leader 突然间傻了，但是还是有很多command这时候找到leader,3个
 	cfg.rafts[leader1].Start(102)
 	cfg.rafts[leader1].Start(103)
 	cfg.rafts[leader1].Start(104)
 
+	// 两个之间又要重新选出leader，兵器有一个commit为index = 2
 	// new leader commits, also for index=2
 	cfg.one(103, 2, true)
 
 	// new leader network failure
 	leader2 := cfg.checkOneLeader()
 	cfg.disconnect(leader2)
+	// leader 2此时也diconnect了
 
 	// old leader connected again
+	// 把leader 1 添加回来，但此时1里面的log有4个，index=1是符合的，但是后面的102， 103， 104不满足
+	// 而此时里面的应该是 103，但是term要高一点，所以还是选择当前的这个term,所以应该是101 103才对
 	cfg.connect(leader1)
 
 	cfg.one(104, 2, true)
+	// 此时应该为101 103 104
 
 	// all together now
 	cfg.connect(leader2)
 
+	// 101 103 104 105 miss掉了102
 	cfg.one(105, servers, true)
 
 	cfg.end()
@@ -386,22 +396,27 @@ func TestBackup2B(t *testing.T) {
 	cfg.disconnect((leader1 + 3) % servers)
 	cfg.disconnect((leader1 + 4) % servers)
 
+	fmt.Printf("Disconnected %v %v %v\n",(leader1 + 2) % servers,(leader1 + 3) % servers,(leader1 + 4) % servers )
 	// submit lots of commands that won't commit
 	for i := 0; i < 50; i++ {
 		cfg.rafts[leader1].Start(rand.Int())
 	}
+	// 此时是50个没有commit的记录
 
 	time.Sleep(RaftElectionTimeout / 2)
 
 	cfg.disconnect((leader1 + 0) % servers)
 	cfg.disconnect((leader1 + 1) % servers)
 
+	fmt.Printf("Disconnected %v %v namely All \n",(leader1 + 0) % servers,(leader1 + 1) % servers )
 	// allow other partition to recover
 	cfg.connect((leader1 + 2) % servers)
 	cfg.connect((leader1 + 3) % servers)
 	cfg.connect((leader1 + 4) % servers)
+	fmt.Printf("Connected back %v %v %v \n",(leader1 + 2) % servers,(leader1 + 3) % servers,(leader1 + 4) % servers )
 
 	// lots of successful commands to new group.
+	// 另外三个新增了50条新的记录并且commit
 	for i := 0; i < 50; i++ {
 		cfg.one(rand.Int(), 3, true)
 	}
@@ -412,12 +427,16 @@ func TestBackup2B(t *testing.T) {
 	if leader2 == other {
 		other = (leader2 + 1) % servers
 	}
+	// 断掉了非leader的那个，此时还剩下2两个51记录的
 	cfg.disconnect(other)
+	fmt.Printf("Disconnected %v \n",other)
 
 	// lots more commands that won't commit
 	for i := 0; i < 50; i++ {
 		cfg.rafts[leader2].Start(rand.Int())
 	}
+	// 再次新增50条记录并且不能commit
+	// other那个现在已经落后了50个记录
 
 	time.Sleep(RaftElectionTimeout / 2)
 
@@ -425,14 +444,24 @@ func TestBackup2B(t *testing.T) {
 	for i := 0; i < servers; i++ {
 		cfg.disconnect(i)
 	}
+	// 断掉所有的连接
+
+	fmt.Printf("Disconnected All %v \n",other)
+
+	// 把只有一个记录的前两个弄回来，还有51个记录的other，此时应该是other被选作领导
+	// 一开始应该是把51作为next发过去，此时都发现比自己的大，那么短时间内应该把冲突的index发过去，
 	cfg.connect((leader1 + 0) % servers)
 	cfg.connect((leader1 + 1) % servers)
 	cfg.connect(other)
+	fmt.Printf("Connecting back... %v %v %v \n",(leader1 + 0) % servers,(leader1 + 1) % servers,other)
 
 	// lots of successful commands to new group.
 	for i := 0; i < 50; i++ {
 		cfg.one(rand.Int(), 3, true)
 	}
+
+	fmt.Printf("Passed 50 more new  \n")
+
 
 	// now everyone
 	for i := 0; i < servers; i++ {
