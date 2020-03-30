@@ -1,13 +1,20 @@
 package kvraft
 
-import "../labrpc"
-import "crypto/rand"
-import "math/big"
+import (
+	"time"
+	
+	"fmt"
+	"../labrpc"
+	"crypto/rand"
+	"math/big"
+)
 
 
 type Clerk struct {
 	servers []*labrpc.ClientEnd
 	// You will have to modify this struct.
+	requestId int
+
 }
 
 func nrand() int64 {
@@ -37,9 +44,27 @@ func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 // arguments. and reply must be passed as a pointer.
 //
 func (ck *Clerk) Get(key string) string {
-
+	val := ""
+	args := GetArgs{Key:key}
+	for i:=0;i<len(ck.servers);i++ {
+		reply := GetReply{}
+		ok := ck.servers[i].Call("KVServer.Get", &args, &reply)
+		if ok {
+			if reply.Err != "" {
+				return ""
+			}
+			if val == ""{
+				val = reply.Value
+			}else{
+				if val != reply.Value {
+					fmt.Printf("[GetK] Got inconsistent result, reject it\n")
+					return ""
+				}
+			}
+		}
+	}
 	// You will have to modify this function.
-	return ""
+	return val
 }
 
 //
@@ -54,6 +79,21 @@ func (ck *Clerk) Get(key string) string {
 //
 func (ck *Clerk) PutAppend(key string, value string, op string) {
 	// You will have to modify this function.
+	ck.requestId ++
+	args := PutAppendArgs{Op:op, Key:key, Value:value, Id: ck.requestId}
+	for {
+		for i:=0;i<len(ck.servers);i++ {
+			reply := PutAppendReply{}
+			ok := ck.servers[i].Call("KVServer.PutAppend", &args, &reply)
+			if ok {
+				if reply.Err == "" {
+					fmt.Printf("[PutA] Command %v has been successfully commited\n", args)
+					return
+				}
+			}
+		}
+		time.Sleep(10*time.Millisecond)
+	}
 }
 
 func (ck *Clerk) Put(key string, value string) {
