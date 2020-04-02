@@ -79,6 +79,9 @@ type Raft struct {
 	lastApplied int
 	nextIndex []int
 	matchIndex []int
+
+	muCommit sync.Mutex          // Lock to protect shared access to this peer's state
+
 }
 
 // return currentTerm and whether this server
@@ -477,8 +480,8 @@ func (rf *Raft) updateCommit(){
 	if rf.commitIndex == len(rf.entries)-1{
 		return
 	}
-	rf.mu.Lock()
-	defer rf.mu.Unlock()
+	rf.muCommit.Lock()
+	defer rf.muCommit.Unlock()
 	for index:=len(rf.entries)-1;index>rf.commitIndex;index--{
 		cnt := 0
 		for _, otherCommit := range rf.matchIndex{
@@ -493,6 +496,8 @@ func (rf *Raft) updateCommit(){
 			go func(){
 				//rf.mu.Lock()
 				//defer rf.mu.Unlock()
+				rf.muCommit.Lock()
+				defer rf.muCommit.Unlock()
 				for i:= rf.lastApplied+1; i<=rf.commitIndex;i++{
 					msg := ApplyMsg{true, rf.entries[i].Command, i}
 					rf.applyCh <- msg
@@ -581,8 +586,11 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 				rf.commitIndex = GetMin(leaderCommit, len(rf.entries)-1)
 				if rf.commitIndex > pre{
 					go func(){
-						rf.mu.Lock()
-						defer rf.mu.Unlock()
+						//rf.mu.Lock()
+						//defer rf.mu.Unlock()
+						rf.muCommit.Lock()
+						defer rf.muCommit.Unlock()
+
 						for index:= rf.lastApplied+1; index<=rf.commitIndex;index++{
 							msg := ApplyMsg{true, rf.entries[index].Command, index}
 							rf.applyCh <- msg
@@ -715,7 +723,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		rf.nextIndex[rf.me] = len(rf.entries)
 		rf.matchIndex[rf.me] = len(rf.entries)-1
 		rf.persist()
-		//fmt.Printf("[Start] %v receive new log, now entries is %v\n", rf.me, rf.entries)
+		//t.Printf("[Start] %v receive new log, now entries is %v\n", rf.me, rf.entries)
 	}
 	return index, term, isLeader
 }
@@ -792,6 +800,7 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.matchIndex = make([]int, rf.total)
 	rf.applyCh = applyCh
 	
+	rf.muCommit = sync.Mutex{}
 	// initialize from state persisted before a crash
 	rf.readPersist(persister.ReadRaftState())
 
