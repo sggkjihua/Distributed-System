@@ -1,7 +1,7 @@
 package kvraft
 
 import (
-	//"time"
+	"time"
 	"fmt"
 	"../labgob"
 	"../labrpc"
@@ -28,7 +28,8 @@ type Op struct{
 	Operation string
 	Key string
 	Val string
-	Id int
+	Seq int
+	Cid int64
 }
 
 
@@ -46,61 +47,82 @@ type KVServer struct {
 	kvMap map[string] string
 
 	processed map[int] bool
+	processedFromClient map[int] bool
 
+
+	seqOfClient map[int64]int
+	logEntryIndex map[int] Op
 	finished chan bool
+
+	seq int
 }
 
 
 func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
 	// Your code here.
-	key := args.Key
-	v, ok := kv.kvMap[key]
-	if ok {
-		reply.Value = v
-	}
-}
 
-func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
-	// Your code here.
+	command := Op{Operation:"Get" , Key:args.Key, Seq: args.Seq, Cid:args.Cid}
+	/*
 	_, isLeader := kv.rf.GetState()
-	Id := args.Id
-	val, ok := kv.processed[Id]
-	if ok && val {
-		// request as been processed, no need to do that again
-		// so simply return
-		return
+	if isLeader{
+		reply.IsLeader = true
+		reply.Value = kv.kvMap[args.Key]
+	}else{
+		reply.IsLeader = false
 	}
-	// is currently processing, but not yet finished
-	kv.processed[Id] = false
+	return
+	*/
+	
+	
+	_, _, isLeader := kv.rf.Start(command)
+	// start 递交上去的command不应该有重复的sequence
 	if ! isLeader {
+		reply.IsLeader = false
 		reply.Err = "Not leader, try other server"
 		return
 	}
-
-	// generate the command and publish to the leader
-
-	command := Op{Operation:args.Op , Key:args.Key, Val:args.Value, Id: args.Id}
-
-	kv.rf.Start(command)
-	// once the leader has started processing this log
-	kv.processed[Id] = true
-	//timer := time.NewTimer(time.Duration(5*time.Second))
-	for{
-		select{
-		/*case <- timer.C:
-			reply.Err = "Time out, resend command"
-			delete(kv.processed, Id)
-			timer.Stop()
-			return
-			*/
-		case  <- kv.finished:
-			//timer.Stop()
-			//fmt.Printf("%v receive a commitment %v Leader status: %v\n",kv.me, commitment, isLeader)
-			//kv.handleCommitment(commitment.Command)
-			return
-
-		}
+	select{
+		// leader should wait until it get the result
+		// should we set a timer here?
+	case  <- kv.finished:
+		reply.IsLeader = true
+		reply.Value = kv.kvMap[args.Key]
+		return
+	case <- time.After(time.Duration(600)*time.Millisecond):
+		reply.IsLeader = false
+		return
 	}
+}
+
+
+func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
+	// 这个方法也有缺陷，如果是中间有个leader直接成功了，那么其他的server并不会有这个op在map里面
+	// 因此在真正implement的时候，会忽略这个问题
+
+	// Your code here.
+	op := Op{Operation:args.Op , Key:args.Key, Val:args.Value, Seq: args.Seq, Cid:args.Cid}
+	index, _, isLeader := kv.rf.Start(op)
+	// start 递交上去的command不应该有重复的sequence
+	if ! isLeader {
+		reply.IsLeader = false
+		reply.Err = "Not leader, try other server"
+		return
+	}
+	kv.logEntryIndex[index] = op
+	// index, term, isLeader := kv.rf.Start(command)
+	//kv.rf.Start(command)
+
+	select{
+		// leader should wait until it get the result
+		// should we set a timer here?
+	case  <- kv.finished:
+		reply.IsLeader = true
+		return
+	case <- time.After(time.Duration(600)*time.Millisecond):
+		reply.IsLeader = false
+		return
+	}
+
 	//fmt.Printf("Index: %v Term: %v IsLeader: %v\n", index, term, isLeader)
 }
 
@@ -126,24 +148,53 @@ func (kv *KVServer) killed() bool {
 }
 
 
-func (kv *KVServer) handleCommitment(command interface{}){
+func (kv *KVServer) handleCommitment(commit raft.ApplyMsg){
+	kv.mu.Lock()
+	defer kv.mu.Unlock()
+	command := commit.Command
+	index := commit.CommandIndex
+
 	op, ok := command.(Op)
 	if !ok {
+		// transformation failed, normally will not have this issue
 		return
 	}
-	Operation := op.Operation
-	Key := op.Key
-	Value := op.Val
-	if Operation == "Put" {
-		kv.kvMap[Key] = Value
-	}else if Operation == "Append" {
-		var original string
-		if val, ok := kv.kvMap[Key]; ok {
-			original = val
-		}
-		kv.kvMap[Key] = original+Value
+
+	// get the Seq and Cid from the commitment
+	Seq := op.Seq
+	Cid := op.Cid
+	val, exists := kv.seqOfClient[Cid]
+
+	// if commitment has not been applied before
+	// or the command for this client and seq is not the same
+	//fmt.Printf("%v ------ %v\n", op, kv.commandMap[Cid][Seq])
+	less := !exists || val<Seq
+	match := false
+	_, contains := kv.logEntryIndex[index]
+	if contains {
+		match = kv.logEntryIndex[index] == op
 	}
-	fmt.Printf("%v map[%v]=%v\n", kv.me, Key, kv.kvMap[Key])
+	if less || !match {
+		Operation := op.Operation
+		Key := op.Key
+		Value := op.Val
+		if Operation == "Put" {
+			kv.kvMap[Key] = Value
+		}else if Operation == "Append" {
+			var original string
+			if val, ok := kv.kvMap[Key]; ok {
+				original = val
+			}
+			kv.kvMap[Key] = original+Value
+		}else if Operation == "Get" {
+			fmt.Printf("Get command %v has been processed\n", command)
+		}
+		// update the maxSeq for this client ID after all has been done
+		kv.seqOfClient[Cid] = Seq
+	}else{
+		fmt.Printf("Ignore operation %v\n", command)
+	}
+
 	if _, isLeader := kv.rf.GetState(); isLeader{
 		kv.finished <- true
 	}
@@ -151,12 +202,9 @@ func (kv *KVServer) handleCommitment(command interface{}){
 
 
 func (kv *KVServer) listenForCommitment() {
-	for {
-		select{
-		case commit := <- kv.applyCh:
-			fmt.Printf("%v receive a commitment %v\n", kv.me, commit)
-			kv.handleCommitment(commit.Command)
-		}
+	for commit := range kv.applyCh {
+		fmt.Printf("%v receive a commitment %v\n", kv.me, commit)
+		kv.handleCommitment(commit)
 	}
 }
 
@@ -189,11 +237,15 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	kv.applyCh = make(chan raft.ApplyMsg)
 	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
 
+	kv.mu =  sync.Mutex{}
 	// You may need initialization code here.
 
 	kv.kvMap = make(map[string]string)
+	kv.seqOfClient = make(map[int64]int)
 	kv.processed = make(map[int]bool)
-	kv.finished = make(chan bool, 100)
+	kv.processedFromClient = make(map[int]bool)
+	kv.finished = make(chan bool, 1)
+	kv.logEntryIndex = make(map[int]Op)
 	go kv.listenForCommitment()
 
 	return kv
