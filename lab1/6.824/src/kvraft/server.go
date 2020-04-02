@@ -46,47 +46,51 @@ type KVServer struct {
 
 	kvMap map[string] string
 
-	processed map[int] bool
-	processedFromClient map[int] bool
-
-
 	seqOfClient map[int64]int
-	logEntryIndex map[int] Op
-	finished chan bool
+	dispatcher map[int] chan Notification
+}
 
-	seq int
+type Notification struct{
+	Cid int64
+	Seq int
 }
 
 
 func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
 	// Your code here.
 
-	command := Op{Operation:"Get" , Key:args.Key, Seq: args.Seq, Cid:args.Cid}
-	/*
-	_, isLeader := kv.rf.GetState()
-	if isLeader{
-		reply.IsLeader = true
-		reply.Value = kv.kvMap[args.Key]
-	}else{
-		reply.IsLeader = false
-	}
-	return
-	*/
-	
-	
-	_, _, isLeader := kv.rf.Start(command)
+	op := Op{Operation:"Get" , Key:args.Key, Seq: args.Seq, Cid:args.Cid}
+
+	index, _, isLeader := kv.rf.Start(op)
+
 	// start 递交上去的command不应该有重复的sequence
 	if ! isLeader {
 		reply.IsLeader = false
 		reply.Err = "Not leader, try other server"
 		return
 	}
+
+	kv.mu.Lock()
+	if _, ok := kv.dispatcher[index]; !ok {
+		kv.dispatcher[index] = make(chan Notification, 1)
+	}
+	ch := kv.dispatcher[index]
+	kv.mu.Unlock()
+
 	select{
 		// leader should wait until it get the result
 		// should we set a timer here?
-	case  <- kv.finished:
-		reply.IsLeader = true
-		reply.Value = kv.kvMap[args.Key]
+	case  notification := <- ch :
+		// as required, all previous operation should reveal on the get request
+		kv.mu.Lock()
+		delete(kv.dispatcher, index)
+		kv.mu.Unlock()
+		if notification.Seq == op.Seq && notification.Cid == op.Cid {
+			reply.IsLeader = true
+			reply.Value = kv.kvMap[args.Key]
+		}else{
+			reply.IsLeader = false
+		}
 		return
 	case <- time.After(time.Duration(600)*time.Millisecond):
 		reply.IsLeader = false
@@ -108,15 +112,26 @@ func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 		reply.Err = "Not leader, try other server"
 		return
 	}
-	kv.logEntryIndex[index] = op
-	// index, term, isLeader := kv.rf.Start(command)
-	//kv.rf.Start(command)
 
+	kv.mu.Lock()
+	if _, ok := kv.dispatcher[index]; !ok {
+		kv.dispatcher[index] = make(chan Notification, 1)
+	}
+	ch := kv.dispatcher[index]
+	kv.mu.Unlock()
 	select{
 		// leader should wait until it get the result
 		// should we set a timer here?
-	case  <- kv.finished:
-		reply.IsLeader = true
+	case  notification := <- ch:
+		kv.mu.Lock()
+		delete(kv.dispatcher, index)
+		kv.mu.Unlock()
+
+		if notification.Seq == op.Seq && notification.Cid == op.Cid {
+			reply.IsLeader = true
+		}else{
+			reply.IsLeader = false
+		}
 		return
 	case <- time.After(time.Duration(600)*time.Millisecond):
 		reply.IsLeader = false
@@ -149,10 +164,7 @@ func (kv *KVServer) killed() bool {
 
 
 func (kv *KVServer) handleCommitment(commit raft.ApplyMsg){
-	kv.mu.Lock()
-	defer kv.mu.Unlock()
 	command := commit.Command
-	index := commit.CommandIndex
 
 	op, ok := command.(Op)
 	if !ok {
@@ -163,40 +175,31 @@ func (kv *KVServer) handleCommitment(commit raft.ApplyMsg){
 	// get the Seq and Cid from the commitment
 	Seq := op.Seq
 	Cid := op.Cid
+	kv.mu.Lock()
 	val, exists := kv.seqOfClient[Cid]
-
-	// if commitment has not been applied before
-	// or the command for this client and seq is not the same
-	//fmt.Printf("%v ------ %v\n", op, kv.commandMap[Cid][Seq])
-	less := !exists || val<Seq
-	match := false
-	_, contains := kv.logEntryIndex[index]
-	if contains {
-		match = kv.logEntryIndex[index] == op
-	}
-	if less || !match {
+	
+	if !exists || val<Seq {
 		Operation := op.Operation
 		Key := op.Key
 		Value := op.Val
 		if Operation == "Put" {
 			kv.kvMap[Key] = Value
 		}else if Operation == "Append" {
-			var original string
-			if val, ok := kv.kvMap[Key]; ok {
-				original = val
-			}
-			kv.kvMap[Key] = original+Value
+			kv.kvMap[Key] += Value
 		}else if Operation == "Get" {
 			fmt.Printf("Get command %v has been processed\n", command)
 		}
 		// update the maxSeq for this client ID after all has been done
 		kv.seqOfClient[Cid] = Seq
-	}else{
-		fmt.Printf("Ignore operation %v\n", command)
 	}
-
-	if _, isLeader := kv.rf.GetState(); isLeader{
-		kv.finished <- true
+	kv.mu.Unlock()
+	ch, ok := kv.dispatcher[commit.CommandIndex]
+	if ok{
+		notify := Notification{
+			Cid:  op.Cid,
+			Seq: op.Seq,
+		}
+		ch <- notify
 	}
 }
 
@@ -242,10 +245,7 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 
 	kv.kvMap = make(map[string]string)
 	kv.seqOfClient = make(map[int64]int)
-	kv.processed = make(map[int]bool)
-	kv.processedFromClient = make(map[int]bool)
-	kv.finished = make(chan bool, 1)
-	kv.logEntryIndex = make(map[int]Op)
+	kv.dispatcher = make(map[int]chan Notification)
 	go kv.listenForCommitment()
 
 	return kv

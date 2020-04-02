@@ -213,7 +213,6 @@ func GenericTest(t *testing.T, part string, nclients int, unreliable bool, crash
 				} else {
 					// log.Printf("%d: client new get %v\n", cli, key)
 					v := Get(cfg, myck, key)
-					fmt.Printf("Get: %v , Expected: %v\n", v, last)
 					if v != last {
 						log.Fatalf("get wrong value, key %v, wanted:\n%v\n, got\n%v\n", key, last, v)
 					}
@@ -446,17 +445,17 @@ func GenericTestLinearizability(t *testing.T, part string, nclients int, nserver
 	}
 }
 
-func TestBasic3C(t *testing.T) {
+func TestBasic3A(t *testing.T) {
 	// Test: one client (3A) ...
 	GenericTest(t, "3A", 1, false, false, false, -1)
 }
 
-func TestConcurrent3C(t *testing.T) {
+func TestConcurrent3A(t *testing.T) {
 	// Test: many clients (3A) ...
 	GenericTest(t, "3A", 5, false, false, false, -1)
 }
 
-func TestUnreliable3D(t *testing.T) {
+func TestUnreliable3A(t *testing.T) {
 	// Test: unreliable net, many clients (3A) ...
 	GenericTest(t, "3A", 5, true, false, false, -1)
 }
