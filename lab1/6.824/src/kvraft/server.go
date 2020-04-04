@@ -1,6 +1,8 @@
 package kvraft
 
 import (
+	"encoding/gob"
+	"bytes"
 	"time"
 	"fmt"
 	"../labgob"
@@ -48,6 +50,7 @@ type KVServer struct {
 
 	seqOfClient map[int64]int
 	dispatcher map[int] chan Notification
+	persister *raft.Persister
 }
 
 type Notification struct{
@@ -100,14 +103,11 @@ func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
 
 
 func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
-	// 这个方法也有缺陷，如果是中间有个leader直接成功了，那么其他的server并不会有这个op在map里面
-	// 因此在真正implement的时候，会忽略这个问题
-
 	// Your code here.
 	op := Op{Operation:args.Op , Key:args.Key, Val:args.Value, Seq: args.Seq, Cid:args.Cid}
 	index, _, isLeader := kv.rf.Start(op)
 	// start 递交上去的command不应该有重复的sequence
-	if ! isLeader {
+	if !isLeader {
 		reply.IsLeader = false
 		reply.Err = "Not leader, try other server"
 		return
@@ -137,8 +137,6 @@ func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 		reply.IsLeader = false
 		return
 	}
-
-	//fmt.Printf("Index: %v Term: %v IsLeader: %v\n", index, term, isLeader)
 }
 
 //
@@ -177,7 +175,7 @@ func (kv *KVServer) handleCommitment(commit raft.ApplyMsg){
 	Cid := op.Cid
 	kv.mu.Lock()
 	val, exists := kv.seqOfClient[Cid]
-	
+
 	if !exists || val<Seq {
 		Operation := op.Operation
 		Key := op.Key
@@ -203,14 +201,67 @@ func (kv *KVServer) handleCommitment(commit raft.ApplyMsg){
 	}
 }
 
+func (kv *KVServer) decodeSnapshot(commit raft.ApplyMsg) {
+	data := commit.Data
+	if data == nil || len(data) < 1 { // bootstrap without any state?
+		return
+	}
 
-func (kv *KVServer) listenForCommitment() {
-	for commit := range kv.applyCh {
-		fmt.Printf("%v receive a commitment %v\n", kv.me, commit)
-		kv.handleCommitment(commit)
+	r := bytes.NewBuffer(data)
+	d := labgob.NewDecoder(r)
+	var kvMap map[string]string
+	var seqOfClient map[int64]int
+	if d.Decode(&seqOfClient) != nil ||
+		d.Decode(&kvMap) != nil {
+		fmt.Printf("[Error!]: occured when reading Snapshotfrom persistence!\n")
+	}else{
+		kv.kvMap = kvMap
+		kv.seqOfClient = seqOfClient
 	}
 }
 
+
+func (kv *KVServer) listenForCommitment() {
+	for commit := range kv.applyCh {
+
+		fmt.Printf("%v receive a commitment %v\n", kv.me, commit)
+		// for log compact logic
+		if commit.CommandValid {
+			kv.handleCommitment(commit)
+		}else {
+			kv.decodeSnapshot(commit)
+		}
+	}
+}
+
+
+func (kv *KVServer) checkSnapShot(commit raft.ApplyMsg){
+	if kv.maxraftstate == -1{
+		return
+	}
+	if kv.persister.RaftStateSize() < kv.maxraftstate*9/10 {
+		// when not exceed
+		return
+	}
+	commitedIndex := commit.CommandIndex
+	data := kv.encodeSnapshot()
+	go 	kv.rf.TakeSnapShot(commitedIndex, data)
+
+	
+}
+
+
+func (kv *KVServer) encodeSnapshot() []byte {
+    w := new(bytes.Buffer)
+    e := gob.NewEncoder(w)
+    if err := e.Encode(kv.seqOfClient); err != nil {
+        panic(fmt.Errorf("encode seqOfClient fail: %v", err))
+    }
+    if err := e.Encode(kv.kvMap); err != nil {
+        panic(fmt.Errorf("encode kvMap fail: %v", err))
+    }
+    return w.Bytes()
+}
 
 //
 // servers[] contains the ports of the set of
@@ -239,7 +290,7 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 
 	kv.applyCh = make(chan raft.ApplyMsg)
 	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
-
+	kv.persister = persister
 	kv.mu =  sync.Mutex{}
 	// You may need initialization code here.
 
