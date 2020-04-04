@@ -202,15 +202,19 @@ func (kv *KVServer) handleCommitment(commit raft.ApplyMsg){
 }
 
 func (kv *KVServer) decodeSnapshot(commit raft.ApplyMsg) {
+	kv.mu.Lock()
+	defer kv.mu.Unlock()
 	data := commit.Data
+
 	if data == nil || len(data) < 1 { // bootstrap without any state?
 		return
 	}
-
 	r := bytes.NewBuffer(data)
 	d := labgob.NewDecoder(r)
 	var kvMap map[string]string
 	var seqOfClient map[int64]int
+	fmt.Printf("%v before kvMap: %v\n",kv.me, kv.kvMap)
+
 	if d.Decode(&seqOfClient) != nil ||
 		d.Decode(&kvMap) != nil {
 		fmt.Printf("[Error!]: occured when reading Snapshotfrom persistence!\n")
@@ -218,17 +222,22 @@ func (kv *KVServer) decodeSnapshot(commit raft.ApplyMsg) {
 		kv.kvMap = kvMap
 		kv.seqOfClient = seqOfClient
 	}
+	fmt.Printf("%v after kvMap: %v\n",kv.me, kv.kvMap)
+
 }
 
 
 func (kv *KVServer) listenForCommitment() {
 	for commit := range kv.applyCh {
-
-		fmt.Printf("%v receive a commitment %v\n", kv.me, commit)
 		// for log compact logic
 		if commit.CommandValid {
+			fmt.Printf("%v receive a commitment %v\n", kv.me, commit)
+
 			kv.handleCommitment(commit)
+			kv.checkSnapShot(commit)
 		}else {
+			fmt.Printf("%v receive a snapShot\n", kv.me)
+
 			kv.decodeSnapshot(commit)
 		}
 	}
@@ -236,13 +245,18 @@ func (kv *KVServer) listenForCommitment() {
 
 
 func (kv *KVServer) checkSnapShot(commit raft.ApplyMsg){
+	kv.mu.Lock()
+	defer kv.mu.Unlock()
 	if kv.maxraftstate == -1{
 		return
 	}
+	//fmt.Printf("RaftStateSize %v, Max: %v \n", kv.persister.RaftStateSize(), kv.maxraftstate)
+
 	if kv.persister.RaftStateSize() < kv.maxraftstate*9/10 {
 		// when not exceed
 		return
 	}
+	fmt.Printf("%v will need to compact, kvMap:%v \n", kv.me, kv.kvMap)
 	commitedIndex := commit.CommandIndex
 	data := kv.encodeSnapshot()
 	go 	kv.rf.TakeSnapShot(commitedIndex, data)
