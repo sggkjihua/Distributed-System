@@ -237,7 +237,6 @@ func (kv *KVServer) listenForCommitment() {
 			kv.checkSnapShot(commit)
 		}else {
 			fmt.Printf("%v receive a snapShot\n", kv.me)
-
 			kv.decodeSnapshot(commit)
 		}
 	}
@@ -257,11 +256,11 @@ func (kv *KVServer) checkSnapShot(commit raft.ApplyMsg){
 		return
 	}
 	fmt.Printf("%v will need to compact, kvMap:%v \n", kv.me, kv.kvMap)
+	// taking the index of the current commit as the lastIncludedIndex
 	commitedIndex := commit.CommandIndex
+	term := commit.CommandTerm
 	data := kv.encodeSnapshot()
-	go 	kv.rf.TakeSnapShot(commitedIndex, data)
-
-	
+	go 	kv.rf.TakeSnapShot(commitedIndex, term, data)
 }
 
 
