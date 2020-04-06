@@ -605,9 +605,9 @@ func (rf *Raft) updateCommit(){
 			tmp := rf.commitIndex
 			rf.commitIndex = index + baseIndex
 			//msg := ApplyMsg{true, rf.entries[rf.commitIndex].Command, rf.commitIndex}
-			go func(){
-				rf.mu.Lock()
-				defer rf.mu.Unlock()
+			//go func(){
+				//rf.mu.Lock()
+				//defer rf.mu.Unlock()
 				//rf.muCommit.Lock()
 				//defer rf.muCommit.Unlock()
 				for i:= rf.lastApplied+1; i<=rf.commitIndex;i++{
@@ -616,7 +616,7 @@ func (rf *Raft) updateCommit(){
 					//fmt.Printf("me:%d %v\n",rf.me,msg)
 					rf.lastApplied = index+baseIndex
 				}
-			}()
+			//}()
 			fmt.Printf("[Update Commit Index] %v update its commit index from %v to %v\n", rf.me, tmp, rf.commitIndex)
 			return
 		}
@@ -746,9 +746,9 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 				pre := rf.commitIndex
 				rf.commitIndex = GetMin(leaderCommit, baseIndex + len(rf.entries)-1)
 				if rf.commitIndex > pre{
-					go func(){
-						rf.mu.Lock()
-						defer rf.mu.Unlock()
+					//go func(){
+					//	rf.mu.Lock()
+					//	defer rf.mu.Unlock()
 						//rf.muCommit.Lock()
 						//defer rf.muCommit.Unlock()
 						for index:= rf.lastApplied+1; index<=rf.commitIndex;index++{
@@ -757,7 +757,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 							rf.applyCh <- msg
 							rf.lastApplied = index
 						}
-					}()
+					//}()
 				}
 				//fmt.Printf("%v update its commit index from %v to %v entries %v\n", rf.me, pre, rf.commitIndex, rf.entries)
 			}
