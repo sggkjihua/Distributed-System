@@ -251,7 +251,7 @@ func (kv *KVServer) checkSnapShot(commit raft.ApplyMsg){
 	}
 	//fmt.Printf("RaftStateSize %v, Max: %v \n", kv.persister.RaftStateSize(), kv.maxraftstate)
 
-	if kv.persister.RaftStateSize() < kv.maxraftstate*9/10 {
+	if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 {
 		// when not exceed
 		return
 	}

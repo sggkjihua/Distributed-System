@@ -616,7 +616,7 @@ func TestPersistPartitionUnreliableLinearizable3A(t *testing.T) {
 // also checks that majority discards committed log entries
 // even if minority doesn't respond.
 //
-func TestSnapshotRPC3Z(t *testing.T) {
+func TestSnapshotRPC3C(t *testing.T) {
 	const nservers = 3
 	maxraftstate := 1000
 	cfg := make_config(t, nservers, false, maxraftstate)
@@ -708,32 +708,32 @@ func TestSnapshotSize3B(t *testing.T) {
 	cfg.end()
 }
 
-func TestSnapshotRecover3Z(t *testing.T) {
+func TestSnapshotRecover3C(t *testing.T) {
 	// Test: restarts, snapshots, one client (3B) ...
 	GenericTest(t, "3B", 1, false, true, false, 1000)
 }
 
-func TestSnapshotRecoverManyClients3D(t *testing.T) {
+func TestSnapshotRecoverManyClients3C(t *testing.T) {
 	// Test: restarts, snapshots, many clients (3B) ...
 	GenericTest(t, "3B", 20, false, true, false, 1000)
 }
 
 func TestSnapshotUnreliable3C(t *testing.T) {
 	// Test: unreliable net, snapshots, many clients (3B) ...
-	GenericTest(t, "3B", 2, true, false, false, 1000)
+	GenericTest(t, "3B", 5, true, false, false, 1000)
 }
 
-func TestSnapshotUnreliableRecover3B(t *testing.T) {
+func TestSnapshotUnreliableRecover3C(t *testing.T) {
 	// Test: unreliable net, restarts, snapshots, many clients (3B) ...
 	GenericTest(t, "3B", 5, true, true, false, 1000)
 }
 
-func TestSnapshotUnreliableRecoverConcurrentPartition3B(t *testing.T) {
+func TestSnapshotUnreliableRecoverConcurrentPartition3C(t *testing.T) {
 	// Test: unreliable net, restarts, partitions, snapshots, many clients (3B) ...
 	GenericTest(t, "3B", 5, true, true, true, 1000)
 }
 
-func TestSnapshotUnreliableRecoverConcurrentPartitionLinearizable3B(t *testing.T) {
+func TestSnapshotUnreliableRecoverConcurrentPartitionLinearizable3D(t *testing.T) {
 	// Test: unreliable net, restarts, partitions, snapshots, linearizability checks (3B) ...
 	GenericTestLinearizability(t, "3B", 15, 7, true, true, true, 1000)
 }

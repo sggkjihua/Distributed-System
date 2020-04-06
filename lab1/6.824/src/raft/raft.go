@@ -476,16 +476,17 @@ func WinMajority(voted []bool) bool {
 
 
 func (rf *Raft) GenerateVoteRequest(term int) RequestVoteArgs{
+	baseIndex := rf.lastIncludedIndex
 	args := RequestVoteArgs{}
 	args.Term = term
 	args.CandidateId = rf.me
-	args.LastLogIndex = len(rf.entries)-1
+	args.LastLogIndex = len(rf.entries)-1+baseIndex
 	args.LastLogTerm = func(index int) int{
 		if index>=0 {
 			return rf.entries[index].Term
 		}
 		return 0
-	}(args.LastLogIndex)
+	}(args.LastLogIndex-baseIndex)
 	return args
 } 
 
@@ -741,8 +742,10 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 			fmt.Printf("[Handle Conflict]%v conflict index is %v, my entries:%v and logs from leader %v\n", rf.me, reply.ConflictIndex, rf.entries, logs)
 		}else if ahead{
 			reply.Success = false
+			//rf.entries = append([]LogEntry{}, LogEntry{Term:rf.lastIncludedTerm})
 			//lastIndex := rf.handleConflict()
-			reply.ConflictIndex = baseIndex+1
+			reply.ConflictIndex = GetMax(baseIndex, rf.lastApplied)+1
+			//fmt.Printf("[Ahead] %v my entries:%v, my index: %v , and leaders index: %v, leaders logs: %v\n",rf.me, rf.entries,)
 
 		}else{
 			if len(rf.entries)-1+baseIndex != prevLogIndex {
@@ -757,7 +760,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 				rf.commitIndex = GetMin(leaderCommit, baseIndex + len(rf.entries)-1)
 				if rf.commitIndex > pre{
 					for index:= rf.lastApplied+1; index<=rf.commitIndex;index++{
-						fmt.Printf("%v going to apply command: %v with lastApplied: %v commitIndex: %v base: %v\n", rf.me, rf.entries, rf.lastApplied, rf.commitIndex, baseIndex)
+						//fmt.Printf("%v going to apply command: %v with lastApplied: %v commitIndex: %v base: %v\n", rf.me, rf.entries, rf.lastApplied, rf.commitIndex, baseIndex)
 						msg := ApplyMsg{CommandValid: true, Command: rf.entries[index-baseIndex].Command, CommandIndex:index, CommandTerm: term}
 						rf.applyCh <- msg
 						rf.lastApplied = index
@@ -843,12 +846,13 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		reply.VoteGranted = false
 		reply.Term = rf.term
 	}else{
+		baseIndex := rf.lastIncludedIndex
 		// compare whether the candidate is at least up to date as mine
 		mlastLogIndex, mlastLogTerm := len(rf.entries)-1, 0
 		if mlastLogIndex >= 0{
 			mlastLogTerm = rf.entries[mlastLogIndex].Term
 		}
-		if lastLogTerm < mlastLogTerm || (lastLogTerm==mlastLogTerm && lastLogIndex<mlastLogIndex){
+		if lastLogTerm < mlastLogTerm || (lastLogTerm==mlastLogTerm && lastLogIndex<mlastLogIndex+baseIndex){
 			// last log of candidate is stale than mine in term or index
 			reply.VoteGranted = false
 			reply.Term = args.Term
