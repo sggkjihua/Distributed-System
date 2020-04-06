@@ -46,6 +46,7 @@ type ApplyMsg struct {
 	CommandValid bool
 	Command      interface{}
 	CommandIndex int
+	CommandTerm int
 	Data []byte
 }
 
@@ -152,6 +153,10 @@ func (rf *Raft) readPersist(data []byte) {
 	   rf.entries  = logs
 	   rf.lastIncludedIndex = lastIncludedIndex
 	   rf.lastIncludedTerm = lastIncludedTerm
+
+	   rf.commitIndex = GetMax(rf.commitIndex, lastIncludedIndex)
+	   rf.lastApplied = GetMax(rf.lastApplied, lastIncludedIndex)
+
 	}
 	//fmt.Printf("[Read from persistence]: %v : term: %v votedFor: %v logs: %v\n", rf.me, rf.term, rf.votedFor, rf.entries)
 }
@@ -169,25 +174,41 @@ func (rf *Raft) readSnapshot(data []byte){
 
 
 //here for taking snapshot logic
-func (rf *Raft) TakeSnapShot(index int,  snapShot []byte){
-	//rf.mu.Lock()
-	//defer rf.mu.Unlock()
+func (rf *Raft) TakeSnapShot(index int, term int, snapShot []byte){
+	fmt.Printf("[Take Snap Shot] %v is taking a snapshot for index: %v of term: %v\n",rf.me,index, term)
+	rf.mu.Lock()
+	fmt.Printf("[Take Snap Shot] %v takes the lock successfully\n", rf.me)
+	defer rf.mu.Unlock()
+	// adding the lock here will result in dead lock, will need to figure out a way to deal with this 
 	if index < rf.lastIncludedIndex {
 		// when an older request arrived
 		return
 	}
+	// 如果只是单纯的自己更新的话，现在应该是没有问题的
 
 	// lastincluded Index 应该至少是总长度-1
 	// 如果比总长度-1要大，那么应该变成
 	baseIndex := rf.lastIncludedIndex
 	rf.lastIncludedIndex = index  // update index
+	// 想象成 1 + 1， 本来是[{0, nil}, {1, command}], 所以总数还是2
+	// index + 1 就是理论上的总数，如果size是小于这个值的，那么直接把最后的那个index的term
 	size := len(rf.entries) + baseIndex
 	if size -1 < index {
-		rf.entries =append([]LogEntry{}, LogEntry{Term:rf.lastIncludedTerm})
+		// term here might need to be clearreplaced
+		rf.entries =append([]LogEntry{}, LogEntry{Term:term})
 	}else{
 		rf.lastIncludedTerm  = rf.entries[index-baseIndex].Term  // update term
 		rf.entries = rf.entries[index-baseIndex:] // only the uncommited entries left
 	}
+	// update the commitIndex and lastAppliedIndex
+	rf.commitIndex = GetMax(rf.commitIndex, index)
+	rf.lastApplied = GetMax(rf.lastApplied, index)
+	rf.lastIncludedTerm = GetMax(rf.lastIncludedTerm, rf.term)
+
+	fmt.Printf("[After Taking Snapshot] %v lastIncludedIndex: %v, lastIncludedTerm: %v, Commit: %v, lastApplied: %v, logs: %v \n",
+	 rf.me, rf.lastIncludedIndex, rf.lastIncludedTerm, rf.commitIndex, rf.lastApplied, rf.entries)
+
+
 	raftState := rf.generateRaftState()
 	rf.persister.SaveStateAndSnapshot(raftState, snapShot)
 }
@@ -479,8 +500,6 @@ func (rf *Raft) heartBeating(){
 			continue
 		}
 		shouldSendSnapShot := rf.nextIndex[i] < rf.lastIncludedIndex
-		fmt.Printf("%v : NextIndex[%v]=%v, my lastIncludedIndex: %v\n", rf.me, i, rf.nextIndex[i], rf.lastIncludedIndex)
-
 		if shouldSendSnapShot {
 			go rf.sendSnapShot(i)
 		}else{
@@ -566,10 +585,12 @@ func (rf *Raft) sendSnapShot(i int){
 
 
 func (rf *Raft) updateCommit(){
-	rf.muCommit.Lock()
-	defer rf.muCommit.Unlock()
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	//rf.muCommit.Lock()
+	//defer rf.muCommit.Unlock()
 	baseIndex := rf.lastIncludedIndex
-	fmt.Printf("%v commitIndex: %v, lastIncludedIndex: %v, entries: %v, len: %v\n",rf.me, rf.commitIndex, baseIndex, rf.entries, len(rf.entries))
+	//fmt.Printf("%v commitIndex: %v, lastIncludedIndex: %v, entries: %v, len: %v\n",rf.me, rf.commitIndex, baseIndex, rf.entries, len(rf.entries))
 	if rf.commitIndex == baseIndex + len(rf.entries)-1{
 		return
 	}
@@ -585,12 +606,12 @@ func (rf *Raft) updateCommit(){
 			rf.commitIndex = index + baseIndex
 			//msg := ApplyMsg{true, rf.entries[rf.commitIndex].Command, rf.commitIndex}
 			go func(){
-				//rf.mu.Lock()
-				//defer rf.mu.Unlock()
-				rf.muCommit.Lock()
-				defer rf.muCommit.Unlock()
+				rf.mu.Lock()
+				defer rf.mu.Unlock()
+				//rf.muCommit.Lock()
+				//defer rf.muCommit.Unlock()
 				for i:= rf.lastApplied+1; i<=rf.commitIndex;i++{
-					msg := ApplyMsg{CommandValid:true, Command: rf.entries[i-baseIndex].Command, CommandIndex: i}
+					msg := ApplyMsg{CommandValid:true, Command: rf.entries[i-baseIndex].Command, CommandIndex: i, CommandTerm:rf.entries[i-baseIndex].Term}
 					rf.applyCh <- msg
 					//fmt.Printf("me:%d %v\n",rf.me,msg)
 					rf.lastApplied = index+baseIndex
@@ -660,7 +681,7 @@ func (rf *Raft) InstallSnapShot(args *InstallSnapshotArgs, reply *InstallSnapsho
 		rf.lastIncludedTerm = lastIncludedTerm
 		rf.lastApplied = GetMax(lastIncludedIndex, rf.lastApplied)
 		rf.commitIndex = GetMax(lastIncludedIndex, rf.commitIndex)
-		rf.TakeSnapShot(lastIncludedIndex, data)
+		go rf.TakeSnapShot(lastIncludedIndex, lastIncludedTerm, data)
 	}
 	go func(){
 		commitment := ApplyMsg{CommandValid:false, Data:data}
@@ -687,7 +708,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 	baseIndex := rf.lastIncludedIndex
 	term := args.Term
 	leaderId := args.LeaderId
-	prevLogIndex := args.PrevLogIndex - baseIndex
+	prevLogIndex := args.PrevLogIndex
 	prevLogTerm  := args.PrevLogTerm
 	logs := args.Entries
 	leaderCommit := args.LeaderCommit
@@ -699,22 +720,24 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 		reply.Term = rf.term
 		fmt.Printf("[%v AppendEntries] reject since term of %v[%v] is higher than %v[%v]\n", time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
 	}else {
-		lessEntriesThanExpected := prevLogIndex > len(rf.entries)-1
-		doesNotMatch := !lessEntriesThanExpected &&  rf.entries[prevLogIndex].Term != prevLogTerm
+		// 这里可能有问题，假设 base是1，然后现在是以1开头，所以len(entries)最小是1，如果是less
+		lessEntriesThanExpected := prevLogIndex > baseIndex+len(rf.entries)-1
+		doesNotMatch := !lessEntriesThanExpected &&  rf.entries[prevLogIndex-baseIndex].Term != prevLogTerm
 		if lessEntriesThanExpected || doesNotMatch {
 			reply.Success = false
 			if doesNotMatch {
-				rf.entries = rf.entries[:prevLogIndex]
+				rf.entries = rf.entries[:prevLogIndex-baseIndex]
 			}else{
 				less = true
 			}
 			lastIndex := rf.handleConflict()
 			reply.ConflictIndex = lastIndex + baseIndex
 			reply.ConflictEntries = rf.entries[lastIndex:]
+			fmt.Printf("[Handle Conflict]%v conflict index is %v, my entries:%v and logs from leader %v\n", rf.me, reply.ConflictIndex, rf.entries, logs)
 		}else{
-			if len(rf.entries)-1 != prevLogIndex {
+			if len(rf.entries)-1+baseIndex != prevLogIndex {
 				// now we have more than expected
-				rf.entries = rf.entries[:prevLogIndex+1]
+				rf.entries = rf.entries[:prevLogIndex-baseIndex+1]
 			}
 			rf.entries = append(rf.entries, logs...)
 			reply.Success = true
@@ -724,13 +747,13 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 				rf.commitIndex = GetMin(leaderCommit, baseIndex + len(rf.entries)-1)
 				if rf.commitIndex > pre{
 					go func(){
-						//rf.mu.Lock()
-						//defer rf.mu.Unlock()
-						rf.muCommit.Lock()
-						defer rf.muCommit.Unlock()
-
+						rf.mu.Lock()
+						defer rf.mu.Unlock()
+						//rf.muCommit.Lock()
+						//defer rf.muCommit.Unlock()
 						for index:= rf.lastApplied+1; index<=rf.commitIndex;index++{
-							msg := ApplyMsg{CommandValid: true, Command: rf.entries[index-baseIndex].Command, CommandIndex:index}
+							//fmt.Printf("%v going to apply command: %v with lastApplied: %v commitIndex: %v base: %v\n", rf.me, rf.entries, rf.lastApplied, rf.commitIndex, baseIndex)
+							msg := ApplyMsg{CommandValid: true, Command: rf.entries[index-baseIndex].Command, CommandIndex:index, CommandTerm: term}
 							rf.applyCh <- msg
 							rf.lastApplied = index
 						}
@@ -757,6 +780,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 }
 
 func (rf *Raft) handleConflict() int {
+	fmt.Printf("[Handle Conflict] %v entries: %v\n", rf.me, rf.entries)
 	lastTerm := rf.entries[GetMax(len(rf.entries)-1, 0)].Term
 	lastIndex := len(rf.entries)-1
 	for i:= len(rf.entries)-1; i>=0;i--{
