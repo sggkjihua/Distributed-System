@@ -255,7 +255,7 @@ func (kv *KVServer) checkSnapShot(commit raft.ApplyMsg){
 		// when not exceed
 		return
 	}
-	fmt.Printf("[Compacting Required] %v will need to compact, kvMap:%v \n", kv.me, kv.kvMap)
+	//fmt.Printf("[Compacting Required] %v will need to compact, kvMap:%v \n", kv.me, kv.kvMap)
 	// taking the index of the current commit as the lastIncludedIndex
 	commitedIndex := commit.CommandIndex
 	term := commit.CommandTerm

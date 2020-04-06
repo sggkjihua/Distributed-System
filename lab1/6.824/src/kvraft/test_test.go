@@ -675,7 +675,7 @@ func TestSnapshotRPC3Z(t *testing.T) {
 
 // are the snapshots not too huge? 500 bytes is a generous bound for the
 // operations we're doing here.
-func TestSnapshotSize3Z(t *testing.T) {
+func TestSnapshotSize3B(t *testing.T) {
 	const nservers = 3
 	maxraftstate := 1000
 	maxsnapshotstate := 500
@@ -713,14 +713,14 @@ func TestSnapshotRecover3Z(t *testing.T) {
 	GenericTest(t, "3B", 1, false, true, false, 1000)
 }
 
-func TestSnapshotRecoverManyClients3C(t *testing.T) {
+func TestSnapshotRecoverManyClients3D(t *testing.T) {
 	// Test: restarts, snapshots, many clients (3B) ...
 	GenericTest(t, "3B", 20, false, true, false, 1000)
 }
 
-func TestSnapshotUnreliable3B(t *testing.T) {
+func TestSnapshotUnreliable3C(t *testing.T) {
 	// Test: unreliable net, snapshots, many clients (3B) ...
-	GenericTest(t, "3B", 5, true, false, false, 1000)
+	GenericTest(t, "3B", 2, true, false, false, 1000)
 }
 
 func TestSnapshotUnreliableRecover3B(t *testing.T) {

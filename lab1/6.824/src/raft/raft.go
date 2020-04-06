@@ -530,13 +530,16 @@ func (rf *Raft) sendAppendEntries(i int, term int){
 			rf.nextIndex[i] = rf.matchIndex[i] + 1
 			rf.updateCommit()
 		}else{
+
+			// 这里也许需要进行update
+			baseIndex := rf.lastIncludedIndex
 			conflictIndex := reply.ConflictIndex
 			conflictEntries := reply.ConflictEntries
 			tmp := rf.nextIndex[i]
 			maxMatchIndex := conflictIndex
 			rf.mu.Lock()
-			for index:= conflictIndex;index<len(rf.entries) && index-conflictIndex < len(conflictEntries);index++{
-				if rf.entries[index].Term != conflictEntries[index-conflictIndex].Term{
+			for index:= conflictIndex;index< len(rf.entries)+ baseIndex && index-baseIndex>=0  && index-conflictIndex < len(conflictEntries);index++{
+				if rf.entries[index-baseIndex].Term != conflictEntries[index-conflictIndex].Term{
 					rf.nextIndex[i] = index
 					rf.matchIndex[i] = rf.nextIndex[i]-1
 					break
@@ -695,8 +698,6 @@ func (rf *Raft) InstallSnapShot(args *InstallSnapshotArgs, reply *InstallSnapsho
 
 
 
-
-
 func (rf *Raft) sendAppendEntriesRPC(server int, args *AppendEntries, reply *AppendEntriesReply) bool {
 	ok := rf.peers[server].Call("Raft.AppendEntries", args, reply)
 	return ok
@@ -721,19 +722,28 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 		fmt.Printf("[%v AppendEntries] reject since term of %v[%v] is higher than %v[%v]\n", time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
 	}else {
 		// 这里可能有问题，假设 base是1，然后现在是以1开头，所以len(entries)最小是1，如果是less
+		fmt.Printf("prevLogIndex: %v,len(leaderEntries):%v, baseIndex: %v, len(entries): %v\n", prevLogIndex,len(logs),  baseIndex, len(rf.entries))
+		//考虑 prevLogIndex: 53,baseIndex: 57, len(entries): 4，那么 prevLogIndex确实小于当前baseIndex+len(entries)-1，但是却是在lastIncluded之前了
 		lessEntriesThanExpected := prevLogIndex > baseIndex+len(rf.entries)-1
-		doesNotMatch := !lessEntriesThanExpected &&  rf.entries[prevLogIndex-baseIndex].Term != prevLogTerm
-		if lessEntriesThanExpected || doesNotMatch {
+		ahead := baseIndex - prevLogIndex >0
+		doesNotMatch := !lessEntriesThanExpected && !ahead && rf.entries[prevLogIndex-baseIndex].Term != prevLogTerm
+		if lessEntriesThanExpected || doesNotMatch  {
 			reply.Success = false
 			if doesNotMatch {
+				// 这里应该是使得其长度为0的唯一可能？？
 				rf.entries = rf.entries[:prevLogIndex-baseIndex]
-			}else{
+			}else if lessEntriesThanExpected{
 				less = true
 			}
 			lastIndex := rf.handleConflict()
 			reply.ConflictIndex = lastIndex + baseIndex
 			reply.ConflictEntries = rf.entries[lastIndex:]
 			fmt.Printf("[Handle Conflict]%v conflict index is %v, my entries:%v and logs from leader %v\n", rf.me, reply.ConflictIndex, rf.entries, logs)
+		}else if ahead{
+			reply.Success = false
+			//lastIndex := rf.handleConflict()
+			reply.ConflictIndex = baseIndex+1
+
 		}else{
 			if len(rf.entries)-1+baseIndex != prevLogIndex {
 				// now we have more than expected
@@ -746,18 +756,12 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 				pre := rf.commitIndex
 				rf.commitIndex = GetMin(leaderCommit, baseIndex + len(rf.entries)-1)
 				if rf.commitIndex > pre{
-					//go func(){
-					//	rf.mu.Lock()
-					//	defer rf.mu.Unlock()
-						//rf.muCommit.Lock()
-						//defer rf.muCommit.Unlock()
-						for index:= rf.lastApplied+1; index<=rf.commitIndex;index++{
-							//fmt.Printf("%v going to apply command: %v with lastApplied: %v commitIndex: %v base: %v\n", rf.me, rf.entries, rf.lastApplied, rf.commitIndex, baseIndex)
-							msg := ApplyMsg{CommandValid: true, Command: rf.entries[index-baseIndex].Command, CommandIndex:index, CommandTerm: term}
-							rf.applyCh <- msg
-							rf.lastApplied = index
-						}
-					//}()
+					for index:= rf.lastApplied+1; index<=rf.commitIndex;index++{
+						fmt.Printf("%v going to apply command: %v with lastApplied: %v commitIndex: %v base: %v\n", rf.me, rf.entries, rf.lastApplied, rf.commitIndex, baseIndex)
+						msg := ApplyMsg{CommandValid: true, Command: rf.entries[index-baseIndex].Command, CommandIndex:index, CommandTerm: term}
+						rf.applyCh <- msg
+						rf.lastApplied = index
+					}
 				}
 				//fmt.Printf("%v update its commit index from %v to %v entries %v\n", rf.me, pre, rf.commitIndex, rf.entries)
 			}
@@ -781,8 +785,14 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 
 func (rf *Raft) handleConflict() int {
 	fmt.Printf("[Handle Conflict] %v entries: %v\n", rf.me, rf.entries)
-	lastTerm := rf.entries[GetMax(len(rf.entries)-1, 0)].Term
+
 	lastIndex := len(rf.entries)-1
+
+	// for 3B when it is empty
+	if lastIndex == -1 {
+		return 0
+	}
+	lastTerm := rf.entries[GetMax(len(rf.entries)-1, 0)].Term
 	for i:= len(rf.entries)-1; i>=0;i--{
 		if rf.entries[i].Term == lastTerm {
 			lastIndex = i
