@@ -531,8 +531,6 @@ func (rf *Raft) sendAppendEntries(i int, term int){
 			rf.nextIndex[i] = rf.matchIndex[i] + 1
 			rf.updateCommit()
 		}else{
-
-			// 这里也许需要进行update
 			baseIndex := rf.lastIncludedIndex
 			conflictIndex := reply.ConflictIndex
 			conflictEntries := reply.ConflictEntries
@@ -591,8 +589,7 @@ func (rf *Raft) sendSnapShot(i int){
 func (rf *Raft) updateCommit(){
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	//rf.muCommit.Lock()
-	//defer rf.muCommit.Unlock()
+
 	baseIndex := rf.lastIncludedIndex
 	//fmt.Printf("%v commitIndex: %v, lastIncludedIndex: %v, entries: %v, len: %v\n",rf.me, rf.commitIndex, baseIndex, rf.entries, len(rf.entries))
 	if rf.commitIndex == baseIndex + len(rf.entries)-1{
@@ -606,21 +603,14 @@ func (rf *Raft) updateCommit(){
 			}
 		}
 		if cnt > rf.total/2 && rf.entries[index].Term == rf.term{
+			// if found a highest index that has been confirmed by most of the followers
 			tmp := rf.commitIndex
 			rf.commitIndex = index + baseIndex
-			//msg := ApplyMsg{true, rf.entries[rf.commitIndex].Command, rf.commitIndex}
-			//go func(){
-				//rf.mu.Lock()
-				//defer rf.mu.Unlock()
-				//rf.muCommit.Lock()
-				//defer rf.muCommit.Unlock()
-				for i:= rf.lastApplied+1; i<=rf.commitIndex;i++{
-					msg := ApplyMsg{CommandValid:true, Command: rf.entries[i-baseIndex].Command, CommandIndex: i, CommandTerm:rf.entries[i-baseIndex].Term}
-					rf.applyCh <- msg
-					//fmt.Printf("me:%d %v\n",rf.me,msg)
-					rf.lastApplied = index+baseIndex
-				}
-			//}()
+			for i:= rf.lastApplied+1; i<=rf.commitIndex;i++{
+				msg := ApplyMsg{CommandValid:true, Command: rf.entries[i-baseIndex].Command, CommandIndex: i, CommandTerm:rf.entries[i-baseIndex].Term}
+				rf.applyCh <- msg
+				rf.lastApplied = index+baseIndex
+			}
 			fmt.Printf("[Update Commit Index] %v update its commit index from %v to %v\n", rf.me, tmp, rf.commitIndex)
 			return
 		}
@@ -722,7 +712,6 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 		reply.Term = rf.term
 		fmt.Printf("[%v AppendEntries] reject since term of %v[%v] is higher than %v[%v]\n", time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
 	}else {
-		// 这里可能有问题，假设 base是1，然后现在是以1开头，所以len(entries)最小是1，如果是less
 		fmt.Printf("prevLogIndex: %v,len(leaderEntries):%v, baseIndex: %v, len(entries): %v\n", prevLogIndex,len(logs),  baseIndex, len(rf.entries))
 		//考虑 prevLogIndex: 53,baseIndex: 57, len(entries): 4，那么 prevLogIndex确实小于当前baseIndex+len(entries)-1，但是却是在lastIncluded之前了
 		lessEntriesThanExpected := prevLogIndex > baseIndex+len(rf.entries)-1
@@ -741,15 +730,13 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 			reply.ConflictEntries = rf.entries[lastIndex:]
 			fmt.Printf("[Handle Conflict]%v conflict index is %v, my entries:%v and logs from leader %v\n", rf.me, reply.ConflictIndex, rf.entries, logs)
 		}else if ahead{
+			// when the included index is actually larger than the leader thinks me has
 			reply.Success = false
-			//rf.entries = append([]LogEntry{}, LogEntry{Term:rf.lastIncludedTerm})
-			//lastIndex := rf.handleConflict()
 			reply.ConflictIndex = GetMax(baseIndex, rf.lastApplied)+1
-			//fmt.Printf("[Ahead] %v my entries:%v, my index: %v , and leaders index: %v, leaders logs: %v\n",rf.me, rf.entries,)
 
 		}else{
 			if len(rf.entries)-1+baseIndex != prevLogIndex {
-				// now we have more than expected
+				// now we have more than expected and previous all nmatch
 				rf.entries = rf.entries[:prevLogIndex-baseIndex+1]
 			}
 			rf.entries = append(rf.entries, logs...)
@@ -766,20 +753,14 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 						rf.lastApplied = index
 					}
 				}
-				//fmt.Printf("%v update its commit index from %v to %v entries %v\n", rf.me, pre, rf.commitIndex, rf.entries)
 			}
 		}
 	}
 	if reply.Success {
 		// if a success reply
-		//rf.entries = append(rf.entries, logs...)
 		info := FollowerInfo{args.Term, args.LeaderId, true}
 		rf.pushChangeToFollower(info)
 		fmt.Printf("[%v AppendEntries] term of %v[%v] is <= than %v[%v], accept it\n",time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
-		/*if len(logs) >0 {
-			//fmt.Printf("[AppendEntries] %v logs is currently %v\n", rf.me, rf.entries)
-		}
-		*/
 	}else if less {
 		info := FollowerInfo{args.Term, args.LeaderId, true}
 		rf.pushChangeToFollower(info)
@@ -788,9 +769,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 
 func (rf *Raft) handleConflict() int {
 	fmt.Printf("[Handle Conflict] %v entries: %v\n", rf.me, rf.entries)
-
 	lastIndex := len(rf.entries)-1
-
 	// for 3B when it is empty
 	if lastIndex == -1 {
 		return 0
@@ -900,7 +879,6 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		rf.nextIndex[rf.me] = baseIndex +  len(rf.entries)
 		rf.matchIndex[rf.me] = baseIndex + len(rf.entries)-1
 		rf.persist()
-		//t.Printf("[Start] %v receive new log, now entries is %v\n", rf.me, rf.entries)
 	}
 	return index, term, isLeader
 }
