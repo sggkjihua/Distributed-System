@@ -213,7 +213,7 @@ func (kv *KVServer) decodeSnapshot(commit raft.ApplyMsg) {
 	d := labgob.NewDecoder(r)
 	var kvMap map[string]string
 	var seqOfClient map[int64]int
-	fmt.Printf("%v before kvMap: %v\n",kv.me, kv.kvMap)
+	fmt.Printf("[Before Installing Snapshot] %v before kvMap: %v\n",kv.me, kv.kvMap)
 
 	if d.Decode(&seqOfClient) != nil ||
 		d.Decode(&kvMap) != nil {
@@ -222,7 +222,7 @@ func (kv *KVServer) decodeSnapshot(commit raft.ApplyMsg) {
 		kv.kvMap = kvMap
 		kv.seqOfClient = seqOfClient
 	}
-	fmt.Printf("%v after kvMap: %v\n",kv.me, kv.kvMap)
+	fmt.Printf("[Snapshot Installed] %v after kvMap: %v\n",kv.me, kv.kvMap)
 
 }
 
@@ -231,12 +231,12 @@ func (kv *KVServer) listenForCommitment() {
 	for commit := range kv.applyCh {
 		// for log compact logic
 		if commit.CommandValid {
-			fmt.Printf("%v receive a commitment %v\n", kv.me, commit)
+			fmt.Printf("[Commitment] %v receive a commitment %v\n", kv.me, commit)
 
 			kv.handleCommitment(commit)
 			kv.checkSnapShot(commit)
 		}else {
-			fmt.Printf("%v receive a snapShot\n", kv.me)
+			fmt.Printf("[Snapshot] %v receive a snapShot\n", kv.me)
 			kv.decodeSnapshot(commit)
 		}
 	}
@@ -255,7 +255,7 @@ func (kv *KVServer) checkSnapShot(commit raft.ApplyMsg){
 		// when not exceed
 		return
 	}
-	fmt.Printf("%v will need to compact, kvMap:%v \n", kv.me, kv.kvMap)
+	fmt.Printf("[Compacting Required] %v will need to compact, kvMap:%v \n", kv.me, kv.kvMap)
 	// taking the index of the current commit as the lastIncludedIndex
 	commitedIndex := commit.CommandIndex
 	term := commit.CommandTerm
