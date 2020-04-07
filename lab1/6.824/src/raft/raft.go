@@ -82,8 +82,6 @@ type Raft struct {
 	nextIndex []int
 	matchIndex []int
 
-	muCommit sync.Mutex          // Lock to protect shared access to this peer's state
-
 	lastIncludedIndex int
 	lastIncludedTerm  int
 }
@@ -107,12 +105,13 @@ func (rf *Raft) GetState() (int, bool) {
 //
 func (rf *Raft) persist() {
 	// Your code here (2C).
-	// Example:
+	// persist may need to be locked, should check whether the calling function has been locked
 	data := rf.generateRaftState()
 	rf.persister.SaveRaftState(data)
 }
 
 func (rf *Raft) generateRaftState() []byte{
+	// called by persist, depending on persist
 	w := new(bytes.Buffer)
 	e := labgob.NewEncoder(w)
 
@@ -129,6 +128,10 @@ func (rf *Raft) generateRaftState() []byte{
 // restore previously persisted state.
 //
 func (rf *Raft) readPersist(data []byte) {
+	// could add a lock here
+	// called only when started
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 	if data == nil || len(data) < 1 { // bootstrap without any state?
 		return
 	}
@@ -531,12 +534,12 @@ func (rf *Raft) sendAppendEntries(i int, term int){
 			rf.nextIndex[i] = rf.matchIndex[i] + 1
 			rf.updateCommit()
 		}else{
+			rf.mu.Lock()
 			baseIndex := rf.lastIncludedIndex
 			conflictIndex := reply.ConflictIndex
 			conflictEntries := reply.ConflictEntries
 			tmp := rf.nextIndex[i]
 			maxMatchIndex := conflictIndex
-			rf.mu.Lock()
 			for index:= conflictIndex;index< len(rf.entries)+ baseIndex && index-baseIndex>=0  && index-conflictIndex < len(conflictEntries);index++{
 				if rf.entries[index-baseIndex].Term != conflictEntries[index-conflictIndex].Term{
 					rf.nextIndex[i] = index
@@ -558,6 +561,7 @@ func (rf *Raft) sendAppendEntries(i int, term int){
 
 
 func (rf *Raft) sendSnapShot(i int){
+	// May possibly need to add a lock here
 	data := rf.persister.ReadSnapshot()
 	args := InstallSnapshotArgs{
 		LastIncludeIndex: rf.lastIncludedIndex,
@@ -618,6 +622,7 @@ func (rf *Raft) updateCommit(){
 }
 
 func (rf *Raft) GenerateAppendEntries(term int, i int) AppendEntries{
+	// may need to add a lock here, called by sendAppendEntries
 	baseIndex := rf.lastIncludedIndex
 	args := AppendEntries{}
 	args.Term = term
@@ -641,6 +646,7 @@ func (rf *Raft) GenerateAppendEntries(term int, i int) AppendEntries{
 }
 
 func (rf *Raft) initializeNext(){
+	// no need to add lock, see asLeader
 	for i:=0;i<rf.total;i++{
 		rf.matchIndex[i] = 0
 		rf.nextIndex[i] = rf.lastIncludedIndex + len(rf.entries)
@@ -768,6 +774,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 }
 
 func (rf *Raft) handleConflict() int {
+	// no need to add lock, see AppendEntries
 	fmt.Printf("[Handle Conflict] %v entries: %v\n", rf.me, rf.entries)
 	lastIndex := len(rf.entries)-1
 	// for 3B when it is empty
@@ -951,7 +958,6 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.matchIndex = make([]int, rf.total)
 	rf.applyCh = applyCh
 	
-	rf.muCommit = sync.Mutex{}
 	// initialize from state persisted before a crash
 	rf.readPersist(persister.ReadRaftState())
 	rf.readSnapshot(persister.ReadSnapshot())
