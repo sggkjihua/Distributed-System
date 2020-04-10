@@ -240,14 +240,6 @@ func (sm *ShardMaster) Raft() *raft.Raft {
 
 
 
-
-
-
-
-
-
-
-
 func (sm *ShardMaster) handleCommitment(commit raft.ApplyMsg){
 	command := commit.Command
 	op, ok := command.(Op)
@@ -268,23 +260,21 @@ func (sm *ShardMaster) handleCommitment(commit raft.ApplyMsg){
 		Gids := op.GIDs
 		Shard := op.Shard
 		Gid := op.GID
-		Num := op.Num
+		//Num := op.Num
 		switch Operation{
 		case "Join":
-			fmt.Printf("Join request received for servers %v\n", Servers)
+			//fmt.Printf("Join request received for servers %v\n", Servers)
 			sm.handleJoinRequest(Servers)
 			//fmt.Printf("[Join] %v Currently the configs is %v\n",sm.me, sm.configs)
-
 		case "Leave":
-			fmt.Printf("Leave request received for servers %v\n", Gids)
+			//fmt.Printf("Leave request received for servers %v\n", Gids)
 			sm.handleLeaveRequest(Gids)
-			fmt.Printf("[Leave] %v Currently the configs is %v\n",sm.me, sm.configs[len(sm.configs)-1])
-
+			//fmt.Printf("[Leave] %v Currently the configs is %v\n",sm.me, sm.configs[len(sm.configs)-1])
 		case "Move":
-			fmt.Printf("Move request received for group %v to shard %v\n",Gid, Shard)
+			//fmt.Printf("Move request received for group %v to shard %v\n",Gid, Shard)
 			sm.handleMoveRequest(Gid, Shard)
 		case "Query":
-			fmt.Printf("Query request received for num %v\n", Num)
+			//fmt.Printf("Query request received for num %v\n", Num)
 		}
 		// update the maxSeq for this client ID after all has been done
 		sm.seqOfClient[Cid] = Seq
@@ -429,6 +419,7 @@ func (sm *ShardMaster) handleMoveRequest(GID int, shard int){
 			break
 		}
 	}
+
 	config.Shards[shard] = GID
 	config.Groups = sm.gid2Servers	
 	config.Num = len(sm.configs)

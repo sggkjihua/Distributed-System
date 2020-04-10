@@ -53,7 +53,7 @@ func check(t *testing.T, groups []int, ck *Clerk) {
 }
 
 func check_same_config(t *testing.T, c1 Config, c2 Config) {
-	fmt.Printf("A:%v B:%v\n", c1, c2)
+	//fmt.Printf("A:%v B:%v\n", c1, c2)
 	if c1.Num != c2.Num {
 		t.Fatalf("Num wrong")
 	}
