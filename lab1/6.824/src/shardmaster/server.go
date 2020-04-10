@@ -324,36 +324,22 @@ func (sm *ShardMaster) handleJoinRequest(Servers map[int][]string){
 		keys = append(keys,k)
 	}
 	sort.Ints(keys)
+	// sort the keys so as not to generate different results
 	allShards := make([]int,NShards)
 	for i:=0;i< NShards;i++ {
 		allShards[i] = i
 	}
-	numOfGID := len(sm.gid2Servers)
-	//totalShards := len(allShards)
-	average  := GetMax(NShards/numOfGID, 1)
-	start := 0
-	for _, gid := range keys {
-		//nextGid2Shards[gid] = allShards[start:start+average]
-		for index:=start;index<start+average && index<NShards;index++{
-			config.Shards[index] = gid
-			nextGid2Shards[gid] = append(nextGid2Shards[gid], index)
-		}
-		start += average
-		// check if there is any remaining
-		if len(allShards)-start<average && start<NShards{
-			nextGid2Shards[gid] = append(nextGid2Shards[gid], allShards[start:]...)
-			for index:=start;index<len(allShards);index++{
-				config.Shards[index] = gid
-				nextGid2Shards[gid] = append(nextGid2Shards[gid], index)
-			}
-			start += average
-		}
+	gidIndex := 0
+	for i:=0;i<NShards;i++ {
+		gid := keys[gidIndex]
+		config.Shards[i] = gid
+		nextGid2Shards[gid] = append(nextGid2Shards[gid], i)
+		gidIndex = (gidIndex+1)%len(keys)
 	}
 	sm.gid2Shards = nextGid2Shards
 	config.Groups = nextGid2Servers
 	config.Num    = len(sm.configs) 
 	sm.configs = append(sm.configs, config)
-	//sm.configs[num] = nextGid2Shards
 }
 
 
@@ -361,7 +347,7 @@ func (sm *ShardMaster) handleLeaveRequest(Gids []int){
 	// get the next number of gid2shards
 	config := Config{}
 
-	nextGid2Servers := make(map[int][]string)
+	gid2Servers := make(map[int][]string)
 
 	preGid2Shards := sm.gid2Shards
 	nextGid2Shards := make(map[int][]int)
@@ -374,42 +360,31 @@ func (sm *ShardMaster) handleLeaveRequest(Gids []int){
 	}
 
 	keys := make([]int, 0)
-	for k, v:= range sm.gid2Servers{
-		nextGid2Servers[k]= v
-		keys = append(keys, k)
-	}
-	sort.Ints(keys)
-	total := len(remaining)
-	numOfGid := len(sm.gid2Servers)
-
-	// initialize the shards
-	preGroups := sm.configs[len(sm.configs)-1].Shards
-	
-	if numOfGid != 0 {
-		average  := GetMax(total/numOfGid, 1)
-
-		start := 0
-		for _, gid := range keys {
-			// first get all the previous mapping
-			nextGid2Shards[gid] = preGid2Shards[gid]
-			copy(config.Shards[:], preGroups[:])
-			for index:=start;index<start+average && index<len(remaining);index++{
-				config.Shards[remaining[index]] = gid
-				nextGid2Shards[gid] = append(nextGid2Shards[gid], remaining[index])
-			}
-			start += average
-			// check if there is any remaining
-			if len(remaining)-start<average && start<len(remaining){
-				nextGid2Shards[gid] = append(nextGid2Shards[gid], remaining[start:]...)
-				for index:=start;index<len(remaining)&& index<len(remaining);index++{
-					config.Shards[remaining[index]] = gid
-					nextGid2Shards[gid] = append(nextGid2Shards[gid], remaining[index])
-				}
-				start += average
-			}
+	for gid, servers:= range sm.gid2Servers{
+		gid2Servers[gid]= servers
+		keys = append(keys, gid)
+		shards := preGid2Shards[gid]
+		for _,val := range shards{
+			config.Shards[val] = gid
+			nextGid2Shards[gid] = append(nextGid2Shards[gid], val)
 		}
 	}
-	config.Groups = nextGid2Servers
+	sort.Ints(keys)
+
+	gidIndex := 0
+	for _, val := range remaining{
+		if len(keys)<=0 {
+			break
+		}
+		gid := keys[gidIndex]
+		config.Shards[val] = gid
+		nextGid2Shards[gid] = append(nextGid2Shards[gid],val)
+		gidIndex = (gidIndex+1) % len(keys)
+	}
+
+	// initialize the shards
+	
+	config.Groups = gid2Servers
 	config.Num = len(sm.configs)
 	sm.configs = append(sm.configs, config)
 	sm.gid2Shards = nextGid2Shards
@@ -419,36 +394,46 @@ func (sm *ShardMaster) handleLeaveRequest(Gids []int){
 
 func (sm *ShardMaster) handleMoveRequest(GID int, shard int){
 	// move this shard to that GID
-	/*
-	oriGid := sm.shard2Gid[shard]
-	sm.shard2Gid[shard] = GID
-	num := len(sm.gid2Shards)
-	preGid2Shards := sm.gid2Shards[num-1]
+	config := Config{}
+
+	preConfig := sm.configs[len(sm.configs)-1]
+	preGid := preConfig.Shards[shard]
+
+	// initialize the shards since we simply need to modify two position
+	copy(config.Shards[:], preConfig.Shards[:])
+	preGid2Shards := sm.gid2Shards
 	nextGid2Shards := make(map[int][]int)
-	for k,v := range preGid2Shards{
-		nextGid2Shards[k] = v
+	for gid, shards := range preGid2Shards{
+		size := len(shards)
+		nShards := make([]int, size)
+		copy(nShards[:], shards[:])
+		nextGid2Shards[gid] = nShards
 	}
-	if oriGid != GID {
-		for index, val := range preGid2Shards[oriGid]{
-			if val == shard{
-				if len(preGid2Shards[GID])>0{
-					// simply switch
-					nextGid2Shards[oriGid][index] = nextGid2Shards[GID][0]
-					nextGid2Shards[GID][0] = shard
-					sm.shard2Gid[nextGid2Shards[GID][0]] = oriGid
-				}else{
-					// will need to trim
-					size := len(nextGid2Shards[oriGid])
-					nextGid2Shards[oriGid][index] = nextGid2Shards[oriGid][size-1]
-					nextGid2Shards[oriGid] = nextGid2Shards[oriGid][:size-1]
-					nextGid2Shards[GID] = append(nextGid2Shards[GID], shard)
-				}
-				break
+	targetShards, ok := nextGid2Shards[GID]
+	var oldShard int
+	if ok {
+		oldShard := targetShards[0]
+		config.Shards[oldShard] = preGid
+		targetShards[0] = shard
+	}else{
+		nextGid2Shards[GID] = append(make([]int,0), shard)
+	}
+	for index, val := range nextGid2Shards[preGid]{
+		if val == shard {
+			if ok {
+				// if we did found an other shard to switch, we do not need to cancate
+				nextGid2Shards[preGid][index] = oldShard
+			}else{
+				nextGid2Shards[preGid] = append(nextGid2Shards[preGid][:index], nextGid2Shards[preGid][index+1:]...)
 			}
+			break
 		}
 	}
-	sm.gid2Shards[num] = nextGid2Shards
-	*/
+	config.Shards[shard] = GID
+	config.Groups = sm.gid2Servers	
+	config.Num = len(sm.configs)
+	sm.configs = append(sm.configs, config)
+	sm.gid2Shards = nextGid2Shards
 }
 
 
@@ -558,10 +543,7 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister)
 	sm.dispatcher =  make(map[int] chan Notification)
 	sm.persister = persister
 
-	// term, gid, servers
 	sm.gid2Servers = make(map[int][]string)
-	//sm.gid2Shards = make(map[int]map[int][]int)
-	sm.shard2Gid = make(map[int]int)
 	go sm.listenForCommitment()
 
 	return sm
