@@ -56,6 +56,7 @@ func MakeClerk(masters []*labrpc.ClientEnd, make_end func(string) *labrpc.Client
 	ck.sm = shardmaster.MakeClerk(masters)
 	ck.make_end = make_end
 	// You'll have to add code here.
+	
 	return ck
 }
 
@@ -92,7 +93,7 @@ func (ck *Clerk) Get(key string) string {
 		ck.config = ck.sm.Query(-1)
 	}
 
-	return ""
+	//return ""
 }
 
 //
