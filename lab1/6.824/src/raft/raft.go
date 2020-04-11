@@ -718,7 +718,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 		reply.Term = rf.term
 		fmt.Printf("[%v AppendEntries] reject since term of %v[%v] is higher than %v[%v]\n", time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
 	}else {
-		fmt.Printf("prevLogIndex: %v,len(leaderEntries):%v, baseIndex: %v, len(entries): %v\n", prevLogIndex,len(logs),  baseIndex, len(rf.entries))
+		//fmt.Printf("prevLogIndex: %v,len(leaderEntries):%v, baseIndex: %v, len(entries): %v\n", prevLogIndex,len(logs),  baseIndex, len(rf.entries))
 		//考虑 prevLogIndex: 53,baseIndex: 57, len(entries): 4，那么 prevLogIndex确实小于当前baseIndex+len(entries)-1，但是却是在lastIncluded之前了
 		lessEntriesThanExpected := prevLogIndex > baseIndex+len(rf.entries)-1
 		ahead := baseIndex - prevLogIndex >0

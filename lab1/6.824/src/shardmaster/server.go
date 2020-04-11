@@ -458,11 +458,11 @@ func (sm *ShardMaster) listenForCommitment() {
 	for commit := range sm.applyCh {
 		// for log compact logic
 		if commit.CommandValid {
-			fmt.Printf("[Commitment] %v receive a commitment %v\n", sm.me, commit)
+			//fmt.Printf("[ShardMaster] %v receive a commitment %v\n", sm.me, commit)
 			sm.handleCommitment(commit)
 			sm.checkSnapShot(commit)
 		}else {
-			fmt.Printf("[Snapshot] %v receive a snapShot\n", sm.me)
+			//fmt.Printf("[ShardMaster] %v receive a snapShot\n", sm.me)
 			sm.decodeSnapshot(commit)
 		}
 	}
