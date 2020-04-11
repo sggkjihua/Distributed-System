@@ -3,6 +3,7 @@ package shardkv
 
 // import "../shardmaster"
 import (
+	"math/rand"
 	"encoding/gob"
 	"bytes"
 	"fmt"
@@ -11,6 +12,7 @@ import (
 	"../raft"
 	"sync"
 	"../labgob"
+	"../shardmaster"
 )
 
 
@@ -24,6 +26,10 @@ type Op struct {
 	Val string
 	Seq int
 	Cid int64
+
+	Num int
+	// used to syn with follower?
+	KvMap map[string]string
 }
 
 type ShardKV struct {
@@ -37,22 +43,36 @@ type ShardKV struct {
 	maxraftstate int // snapshot if log grows this big
 
 	// Your definitions here.
-
+	config   shardmaster.Config
+	sm       *shardmaster.Clerk
 	kvMap map[string] string
 	seqOfClient map[int64]int
 	dispatcher map[int] chan Notification
 	persister *raft.Persister
+
+	maxNum       int
+	completeTransfer map[int]bool
+
 }
 
 type Notification struct{
 	Cid int64
 	Seq int
+	Valid bool
 }
 
 
 
 func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 	// Your code here.
+	kv.mu.Lock()
+	isMyShard := kv.checkShard(args.Key)
+	kv.mu.Unlock()
+	if !isMyShard{
+		fmt.Printf("[Get] shard does not match, reject\n")
+		reply.Err = ErrWrongGroup
+		return
+	}
 	op := Op{Operation:"Get" , Key:args.Key, Seq: args.Seq, Cid:args.Cid}
 
 	index, _, isLeader := kv.rf.Start(op)
@@ -83,7 +103,12 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 			reply.Err = OK
 			reply.Value = kv.kvMap[args.Key]
 		}else{
-			reply.Err = ErrWrongLeader
+			if notification.Valid {
+				reply.Err = ErrWrongLeader
+			}else{
+				// when the key should not be processed by this
+				reply.Err = ErrWrongGroup
+			}
 		}
 		return
 	case <- time.After(time.Duration(600)*time.Millisecond):
@@ -94,6 +119,14 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 
 func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	// Your code here.
+	kv.mu.Lock()
+	isMyShard := kv.checkShard(args.Key)
+	kv.mu.Unlock()
+	if !isMyShard{
+		fmt.Printf("[PutA] shard does not match, reject\n")
+		reply.Err = ErrWrongGroup
+		return
+	}
 	op := Op{Operation:args.Op , Key:args.Key, Val:args.Value, Seq: args.Seq, Cid:args.Cid}
 	index, _, isLeader := kv.rf.Start(op)
 	// start 递交上去的command不应该有重复的sequence
@@ -119,7 +152,12 @@ func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 		if notification.Seq == op.Seq && notification.Cid == op.Cid {
 			reply.Err = OK
 		}else{
-			reply.Err = ErrWrongLeader
+			if notification.Valid {
+				reply.Err = ErrWrongLeader
+			}else{
+				// when the key should not be processed by this
+				reply.Err = ErrWrongGroup
+			}
 		}
 		return
 	case <- time.After(time.Duration(600)*time.Millisecond):
@@ -150,16 +188,22 @@ func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg){
 	//val, exists := kv.seqOfClient[Cid]
 	//if !exists || val<Seq {
 	
-	if true{
+	// one more filter for checking whether I should handle this request
+	shouldProcess := len(op.Key)==0 || kv.config.Shards[key2shard(op.Key)] == kv.gid
+	if shouldProcess{
 		Operation := op.Operation
 		Key := op.Key
 		Value := op.Val
+		KvMap := op.KvMap
 		if Operation == "Put" {
 			kv.kvMap[Key] = Value
 		}else if Operation == "Append" {
 			kv.kvMap[Key] += Value
 		}else if Operation == "Get" {
 			fmt.Printf("Get command %v has been processed\n", command)
+		}else if Operation == "Reconfiguration"{
+			fmt.Printf("Receive a commitment for reconfiguration\n")
+			kv.reconfigurate(KvMap)
 		}
 		fmt.Printf("[KvMap] %v after Commitment: %v\n",kv.me, kv.kvMap)
 		// update the maxSeq for this client ID after all has been done
@@ -171,10 +215,33 @@ func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg){
 		notify := Notification{
 			Cid:  op.Cid,
 			Seq: op.Seq,
+			Valid: shouldProcess,
 		}
 		ch <- notify
 	}
 }
+
+func (kv *ShardKV) reconfigurate(kvMap map[string]string){
+	fmt.Printf("[Reconfig] %v gid: %v, before %v\n", kv.me, kv.gid, kv.kvMap)
+	nKvMap := make(map[string]string)
+	for k, v:= range kvMap {
+		val, ok := kv.kvMap[k]
+		if ok {
+			nKvMap[k] = val
+		}else{
+			nKvMap[k] = v
+		}
+	}
+	kv.kvMap = nKvMap
+	fmt.Printf("[Reconfig] %v gid: %v, after  %v\n", kv.me, kv.gid, kv.kvMap)
+}
+
+
+func (kv *ShardKV) checkShard(key string) bool{
+	shard := key2shard(key)
+	return  kv.config.Shards[shard] == kv.gid
+}
+
 
 func (kv *ShardKV) decodeSnapshot(commit raft.ApplyMsg) {
 	kv.mu.Lock()
@@ -266,6 +333,153 @@ func (kv *ShardKV) Kill() {
 }
 
 
+
+func (kv *ShardKV) pollLatestConfig() {
+	for{
+		kv.mu.Lock()
+		lastestConfig := kv.sm.Query(-1)
+		if lastestConfig.Num > kv.config.Num {
+			kv.maxNum = Max(kv.maxNum, lastestConfig.Num)
+			kv.config = lastestConfig
+			kv.transferShard(kv.config.Num)
+		}
+		kv.mu.Unlock()
+		time.Sleep(100 * time.Millisecond)
+	}
+}
+
+func (kv *ShardKV) transferShard(num int){
+	// called in pollLatestConfig, lock here will lead to dead lock
+	//kv.mu.Lock()
+	//defer kv.mu.Unlock()
+
+	if num < kv.config.Num {
+		fmt.Printf("[Transfer] found an old config, discard\n")
+		return
+	}
+
+	keys := []string{}
+	gids := make(map[int]map[string]string)
+	nKvMap := make(map[string]string)
+	for k,v := range kv.kvMap{
+		keys = append(keys, k)
+		gid := kv.config.Shards[key2shard(k)]
+		if gid==kv.gid{
+			nKvMap[k] = v
+			continue
+		}
+		gidMap, ok := gids[gid]
+		if !ok{
+			gids[gid] = make(map[string]string)
+			gidMap =gids[gid]
+		}
+		gidMap[k] = v
+	}
+	// reset the map and delete those don't belong to me
+
+	complete := true
+	for gid, kvMap := range gids {
+		// can deal with dead lock?
+		succeed := kv.sendShardToGid(gid, kvMap)
+		if !succeed{
+			complete = false
+			break
+		}
+	}
+	if complete {
+		kv.kvMap = nKvMap
+		kv.syncWithFollower(nKvMap)
+	}else{
+		kv.config.Num --
+		// so as to trigger deadlock
+		// may be time out for some cases such as deadlock?
+	}
+}
+
+
+func RandTime() int{
+	return 500 + rand.Intn(400)
+}
+
+
+func (kv *ShardKV) sendShardToGid(gid int, kvMap map[string]string)bool{
+	for {
+		if servers, ok := kv.config.Groups[gid]; ok {
+			// try each server for the shard.
+			args := TransferArgs{Num:kv.config.Num, KvMap :kvMap}
+
+			// waitTime is used to avoid keep waiting and lead to deadlock
+			waitTime := RandTime()
+			for si := 0; si < len(servers); si++ {
+				srv := kv.make_end(servers[si])
+				var reply TransferReply
+				finished := make(chan bool,1)
+				go func(){
+					finished <- srv.Call("ShardKV.UpdateKvMap", &args, &reply)
+				}()
+				select{
+				case ok := <-finished:
+					if ok && (reply.Err == OK) {
+						return true
+					}
+					if ok && (reply.Err == ErrWrongGroup) {
+						// once we found we make a mistake, we need to get the lastest config again
+						return false
+					}		
+					break							
+				case <- time.After(time.Duration(waitTime) * time.Millisecond):
+					// possibly that both are sending and not able to proceed, so dead lock
+					reply.Err = ErrWrongGroup
+					return false
+				}
+				// ... not ok, or ErrWrongLeader
+			}
+		}
+		//time.Sleep(100 * time.Millisecond)
+	}
+}
+
+func Max(a int, b int) int{
+	if a>b{
+		return a
+	}
+	return b
+}
+
+func (kv *ShardKV) UpdateKvMap(args *TransferArgs, reply *TransferReply){
+	kv.mu.Lock()
+	defer kv.mu.Unlock()
+	// holding a lock may cause dead lock
+	// if all are holding a lock and sending message, possiblely the other side does not hold the lock
+	num := args.Num
+	kvMap := args.KvMap
+	if num < kv.config.Num || num < kv.maxNum{
+		reply.Err = ErrWrongGroup
+		return
+	}
+	kv.maxNum = Max(kv.maxNum, num)
+	// make sure not older than itself
+	_, isLeader := kv.rf.GetState()
+	if !isLeader{
+		reply.Err = ErrWrongLeader
+		return
+	}
+	for k,v := range kvMap{
+		// is it possible that this KV is actually not valid?
+		kv.kvMap[k] = v
+	}
+	reply.Err = OK
+	// how to trigger the update for followers
+}
+
+
+func (kv *ShardKV) syncWithFollower(kvMap map[string]string){
+	// need to figure out how to synchronize with followers
+	op := Op{Operation:"Reconfiguration", KvMap:kvMap}
+	kv.rf.Start(op)
+}
+
+
 //
 // servers[] contains the ports of the servers in this group.
 //
@@ -314,11 +528,16 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister,
 	kv.applyCh = make(chan raft.ApplyMsg)
 	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
 
-	
+	kv.sm = shardmaster.MakeClerk(masters)
+
+	kv.config = kv.sm.Query(-1)
 	kv.kvMap =  make(map[string]string)
 	kv.seqOfClient = make(map[int64]int)
 	kv.dispatcher = make(map[int]chan Notification)
 	kv.persister = persister
+	kv.maxNum = 0
+	kv.completeTransfer = make(map[int]bool)
 	go kv.listenForCommitment()
+	go kv.pollLatestConfig()
 	return kv
 }

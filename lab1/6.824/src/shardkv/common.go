@@ -50,3 +50,12 @@ type GetReply struct {
 	Value string
 	IsLeader bool
 }
+
+type TransferArgs struct{
+	Num int
+	KvMap map[string]string
+}
+
+type TransferReply struct{
+	Err Err
+}
