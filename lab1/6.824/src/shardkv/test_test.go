@@ -23,8 +23,8 @@ func check(t *testing.T, ck *Clerk, key string, value string) {
 //
 // test static 2-way sharding, without shard movement.
 //
-/*
-func TestStaticShards(t *testing.T) {
+
+func TestStaticShards4A(t *testing.T) {
 	fmt.Printf("Test: static shards ...\n")
 
 	cfg := make_config(t, 3, false, -1)
@@ -87,7 +87,7 @@ func TestStaticShards(t *testing.T) {
 
 	fmt.Printf("  ... Passed\n")
 }
-*/
+
 
 func TestJoinLeave4B(t *testing.T) {
 	fmt.Printf("Test: join then leave ...\n")
@@ -142,7 +142,7 @@ func TestJoinLeave4B(t *testing.T) {
 	fmt.Printf("  ... Passed\n")
 }
 
-func TestSnapshot(t *testing.T) {
+func TestSnapshot4C(t *testing.T) {
 	fmt.Printf("Test: snapshots, join, and leave ...\n")
 
 	cfg := make_config(t, 3, false, 1000)
@@ -164,32 +164,40 @@ func TestSnapshot(t *testing.T) {
 		check(t, ck, ka[i], va[i])
 	}
 
+	fmt.Printf("Passed single server 0 for 30 kv pair.........\n")
+	// a group is joining
 	cfg.join(1)
 	cfg.join(2)
 	cfg.leave(0)
 
+	fmt.Printf("1,2 joined and 0 leave..............\n")
+
 	for i := 0; i < n; i++ {
-		check(t, ck, ka[i], va[i])
+		//check(t, ck, ka[i], va[i])
 		x := randstring(20)
 		ck.Append(ka[i], x)
 		va[i] += x
 	}
 
+	fmt.Printf("Everything exists now.............\n")
 	cfg.leave(1)
 	cfg.join(0)
 
+	fmt.Printf("1 left nad 0 join again..........\n")
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])
 		x := randstring(20)
 		ck.Append(ka[i], x)
 		va[i] += x
 	}
+	fmt.Printf("Check everything exists again.............\n")
 
 	time.Sleep(1 * time.Second)
 
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])
 	}
+	fmt.Printf("Verified.............\n")
 
 	time.Sleep(1 * time.Second)
 

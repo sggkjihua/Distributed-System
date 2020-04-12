@@ -172,7 +172,6 @@ func (rf *Raft) readSnapshot(data []byte){
 		commitment := ApplyMsg{CommandValid:false, Data:data}
 		rf.applyCh <- commitment
 	}()
-
 }
 
 
@@ -608,14 +607,14 @@ func (rf *Raft) updateCommit(){
 		}
 		if cnt > rf.total/2 && rf.entries[index].Term == rf.term{
 			// if found a highest index that has been confirmed by most of the followers
-			tmp := rf.commitIndex
+			//tmp := rf.commitIndex
 			rf.commitIndex = index + baseIndex
 			for i:= rf.lastApplied+1; i<=rf.commitIndex;i++{
 				msg := ApplyMsg{CommandValid:true, Command: rf.entries[i-baseIndex].Command, CommandIndex: i, CommandTerm:rf.entries[i-baseIndex].Term}
 				rf.applyCh <- msg
 				rf.lastApplied = index+baseIndex
 			}
-			fmt.Printf("[Update Commit Index] %v update its commit index from %v to %v\n", rf.me, tmp, rf.commitIndex)
+			//fmt.Printf("[Update Commit Index] %v update its commit index from %v to %v\n", rf.me, tmp, rf.commitIndex)
 			return
 		}
 	}
@@ -705,7 +704,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 	defer rf.mu.Unlock()
 	baseIndex := rf.lastIncludedIndex
 	term := args.Term
-	leaderId := args.LeaderId
+	//leaderId := args.LeaderId
 	prevLogIndex := args.PrevLogIndex
 	prevLogTerm  := args.PrevLogTerm
 	logs := args.Entries
@@ -716,7 +715,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 		// first judge the term, if the term of the leader is lower, reject
 		reply.Success = false
 		reply.Term = rf.term
-		fmt.Printf("[%v AppendEntries] reject since term of %v[%v] is higher than %v[%v]\n", time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
+		//fmt.Printf("[%v AppendEntries] reject since term of %v[%v] is higher than %v[%v]\n", time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
 	}else {
 		//fmt.Printf("prevLogIndex: %v,len(leaderEntries):%v, baseIndex: %v, len(entries): %v\n", prevLogIndex,len(logs),  baseIndex, len(rf.entries))
 		//考虑 prevLogIndex: 53,baseIndex: 57, len(entries): 4，那么 prevLogIndex确实小于当前baseIndex+len(entries)-1，但是却是在lastIncluded之前了
@@ -766,7 +765,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 		// if a success reply
 		info := FollowerInfo{args.Term, args.LeaderId, true}
 		rf.pushChangeToFollower(info)
-		fmt.Printf("[%v AppendEntries] term of %v[%v] is <= than %v[%v], accept it\n",time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
+		//fmt.Printf("[%v AppendEntries] term of %v[%v] is <= than %v[%v], accept it\n",time.Now().Format(rf.timeFormat), rf.me, rf.term, leaderId, term)
 	}else if less {
 		info := FollowerInfo{args.Term, args.LeaderId, true}
 		rf.pushChangeToFollower(info)

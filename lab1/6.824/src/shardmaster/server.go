@@ -87,6 +87,7 @@ func (sm *ShardMaster) Join(args *JoinArgs, reply *JoinReply) {
 		sm.mu.Unlock()
 		if notification.Seq == op.Seq && notification.Cid == op.Cid {
 			reply.WrongLeader = false
+			fmt.Printf("[ShardMaster] After join %v\n", sm.configs[len(sm.configs)-1])
 		}else{
 			reply.WrongLeader = true
 		}
@@ -123,6 +124,8 @@ func (sm *ShardMaster) Leave(args *LeaveArgs, reply *LeaveReply) {
 		sm.mu.Unlock()
 		if notification.Seq == op.Seq && notification.Cid == op.Cid {
 			reply.WrongLeader = false
+			fmt.Printf("[ShardMaster] After leave %v\n", sm.configs[len(sm.configs)-1])
+
 		}else{
 			reply.WrongLeader = true
 		}

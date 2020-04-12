@@ -53,9 +53,23 @@ type GetReply struct {
 
 type TransferArgs struct{
 	Num int
-	KvMap map[string]string
+	Shard Shard
 }
 
 type TransferReply struct{
 	Err Err
+}
+
+
+type FetchArgs struct{
+	Num int
+	Shards [10]int
+	ShardsNeeded map[int]bool
+	Groups map[int][]string
+
+}
+
+type FetchReply struct{
+	Err Err
+	KvMap map[string]string
 }

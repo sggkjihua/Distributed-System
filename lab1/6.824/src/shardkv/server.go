@@ -29,7 +29,7 @@ type Op struct {
 
 	Num int
 	// used to syn with follower?
-	KvMap map[string]string
+	Shard Shard
 }
 
 type ShardKV struct {
@@ -45,20 +45,29 @@ type ShardKV struct {
 	// Your definitions here.
 	config   shardmaster.Config
 	sm       *shardmaster.Clerk
-	kvMap map[string] string
-	seqOfClient map[int64]int
-	dispatcher map[int] chan Notification
+
+	myShard map[int]bool          // shard that I am responsible for
+	shardMap map[int] Shard       // map for the id -> shard 
+	seqOfClient map[int64]int     // should this still exist?????
+	dispatcher map[int] chan Notification 
 	persister *raft.Persister
 
+	maxNumOfShard [10]int
 	maxNum       int
-	completeTransfer map[int]bool
-
 }
 
 type Notification struct{
 	Cid int64
 	Seq int
 	Valid bool
+}
+
+
+type Shard struct{
+	Id int
+	Num int
+	KvMap map[string]string
+	SeqOfCid map[int64]int
 }
 
 
@@ -73,8 +82,8 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 		reply.Err = ErrWrongGroup
 		return
 	}
-	op := Op{Operation:"Get" , Key:args.Key, Seq: args.Seq, Cid:args.Cid}
-
+	//Shard := kv.generateShard(args.Key, "", args.Cid, args.Seq)
+	op := Op{Operation:"Get", Key:args.Key, Cid:args.Cid, Seq:args.Seq}
 	index, _, isLeader := kv.rf.Start(op)
 
 	// start 递交上去的command不应该有重复的sequence
@@ -101,7 +110,7 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 		kv.mu.Unlock()
 		if notification.Seq == op.Seq && notification.Cid == op.Cid {
 			reply.Err = OK
-			reply.Value = kv.kvMap[args.Key]
+			reply.Value = kv.getValueByKey(args.Key)
 		}else{
 			if notification.Valid {
 				reply.Err = ErrWrongLeader
@@ -117,6 +126,11 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 	}
 }
 
+// 要保证整个迁移的期间是不能够去接受新的 PutAppend 和 Get 的请求的
+// 但是应该如何保证呢？ 比如我这个leader发现了新的 config
+// 之后尝试向其它负责这个shard的 leader 发送，如果刚好双方在互相发送那怎么办？
+// 几率其实也比较低吧，不妨先尝试一下，什么情况下会使双方互相 hold 的 shard 向对方发送？
+
 func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	// Your code here.
 	kv.mu.Lock()
@@ -127,7 +141,9 @@ func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 		reply.Err = ErrWrongGroup
 		return
 	}
-	op := Op{Operation:args.Op , Key:args.Key, Val:args.Value, Seq: args.Seq, Cid:args.Cid}
+
+	Shard := kv.generateShard(args.Key, args.Value, args.Cid, args.Seq)
+	op := Op{Operation:args.Op ,Key:args.Key, Cid:args.Cid, Seq:args.Seq, Shard:Shard}
 	index, _, isLeader := kv.rf.Start(op)
 	// start 递交上去的command不应该有重复的sequence
 	if !isLeader {
@@ -135,7 +151,6 @@ func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 		return
 	}
 	fmt.Printf("[Start] Leader%v receive a putAppend request %v\n",kv.me, *args)
-
 	kv.mu.Lock()
 	if _, ok := kv.dispatcher[index]; !ok {
 		kv.dispatcher[index] = make(chan Notification, 1)
@@ -167,8 +182,64 @@ func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 }
 
 
+func (kv *ShardKV) generateShard(key string, val string, cid int64, seq int)Shard{
+	kvMap := make(map[string]string)
+	SeqOfClient := make(map[int64]int)
+	SeqOfClient[cid] = seq
+	kvMap[key] = val
+	Shard := Shard{
+		Id: key2shard(key),
+		Num: kv.config.Num,
+		KvMap: kvMap,
+		SeqOfCid: SeqOfClient,
+	}
+	return Shard
+}
 
+func (kv *ShardKV) getValueByKey(key string) string{
+	ShardId := key2shard(key)
+	Shard, ok := kv.shardMap[ShardId]
+	if ok {
+		val, exists := Shard.KvMap[key]
+		if exists {
+			return val
+		}
+	}
+	return ""
+}
 
+func (kv *ShardKV) putShard(key string, val string, shard Shard, append bool){
+	Shard, ok := kv.shardMap[shard.Id]
+	if !ok{
+		// not exists, simply put it
+		kv.shardMap[shard.Id] = shard
+		return
+	}
+	if append {
+		Shard.KvMap[key] += val
+		// update seq of cid
+	}else {
+		Shard.KvMap[key] = val
+	}
+	Shard.SeqOfCid = shard.SeqOfCid
+}
+
+func (kv *ShardKV) shardNotExistsOrNotOldRequest(key string, cid int64, seq int, shard Shard) bool{
+	if len(key)==0{
+		// accept or delete
+		// should be in the same Num, or can we simply pass it?
+		return shard.Num >= kv.config.Num
+	}else{
+		Shard, ok := kv.shardMap[shard.Id]
+		if !ok {
+			// not exists
+			return true
+		}
+		seqMap := Shard.SeqOfCid
+		val, ok := seqMap[cid]
+		return !ok || val<seq 
+	}
+}
 
 func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg){
 	command := commit.Command
@@ -182,6 +253,8 @@ func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg){
 	// get the Seq and Cid from the commitment
 	Seq := op.Seq
 	Cid := op.Cid
+	Operation := op.Operation
+	Shard := op.Shard
 	kv.mu.Lock()
 
 	// uncomment this since we are not yet dealing with the duplicated request
@@ -189,23 +262,27 @@ func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg){
 	//if !exists || val<Seq {
 	
 	// one more filter for checking whether I should handle this request
-	shouldProcess := len(op.Key)==0 || kv.config.Shards[key2shard(op.Key)] == kv.gid
+	//shouldProcess := len(op.Key)==0 || kv.config.Shards[key2shard(op.Key)] == kv.gid || Operation=="Remove" || Operation == "Accept"
+	shouldProcess := kv.shardNotExistsOrNotOldRequest(op.Key, Cid, Seq, Shard)
 	if shouldProcess{
-		Operation := op.Operation
 		Key := op.Key
 		Value := op.Val
-		KvMap := op.KvMap
 		if Operation == "Put" {
-			kv.kvMap[Key] = Value
+			kv.putShard(Key, Value, Shard, false)
 		}else if Operation == "Append" {
-			kv.kvMap[Key] += Value
+			kv.putShard(Key, Value, Shard, true)
 		}else if Operation == "Get" {
 			fmt.Printf("Get command %v has been processed\n", command)
-		}else if Operation == "Reconfiguration"{
-			fmt.Printf("Receive a commitment for reconfiguration\n")
-			kv.reconfigurate(KvMap)
+		}else if Operation == "Remove"{
+			delete(kv.myShard, Shard.Id)
+			delete(kv.shardMap, Shard.Id)
+			fmt.Printf("Remove shards %v successfully\n", Shard)
+		}else if Operation == "Accept" {
+			kv.shardMap[Shard.Id] = Shard
+			kv.myShard[Shard.Id] = true
+			fmt.Printf("Accept new shards %v successfully\n", Shard)
 		}
-		fmt.Printf("[KvMap] %v after Commitment: %v\n",kv.me, kv.kvMap)
+		fmt.Printf("[ShardMap] %v [GID: %v] after Commitment: %v\n",kv.me, kv.gid, kv.shardMap)
 		// update the maxSeq for this client ID after all has been done
 		kv.seqOfClient[Cid] = Seq
 	}
@@ -221,6 +298,7 @@ func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg){
 	}
 }
 
+/*
 func (kv *ShardKV) reconfigurate(kvMap map[string]string){
 	fmt.Printf("[Reconfig] %v gid: %v, before %v\n", kv.me, kv.gid, kv.kvMap)
 	nKvMap := make(map[string]string)
@@ -235,11 +313,13 @@ func (kv *ShardKV) reconfigurate(kvMap map[string]string){
 	kv.kvMap = nKvMap
 	fmt.Printf("[Reconfig] %v gid: %v, after  %v\n", kv.me, kv.gid, kv.kvMap)
 }
+*/
 
 
 func (kv *ShardKV) checkShard(key string) bool{
 	shard := key2shard(key)
-	return  kv.config.Shards[shard] == kv.gid
+	_, ok := kv.myShard[shard]
+	return  ok
 }
 
 
@@ -253,18 +333,18 @@ func (kv *ShardKV) decodeSnapshot(commit raft.ApplyMsg) {
 	}
 	r := bytes.NewBuffer(data)
 	d := labgob.NewDecoder(r)
-	var kvMap map[string]string
+	var shardMap map[int]Shard
 	var seqOfClient map[int64]int
-	fmt.Printf("[Before Installing Snapshot] %v before kvMap: %v\n",kv.me, kv.kvMap)
+	fmt.Printf("[Before Installing Snapshot] %v before kvMap: %v\n",kv.me, kv.shardMap)
 
 	if d.Decode(&seqOfClient) != nil ||
-		d.Decode(&kvMap) != nil {
+		d.Decode(&shardMap) != nil {
 		fmt.Printf("[Error!]: occured when reading Snapshotfrom persistence!\n")
 	}else{
-		kv.kvMap = kvMap
+		kv.shardMap = shardMap
 		kv.seqOfClient = seqOfClient
 	}
-	fmt.Printf("[Snapshot Installed] %v after kvMap: %v\n",kv.me, kv.kvMap)
+	fmt.Printf("[Snapshot Installed] %v after kvMap: %v\n",kv.me, kv.shardMap)
 
 }
 
@@ -273,11 +353,11 @@ func (kv *ShardKV) listenForCommitment() {
 	for commit := range kv.applyCh {
 		// for log compact logic
 		if commit.CommandValid {
-			fmt.Printf("[ShardKV] %v receive a commitment %v\n", kv.me, commit)
+			fmt.Printf("[ShardKV] %v [GID: %v] receive a commitment %v\n", kv.me, kv.gid, commit)
 			kv.handleCommitment(commit)
 			kv.checkSnapShot(commit)
 		}else {
-			fmt.Printf("[ShardKV] %v receive a snapShot\n", kv.me)
+			fmt.Printf("[ShardKV] %v [GID: %v] receive a snapShot\n", kv.me, kv.gid)
 			kv.decodeSnapshot(commit)
 		}
 	}
@@ -291,8 +371,8 @@ func (kv *ShardKV) checkSnapShot(commit raft.ApplyMsg){
 		return
 	}
 	//fmt.Printf("RaftStateSize %v, Max: %v \n", kv.persister.RaftStateSize(), kv.maxraftstate)
-
-	if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 {
+	op, ok := commit.Command.(Op)
+	if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 && (ok && op.Operation!="Reconfiguration") {
 		// when not exceed
 		return
 	}
@@ -311,7 +391,7 @@ func (kv *ShardKV) encodeSnapshot() []byte {
     if err := e.Encode(kv.seqOfClient); err != nil {
         panic(fmt.Errorf("encode seqOfClient fail: %v", err))
     }
-    if err := e.Encode(kv.kvMap); err != nil {
+    if err := e.Encode(kv.shardMap); err != nil {
         panic(fmt.Errorf("encode kvMap fail: %v", err))
     }
     return w.Bytes()
@@ -338,76 +418,197 @@ func (kv *ShardKV) pollLatestConfig() {
 	for{
 		kv.mu.Lock()
 		lastestConfig := kv.sm.Query(-1)
+		//succeed := true
 		if lastestConfig.Num > kv.config.Num {
 			kv.maxNum = Max(kv.maxNum, lastestConfig.Num)
 			kv.config = lastestConfig
-			kv.transferShard(kv.config.Num)
+			kv.transferShard()
+			//kv.fetchShards(lastestConfig)
 		}
 		kv.mu.Unlock()
+		/*
+		if !succeed{
+			time.Sleep(time.Duration(RandTime())*time.Millisecond)
+		}
+		*/
 		time.Sleep(100 * time.Millisecond)
 	}
 }
 
-func (kv *ShardKV) transferShard(num int){
-	// called in pollLatestConfig, lock here will lead to dead lock
-	//kv.mu.Lock()
-	//defer kv.mu.Unlock()
 
-	if num < kv.config.Num {
-		fmt.Printf("[Transfer] found an old config, discard\n")
-		return
+/*
+func (kv *ShardKV) fetchShards(config shardmaster.Config) bool{
+	Num := config.Num
+	Shards := config.Shards
+	Groups := config.Groups
+	myShards := make(map[int]bool)
+	for shard, gid:= range Shards{
+		if gid == kv.gid {
+			// first collect all shards that I need
+			myShards[shard] = true
+		}
 	}
-
-	keys := []string{}
-	gids := make(map[int]map[string]string)
-	nKvMap := make(map[string]string)
-	for k,v := range kv.kvMap{
-		keys = append(keys, k)
-		gid := kv.config.Shards[key2shard(k)]
-		if gid==kv.gid{
-			nKvMap[k] = v
+	failed := false
+	// 但是不能保证别人需要的， 所以只能到完全干净了之后才commit
+	for gid, servers := range Groups{
+		if gid == kv.gid {
 			continue
 		}
-		gidMap, ok := gids[gid]
-		if !ok{
-			gids[gid] = make(map[string]string)
-			gidMap =gids[gid]
-		}
-		gidMap[k] = v
-	}
-	// reset the map and delete those don't belong to me
-
-	complete := true
-	for gid, kvMap := range gids {
-		// can deal with dead lock?
-		succeed := kv.sendShardToGid(gid, kvMap)
+		succeed := kv.pollFromGid(myShards, Shards, Num, servers, Groups)	
 		if !succeed{
-			complete = false
+			fmt.Printf("[Poll] %v polling from gid: %v fail\n", kv.gid, gid)
+			failed = true
 			break
 		}
 	}
-	if complete {
-		kv.kvMap = nKvMap
-		kv.syncWithFollower(nKvMap)
-	}else{
-		kv.config.Num --
-		// so as to trigger deadlock
-		// may be time out for some cases such as deadlock?
+	if !failed{
+		kv.config = config
+		kv.syncWithFollower(kv.kvMap)
+	}
+	return !failed
+}
+
+func (kv *ShardKV) pollFromGid(myShards map[int]bool, Shards [10]int, num int, servers []string, Groups map[int][]string) bool{
+	for {
+		// try each server for the shard.
+		args := FetchArgs{Num:num, Groups:Groups, ShardsNeeded:myShards, Shards:Shards}
+		// waitTime is used to avoid keep waiting and lead to deadlock
+		waitTime := RandTime()
+		for si := 0; si < len(servers); si++ {
+			srv := kv.make_end(servers[si])
+			var reply FetchReply
+			finished := make(chan bool,1)
+			go func(){
+				finished <- srv.Call("ShardKV.GetShard", &args, &reply)
+			}()
+			select{
+			case ok := <-finished:
+				if ok && (reply.Err == OK) {
+					kvMap := reply.KvMap
+					fmt.Printf("[FetchSucceed] %v [GID: %v] from gid: %v kvMap: %v \n", kv.me, kv.gid,servers[si],kvMap)
+					for k,v := range kvMap{
+						kv.kvMap[k] = v
+					}
+					return true
+				}
+				if ok && (reply.Err == ErrWrongGroup) {
+					// once we found we make a mistake, we need to get the lastest config again
+					return false
+				}		
+				break							
+			case <- time.After(time.Duration(waitTime) * time.Millisecond):
+				// possibly that both are sending and not able to proceed, so dead lock
+				reply.Err = ErrWrongGroup
+				fmt.Printf("Timeout %v for %v\n", kv.gid, servers[si])
+				return false
+			}
+				// ... not ok, or ErrWrongLeader
+		}
+		//time.Sleep(100 * time.Millisecond)
 	}
 }
+
+func (kv *ShardKV) GetShard(args *FetchArgs, reply *FetchReply){
+	//fmt.Printf("%v [GID: %v] receive fetchArgs %v\n", kv.me, kv.gid, args)
+	kv.mu.Lock()
+	defer kv.mu.Unlock()
+	Num := args.Num
+	Shards := args.Shards
+	ShardsNeeded := args.ShardsNeeded
+	mapNeeded := make(map[string]string)
+	myShards := make(map[int]bool)
+	if Num < kv.config.Num || Num < kv.maxNum {
+		// not a good
+		reply.Err = ErrWrongGroup
+		return
+	}
+	kv.maxNum = Max(kv.maxNum, Num)
+	// make sure not older than itself
+	_, isLeader := kv.rf.GetState()
+	if !isLeader{
+		reply.Err = ErrWrongLeader
+		return
+	}
+	for shard, gid := range Shards{
+		if gid == kv.gid {
+			myShards[shard] = true
+		}
+	}
+
+	canSotre := true
+	for k,v := range kv.kvMap{
+		shard := key2shard(k)
+		_, ok := ShardsNeeded[shard]
+		if ok {
+			mapNeeded[k] = v
+			continue
+		}
+		_, mine := myShards[shard]
+		if !mine{
+			canSotre = false
+		}
+	}
+	for k,_ := range mapNeeded{
+		delete(kv.kvMap, k)
+	}
+	reply.KvMap = mapNeeded
+	fmt.Printf("%v [GID: %v] reply with %v \n", kv.me, kv.gid,reply)
+
+	if canSotre{
+		//kv.syncWithFollower(kv.kvMap)
+	}
+}
+*/
 
 
 func RandTime() int{
 	return 500 + rand.Intn(400)
 }
 
+func (kv *ShardKV) transferShard(){
+	// called in pollLatestConfig, lock here will lead to dead lock
+	_, isLeader := kv.rf.GetState()
+	if !isLeader{
+		// only the leader need to handle the shard transfer process
+		return
+	}
+	shardsSend := make([]Shard, 0)
+	for k,s := range kv.shardMap{
+		gid := kv.config.Shards[k]
+		if gid == kv.gid{
+			// if I am responsible for it
+			continue
+		}
+		shardsSend = append(shardsSend, s)
+	}
+	// reset the map and delete those don't belong to me
+	for _, shard := range shardsSend {
+		succeed := kv.sendShardToGid(shard)
+		if succeed {
+			kv.maxNumOfShard[shard.Id] = shard.Num
+			deleteOp := Op{ Operation:"Delete", Shard: shard}
+			kv.rf.Start(deleteOp)
+		}
+	}
 
-func (kv *ShardKV) sendShardToGid(gid int, kvMap map[string]string)bool{
+}
+
+func (kv *ShardKV) shouldSendShard(shard Shard) bool{
+	if kv.maxNumOfShard[shard.Id] < shard.Num {
+		return true
+	}
+	return false
+}
+
+func (kv *ShardKV) sendShardToGid(shard Shard)bool{
+	if !kv.shouldSendShard(shard) {
+		return true
+	}
+	Gid := kv.config.Shards[shard.Id]
 	for {
-		if servers, ok := kv.config.Groups[gid]; ok {
+		if servers, ok := kv.config.Groups[Gid]; ok {
 			// try each server for the shard.
-			args := TransferArgs{Num:kv.config.Num, KvMap :kvMap}
-
+			args := TransferArgs{Num:kv.config.Num, Shard :shard}
 			// waitTime is used to avoid keep waiting and lead to deadlock
 			waitTime := RandTime()
 			for si := 0; si < len(servers); si++ {
@@ -418,7 +619,7 @@ func (kv *ShardKV) sendShardToGid(gid int, kvMap map[string]string)bool{
 					finished <- srv.Call("ShardKV.UpdateKvMap", &args, &reply)
 				}()
 				select{
-				case ok := <-finished:
+				case ok := <- finished:
 					if ok && (reply.Err == OK) {
 						return true
 					}
@@ -429,6 +630,7 @@ func (kv *ShardKV) sendShardToGid(gid int, kvMap map[string]string)bool{
 					break							
 				case <- time.After(time.Duration(waitTime) * time.Millisecond):
 					// possibly that both are sending and not able to proceed, so dead lock
+					// is it ok here to release the lock? Since we are still waiting for it to complete
 					reply.Err = ErrWrongGroup
 					return false
 				}
@@ -452,31 +654,22 @@ func (kv *ShardKV) UpdateKvMap(args *TransferArgs, reply *TransferReply){
 	// holding a lock may cause dead lock
 	// if all are holding a lock and sending message, possiblely the other side does not hold the lock
 	num := args.Num
-	kvMap := args.KvMap
+	Shard := args.Shard
+	// 这里就是决定到底哪些需要接受，哪些需要转发，哪些是直接的拒绝的
 	if num < kv.config.Num || num < kv.maxNum{
 		reply.Err = ErrWrongGroup
 		return
 	}
 	kv.maxNum = Max(kv.maxNum, num)
 	// make sure not older than itself
-	_, isLeader := kv.rf.GetState()
+	Op := Op{Operation:"Accept", Shard:Shard}
+	_, _, isLeader := kv.rf.Start(Op)
 	if !isLeader{
 		reply.Err = ErrWrongLeader
 		return
 	}
-	for k,v := range kvMap{
-		// is it possible that this KV is actually not valid?
-		kv.kvMap[k] = v
-	}
 	reply.Err = OK
 	// how to trigger the update for followers
-}
-
-
-func (kv *ShardKV) syncWithFollower(kvMap map[string]string){
-	// need to figure out how to synchronize with followers
-	op := Op{Operation:"Reconfiguration", KvMap:kvMap}
-	kv.rf.Start(op)
 }
 
 
@@ -531,13 +724,13 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister,
 	kv.sm = shardmaster.MakeClerk(masters)
 
 	kv.config = kv.sm.Query(-1)
-	kv.kvMap =  make(map[string]string)
 	kv.seqOfClient = make(map[int64]int)
 	kv.dispatcher = make(map[int]chan Notification)
 	kv.persister = persister
 	kv.maxNum = 0
-	kv.completeTransfer = make(map[int]bool)
 	go kv.listenForCommitment()
 	go kv.pollLatestConfig()
+	//kv.readSnapshot(persister.ReadSnapshot())
+
 	return kv
 }
