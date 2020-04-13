@@ -306,9 +306,13 @@ func GetMax(a int , b int)int{
 func (sm *ShardMaster) handleJoinRequest(Servers map[int][]string){
 	// record the newly joined servers
 	config := Config{}
+	nGids := make(map[int]bool)
+	nKeys := make([]int, 0)
 	nextGid2Shards := make(map[int][]int)
 	nextGid2Servers:= make(map[int][]string)
 	for k, v := range Servers {
+		nGids[k] = true
+		nKeys = append(nKeys, k)
 		sm.gid2Servers[k] = v
 	}
 	keys := make([]int,0)
@@ -317,18 +321,51 @@ func (sm *ShardMaster) handleJoinRequest(Servers map[int][]string){
 		keys = append(keys,k)
 	}
 	sort.Ints(keys)
-	// sort the keys so as not to generate different results
-	allShards := make([]int,NShards)
-	for i:=0;i< NShards;i++ {
-		allShards[i] = i
+	sort.Ints(nKeys)
+	// get remaining shards, if all are new joiner, simply take all shards
+	// if not, collect those more than average out
+	remaingShards := make([]int, 0)
+	if len(keys) == len(nGids) {
+		for i:=0;i<NShards;i++{
+			remaingShards = append(remaingShards, i)
+		}
+	}else{
+		average := GetMax(NShards/len(keys), 1)
+		/*
+		if average > NShards-average*(len(keys)-1) {
+			average ++
+		}
+		*/
+		for _, gid := range keys {
+			_, ok := nGids[gid]
+			if ok {
+				continue
+			}
+			shards, hold:= sm.gid2Shards[gid]
+			if hold && len(shards) > average{
+				shardsToCollect := shards[average:]
+				remaingShards = append(remaingShards, shardsToCollect...)
+				nextGid2Shards[gid] = shards[:average]
+				for _, shard := range nextGid2Shards[gid]{
+					config.Shards[shard] = gid
+				}
+			} else if hold{
+				nextGid2Shards[gid] = shards[:]
+				for _, shard := range nextGid2Shards[gid]{
+					config.Shards[shard] = gid
+				}
+			}
+		}
 	}
 	gidIndex := 0
-	for i:=0;i<NShards;i++ {
-		gid := keys[gidIndex]
-		config.Shards[i] = gid
-		nextGid2Shards[gid] = append(nextGid2Shards[gid], i)
-		gidIndex = (gidIndex+1)%len(keys)
+	sort.Ints(remaingShards)
+	for _, shard := range remaingShards{
+		gid := nKeys[gidIndex]
+		config.Shards[shard] = gid
+		nextGid2Shards[gid] = append(nextGid2Shards[gid], shard)
+		gidIndex = (gidIndex+1)%len(nKeys)
 	}
+
 	sm.gid2Shards = nextGid2Shards
 	config.Groups = nextGid2Servers
 	config.Num    = len(sm.configs) 
@@ -363,18 +400,31 @@ func (sm *ShardMaster) handleLeaveRequest(Gids []int){
 		}
 	}
 	sort.Ints(keys)
-
-	gidIndex := 0
-	for _, val := range remaining{
-		if len(keys)<=0 {
-			break
+	average := 1
+	if len(keys) >0 {
+		average = NShards/len(keys)
+		if NShards%len(keys) != 0 {
+			average ++
 		}
-		gid := keys[gidIndex]
-		config.Shards[val] = gid
-		nextGid2Shards[gid] = append(nextGid2Shards[gid],val)
-		gidIndex = (gidIndex+1) % len(keys)
 	}
-
+	Index := 0
+	sIndex :=0 
+	for sIndex < len(remaining) && len(keys)>0{
+		gid := keys[Index]
+		shards, hold := nextGid2Shards[gid]
+		if !hold{
+			nextGid2Shards[gid] = make([]int, 0)
+			shards = nextGid2Shards[gid]
+		}
+		if len(shards) < average {
+			shard := remaining[sIndex]
+			shards = append(shards, shard)
+			config.Shards[shard] = gid
+			sIndex ++
+			nextGid2Shards[gid] = shards
+		}
+		Index = (Index+1)%len(keys)
+	}
 	// initialize the shards
 	
 	config.Groups = gid2Servers
@@ -388,8 +438,13 @@ func (sm *ShardMaster) handleLeaveRequest(Gids []int){
 func (sm *ShardMaster) handleMoveRequest(GID int, shard int){
 	// move this shard to that GID
 	config := Config{}
-
 	preConfig := sm.configs[len(sm.configs)-1]
+	if preConfig.Shards[shard] == GID {
+		config = sm.deepCopyOfConfig()
+		config.Num = len(sm.configs)
+		sm.configs = append(sm.configs, config)
+		return
+	}
 	preGid := preConfig.Shards[shard]
 
 	// initialize the shards since we simply need to modify two position
@@ -428,6 +483,19 @@ func (sm *ShardMaster) handleMoveRequest(GID int, shard int){
 	config.Num = len(sm.configs)
 	sm.configs = append(sm.configs, config)
 	sm.gid2Shards = nextGid2Shards
+}
+
+func (sm *ShardMaster) deepCopyOfConfig() Config{
+	config := Config{}
+	preConfig := sm.configs[len(sm.configs)-1]
+	copy(config.Shards[:], preConfig.Shards[:])
+	nGroups := make(map[int][]string)
+	Groups := preConfig.Groups
+	for k,v := range Groups {
+		nGroups[k] = v
+	} 
+	config.Groups = nGroups
+	return config
 }
 
 
