@@ -63,13 +63,13 @@ type TransferReply struct{
 
 type FetchArgs struct{
 	Num int
-	Shards [10]int
 	ShardsNeeded map[int]bool
 	Groups map[int][]string
+	From int
 
 }
 
 type FetchReply struct{
 	Err Err
-	KvMap map[string]string
+	Shards []Shard
 }

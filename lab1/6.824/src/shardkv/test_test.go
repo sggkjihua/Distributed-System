@@ -50,6 +50,8 @@ func TestStaticShards4A(t *testing.T) {
 	// make sure that the data really is sharded by
 	// shutting down one shard and checking that some
 	// Get()s don't succeed.
+	fmt.Printf("Pass Checking first 10........................................\n")
+
 	cfg.ShutdownGroup(1)
 	cfg.checklogs() // forbid snapshots
 
@@ -78,6 +80,8 @@ func TestStaticShards4A(t *testing.T) {
 	if ndone != 5 {
 		t.Fatalf("expected 5 completions with one shard dead; got %v\n", ndone)
 	}
+
+	fmt.Printf("Passed checking half exists.................\n")
 
 	// bring the crashed shard/group back to life.
 	cfg.StartGroup(1)
@@ -129,6 +133,7 @@ func TestJoinLeave4B(t *testing.T) {
 		va[i] += x
 	}
 
+	fmt.Printf("Did I passed 0 leave ??????????\n")
 	// allow time for shards to transfer.
 	time.Sleep(1 * time.Second)
 
