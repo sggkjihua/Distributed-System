@@ -156,7 +156,7 @@ func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	isMyShard := kv.checkShard(args.Key)
 	kv.mu.Unlock()
 	if !isMyShard {
-		fmt.Printf("[PutAppend] GID: %v is not responsible for shard %v , reject %v\n", kv.gid, key2shard(args.Key), kv.myShard)
+		fmt.Printf("[Put/Append] GID: %v is not responsible for shard %v , MyShard: %v, ShardNeeded: %v, Discarded: %v \n", kv.gid, key2shard(args.Key), kv.myShard,kv.shardsNeeded, kv.shardsToDiscard)
 		reply.Err = ErrWrongGroup
 		return
 	}
@@ -410,20 +410,27 @@ func (kv *ShardKV) decodeSnapshot(commit raft.ApplyMsg) {
 	var myShard map[int]bool
 	var shardsNeeded map[int]bool
 	var shardsToDiscard map[int]bool
-	fmt.Printf("[Before Installing Snapshot] %v before kvMap: %v\n", kv.me, kv.printAllKeys())
+	var config shardmaster.Config
+	if kv.isLeader{
+		fmt.Printf("[Before Installing Snapshot] %v before myShard: %v, shardsNeeded: %v, toDiscard: %v kvMap: %v\n", kv.me, kv.myShard,kv.shardsNeeded, kv.shardsToDiscard,kv.printAllKeys())
 
+	}
 	if d.Decode(&shardMap) != nil ||
 		d.Decode(&myShard) != nil ||
 		d.Decode(&shardsNeeded) != nil ||
-		d.Decode(&shardsToDiscard) != nil {
+		d.Decode(&shardsToDiscard) != nil ||
+		d.Decode(&config) !=nil {
 		fmt.Printf("[Error!]: occured when reading Snapshotfrom persistence!\n")
 	} else {
 		kv.shardMap = shardMap
 		kv.myShard = myShard
 		kv.shardsNeeded = shardsNeeded
 		kv.shardsToDiscard = shardsToDiscard
+		kv.config = config
 	}
-	fmt.Printf("[Snapshot Installed] %v after kvMap: %v\n", kv.me, kv.printAllKeys())
+	if kv.isLeader{
+		fmt.Printf("[After Installing Snapshot] %v after myShard: %v, shardsNeeded: %v, toDiscard: %v kvMap: %v\n", kv.me, kv.myShard, kv.shardsNeeded, kv.shardsToDiscard,kv.printAllKeys())
+	}
 
 }
 
@@ -459,10 +466,11 @@ func (kv *ShardKV) checkSnapShot(commit raft.ApplyMsg) {
 	if kv.maxraftstate == -1 {
 		return
 	}
+	op := commit.Command.(Op).Operation
 	//fmt.Printf("RaftStateSize %v, Max: %v \n", kv.persister.RaftStateSize(), kv.maxraftstate)
 	//op, _ := commit.Command.(Op)
 	//if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 && (ok && op.Operation!="Sync") {
-	if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 {
+	if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 && op!="Reconfiguration" {
 		// when not exceed
 		//fmt.Printf("Operation: %v \n", op.Operation)
 		return
@@ -488,6 +496,9 @@ func (kv *ShardKV) encodeSnapshot() []byte {
 		panic(fmt.Errorf("encode shardsNeed fail: %v", err))
 	}
 	if err := e.Encode(kv.shardsToDiscard); err != nil {
+		panic(fmt.Errorf("encode shardsToDiscaed fail: %v", err))
+	}
+	if err := e.Encode(kv.config); err != nil {
 		panic(fmt.Errorf("encode shardsToDiscaed fail: %v", err))
 	}
 	return w.Bytes()
@@ -558,13 +569,16 @@ func (kv *ShardKV) fetchShards() {
 		kv.mu.Unlock()
 		return
 	}
-	fmt.Printf("[Fetching] Server %v [GID: %v] is requesting shards %v from others\n", kv.me, kv.gid, kv.shardsNeeded)
 	curConfig := kv.config
 	preConfig := kv.sm.Query(curConfig.Num - 1)
 	Num := curConfig.Num
 	Shards := preConfig.Shards
 	Groups := preConfig.Groups
 	Gids := kv.gidsToAsked(Shards)
+
+	fmt.Printf("[Fetching] Server %v [GID: %v] is requesting shards %v from %v, myShard: %v , shardsToDiscard: %v myConfig: %v\n", 
+	kv.me, kv.gid, kv.shardsNeeded,Gids, kv.myShard, kv.shardsToDiscard, kv.config)
+
 	wg := sync.WaitGroup{}
 	args := FetchArgs{Num: Num, ShardsNeeded: kv.shardsNeeded, From: kv.gid}
 	for gid := range Gids {
@@ -632,6 +646,10 @@ func (kv *ShardKV) GetShard(args *FetchArgs, reply *FetchReply) {
 	fmt.Printf("[GetShard] Server %v [GID: %v] myShard: %v, shardMap: %v\n", kv.me, kv.gid, kv.myShard, kv.shardMap)
 	for shardId := range ShardsNeeded {
 		if preConfig.Shards[shardId] != kv.gid {
+			continue
+		}
+		if _, hold := kv.shardsToDiscard[shardId]; !hold {
+			// shard is currently not in discard list
 			continue
 		}
 		shard, ok := kv.shardMap[shardId]
@@ -742,6 +760,7 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister,
 
 	kv.shardMap = make(map[int]Shard)
 
+	
 	for shard, gid := range kv.config.Shards {
 		if gid == kv.gid {
 			kv.myShard[shard] = true
