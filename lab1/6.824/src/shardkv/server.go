@@ -249,9 +249,9 @@ func (kv *ShardKV) putShard(key string, val string, append bool, cid int64, seq 
 	Shard.Num = kv.config.Num
 }
 
-func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Shard, Num int) bool{
+func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Shard, Num int, Op string) bool{
 	shard := key2shard(Key)
-	if len(Key)!=0 {
+	if Op=="Get" || Op=="Put" || Op=="Append" {
 		// Put/Append/Get, first check if we are responsible for this
 		_, responsible := kv.myShard[shard]
 		if !responsible{
@@ -271,10 +271,15 @@ func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Sh
 				return false
 			}
 		}
-		return true
+		//return true
+	}else if Op == "Accept" {
+		shard = Shard.Id
+		if mShard, ok := kv.shardMap[shard]; ok {
+			preSeqOfCid := mShard.SeqOfCid
+			return len(Shard.SeqOfCid) > len(preSeqOfCid)
+		}
 	}
-	// Delete/Reconfiguration/Accept
-	if Num >= kv.config.Num{
+	if Num >= kv.config.Num {
 		return true
 	}
 	fmt.Printf("[My Num is higher] Key %v [Shard: %v] my num %v is higher than %v\n", Key, shard, kv.config.Num, Num)
@@ -299,7 +304,7 @@ func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg){
 	Config := op.Config
 	kv.mu.Lock()
 
-	shouldProcess := kv.shouldProcessRequest(op.Key, Cid, Seq, Shard, Num)
+	shouldProcess := kv.shouldProcessRequest(op.Key, Cid, Seq, Shard, Num, Operation)
 	if shouldProcess{
 		Key := op.Key
 		Value := op.Val
@@ -512,7 +517,7 @@ func (kv *ShardKV) pollNextConfig() {
 	for{
 		_, isLeader := kv.rf.GetState()
 		kv.mu.Lock()
-		if !isLeader || len(kv.shardsNeeded)>0{
+		if !isLeader || len(kv.shardsNeeded)>0 || len(kv.shardsToDiscard)>0 {
 			// if there is still some shards that we did not receive for this configuration
 			// wait until we fully get all of them
 			kv.mu.Unlock()
@@ -607,7 +612,7 @@ func (kv *ShardKV) GetShard(args *FetchArgs, reply *FetchReply){
 		reply.Err = ErrWrongLeader
 		return
 	}
-	fmt.Printf("%v [GID: %v] receive fetchArgs %v from %v\n", kv.me, kv.gid, args, args.From)
+	fmt.Printf("[GetShard] %v [GID: %v] receive fetchArgs %v from %v\n", kv.me, kv.gid, args, args.From)
 	Num := args.Num
 	ShardsNeeded := args.ShardsNeeded
 	preConfig := kv.sm.Query(Num-1)
