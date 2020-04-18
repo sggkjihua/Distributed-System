@@ -215,7 +215,7 @@ func (sm *ShardMaster) handleQuery(num int)Config{
 	//fmt.Printf("[QUery] %v sm.configs: %v\n",sm.me, sm.configs)
 	lastNum := len(sm.configs)
 	index := -1
-	if num == -1 || num > lastNum{
+	if num == -1 || num >= lastNum{
 		index = lastNum-1
 	}else{
 		index = num

@@ -64,9 +64,7 @@ type TransferReply struct{
 type FetchArgs struct{
 	Num int
 	ShardsNeeded map[int]bool
-	Groups map[int][]string
 	From int
-
 }
 
 type FetchReply struct{

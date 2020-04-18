@@ -873,6 +873,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 // the leader.
 //
 func (rf *Raft) Start(command interface{}) (int, int, bool) {
+	//fmt.Printf("Receive: %v\n", command)
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	index := rf.term

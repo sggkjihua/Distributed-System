@@ -72,6 +72,7 @@ func MakeClerk(masters []*labrpc.ClientEnd, make_end func(string) *labrpc.Client
 func (ck *Clerk) Get(key string) string {
 	args := GetArgs{}
 	args.Key = key
+	ck.seq ++
 	args.Cid = ck.cid
 	args.Seq = ck.seq
 	for {
@@ -84,7 +85,6 @@ func (ck *Clerk) Get(key string) string {
 				var reply GetReply
 				ok := srv.Call("ShardKV.Get", &args, &reply)
 				if ok && (reply.Err == OK || reply.Err == ErrNoKey) {
-					ck.seq ++
 					return reply.Value
 				}
 				if ok && (reply.Err == ErrWrongGroup) {
@@ -111,6 +111,7 @@ func (ck *Clerk) PutAppend(key string, value string, op string) {
 	args.Value = value
 	args.Op = op
 	args.Cid = ck.cid
+	ck.seq ++
 	args.Seq = ck.seq
 	for {
 		shard := key2shard(key)
@@ -121,7 +122,6 @@ func (ck *Clerk) PutAppend(key string, value string, op string) {
 				var reply PutAppendReply
 				ok := srv.Call("ShardKV.PutAppend", &args, &reply)
 				if ok && reply.Err == OK {
-					ck.seq ++
 					return
 				}
 				if ok && reply.Err == ErrWrongGroup {
