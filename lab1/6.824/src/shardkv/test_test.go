@@ -250,42 +250,62 @@ func TestMissChange4D(t *testing.T) {
 		check(t, ck, ka[i], va[i])
 	}
 
+	fmt.Printf("Passed first 10 value check.......\n")
 	cfg.join(1)
+
+	fmt.Printf("Gid 1 joined .........\n")
 
 	cfg.ShutdownServer(0, 0)
 	cfg.ShutdownServer(1, 0)
 	cfg.ShutdownServer(2, 0)
 
+	fmt.Printf("Shoutdown one server per gid .........\n")
+
 	cfg.join(2)
 	cfg.leave(1)
 	cfg.leave(0)
 
+	fmt.Printf("New gid joined and 0, 1 left .........\n")
+
+
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])
 		x := randstring(20)
 		ck.Append(ka[i], x)
 		va[i] += x
 	}
+
+	fmt.Printf("Verified exists and putAppend for all values.........\n")
 
 	cfg.join(1)
 
+	fmt.Printf("Gid 1 joined again.........\n")
+
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])
 		x := randstring(20)
 		ck.Append(ka[i], x)
 		va[i] += x
 	}
+
+	fmt.Printf("Verified all values exist again.........\n")
 
 	cfg.StartServer(0, 0)
 	cfg.StartServer(1, 0)
 	cfg.StartServer(2, 0)
 
+	fmt.Printf("Started one server per gid.........\n")
+
+
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])
 		x := randstring(20)
 		ck.Append(ka[i], x)
 		va[i] += x
 	}
+
+
+	fmt.Printf("Verified all values exist 3 times.........\n")
 
 	time.Sleep(2 * time.Second)
 
@@ -314,7 +334,7 @@ func TestMissChange4D(t *testing.T) {
 	fmt.Printf("  ... Passed\n")
 }
 
-func TestConcurrent1(t *testing.T) {
+func TestConcurrent14F(t *testing.T) {
 	fmt.Printf("Test: concurrent puts and configuration changes...\n")
 
 	cfg := make_config(t, 3, false, 100)
@@ -333,6 +353,7 @@ func TestConcurrent1(t *testing.T) {
 		ck.Put(ka[i], va[i])
 	}
 
+	fmt.Printf("Put 10 values succeed........\n")
 	var done int32
 	ch := make(chan bool)
 
@@ -351,11 +372,22 @@ func TestConcurrent1(t *testing.T) {
 		go ff(i)
 	}
 
+	fmt.Printf("Append for 10 values succeed........\n")
+
+
 	time.Sleep(150 * time.Millisecond)
 	cfg.join(1)
+	fmt.Printf("Gid 1 joined ........\n")
+
 	time.Sleep(500 * time.Millisecond)
 	cfg.join(2)
+
+	fmt.Printf("Gid 2 joined ........\n")
+
 	time.Sleep(500 * time.Millisecond)
+
+	fmt.Printf("Gid 0 left ........\n")
+
 	cfg.leave(0)
 
 	cfg.ShutdownGroup(0)
@@ -363,6 +395,9 @@ func TestConcurrent1(t *testing.T) {
 	cfg.ShutdownGroup(1)
 	time.Sleep(100 * time.Millisecond)
 	cfg.ShutdownGroup(2)
+
+
+	fmt.Printf("All gid shout down ........\n")
 
 	cfg.leave(2)
 
@@ -834,7 +869,7 @@ func TestChallenge1Concurrent(t *testing.T) {
 // shards that are not affected by a config change
 // while the config change is underway
 //
-func TestChallenge2Unaffected(t *testing.T) {
+func TestChallenge2Unaffected4Z(t *testing.T) {
 	fmt.Printf("Test: unaffected shard access (challenge 2) ...\n")
 
 	cfg := make_config(t, 3, true, 100)
@@ -904,7 +939,7 @@ func TestChallenge2Unaffected(t *testing.T) {
 // have been received as a part of a config migration when the entire migration
 // has not yet completed.
 //
-func TestChallenge2Partial(t *testing.T) {
+func TestChallenge2Partial4Z(t *testing.T) {
 	fmt.Printf("Test: partial migration shard access (challenge 2) ...\n")
 
 	cfg := make_config(t, 3, true, 100)
