@@ -52,7 +52,7 @@ type ShardKV struct {
 	dispatcher map[int] chan Notification 
 	persister *raft.Persister
 
-	maxNumAsked map[int]int   // the Num I have asked from Gid
+	maxNumOfShard map[int]int   // the Num I have asked from Gid
 	
 	shardsNeeded map[int]bool
 	shardsToDiscard map[int]bool
@@ -116,12 +116,10 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 		// should we set a timer here?
 	case  notification := <- ch :
 		// as required, all previous operation should reveal on the get request
+		kv.mu.Lock()
 
-		if notification.Seq == op.Seq && notification.Cid == op.Cid{
-			kv.mu.Lock()
+		if notification.Seq == op.Seq && notification.Cid == op.Cid && kv.hasBeenProcessed(args.Key, args.Cid, args.Seq){
 			delete(kv.dispatcher, index)
-			kv.mu.Unlock()
-
 			reply.Err = OK
 			reply.Value = kv.getValueByKey(args.Key)
 			fmt.Printf("[Get Value] GID: %v Command %v has been processed with val %v\n", kv.gid, op, reply.Value)
@@ -134,11 +132,23 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 				reply.Err = ErrWrongGroup
 			}
 		}
+		kv.mu.Unlock()
 		return
 	case <- time.After(time.Duration(600)*time.Millisecond):
 		reply.Err = ErrWrongLeader
 		return
 	}
+}
+
+
+func (kv *ShardKV) hasBeenProcessed(key string, cid int64, seq int) bool {
+	shard := key2shard(key)
+	Shard, exists := kv.shardMap[shard]
+	if !exists {
+		return false
+	}
+	maxSeq, ok := Shard.SeqOfCid[cid]
+	return !ok || maxSeq>=seq 
 }
 
 // 要保证整个迁移的期间是不能够去接受新的 PutAppend 和 Get 的请求的
@@ -176,7 +186,7 @@ func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 		// leader should wait until it get the result
 		// should we set a timer here?
 	case  notification := <- ch:
-		if notification.Seq == op.Seq && notification.Cid == op.Cid{
+		if notification.Seq == op.Seq && notification.Cid == op.Cid && kv.hasBeenProcessed(args.Key, args.Cid, args.Seq){
 			kv.mu.Lock()
 			delete(kv.dispatcher, index)
 			kv.mu.Unlock()
@@ -261,6 +271,7 @@ func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Sh
 				return false
 			}
 		}
+		return true
 	}
 	// Delete/Reconfiguration/Accept
 	if Num >= kv.config.Num{
@@ -550,7 +561,7 @@ func (kv *ShardKV) fetchShards(){
 	Groups := preConfig.Groups
 	Gids := kv.gidsToAsked(Shards)
 	wg := sync.WaitGroup{}
-	args := FetchArgs{Num:Num, ShardsNeeded:kv.shardsNeeded, From:kv.me}
+	args := FetchArgs{Num:Num, ShardsNeeded:kv.shardsNeeded, From:kv.gid}
 	for gid := range Gids {
 		servers := Groups[gid]
 		// used this to prevent from being called again
@@ -608,15 +619,17 @@ func (kv *ShardKV) GetShard(args *FetchArgs, reply *FetchReply){
 		return
 	}
 	Shards := make([]Shard, 0)
+	//kv.printState("GetShard")
+	fmt.Printf("[GetShard] Server %v [GID: %v] myShard: %v, shardMap: %v\n", kv.me, kv.gid, kv.myShard, kv.shardMap)
 	for shardId := range ShardsNeeded {
 		if preConfig.Shards[shardId] != kv.gid{
 			continue
 		}
 		shard, ok := kv.shardMap[shardId]
 		// condition here might be really critical
-		if ok && shard.Num == Num -1 {
+		if ok {
 			Shards = append(Shards, deepCopyOfShard(shard))
-		}else if !ok{
+		}else{
 			fakeShard := Shard{Id: shardId, Num: Num-1, KvMap:make(map[string]string), SeqOfCid:make(map[int64]int)}
 			Shards = append(Shards, fakeShard)
 		}
@@ -715,7 +728,7 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister,
 
 	kv.dispatcher = make(map[int]chan Notification)
 	kv.persister = persister
-	kv.maxNumAsked = make(map[int]int)
+	kv.maxNumOfShard = make(map[int]int)
 	kv.myShard = make(map[int]bool)
 	kv.shardsNeeded = make(map[int]bool)
 	kv.shardsToDiscard = make(map[int]bool)

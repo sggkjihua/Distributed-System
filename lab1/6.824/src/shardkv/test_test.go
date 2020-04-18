@@ -115,6 +115,8 @@ func TestJoinLeave4B(t *testing.T) {
 		check(t, ck, ka[i], va[i])
 	}
 
+	fmt.Printf("Passed checing 10 exists............\n")
+
 	cfg.join(1)
 
 	for i := 0; i < n; i++ {
@@ -123,6 +125,9 @@ func TestJoinLeave4B(t *testing.T) {
 		ck.Append(ka[i], x)
 		va[i] += x
 	}
+
+	fmt.Printf("Passed checing 10 still exists after join................\n")
+
 
 	cfg.leave(0)
 
