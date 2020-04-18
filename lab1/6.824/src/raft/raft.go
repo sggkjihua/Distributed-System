@@ -177,9 +177,9 @@ func (rf *Raft) readSnapshot(data []byte){
 
 //here for taking snapshot logic
 func (rf *Raft) TakeSnapShot(index int, term int, snapShot []byte){
-	fmt.Printf("[Take Snap Shot] %v is taking a snapshot for index: %v of term: %v\n",rf.me,index, term)
+	//fmt.Printf("[Take Snap Shot] %v is taking a snapshot for index: %v of term: %v\n",rf.me,index, term)
 	rf.mu.Lock()
-	fmt.Printf("[Take Snap Shot] %v takes the lock successfully\n", rf.me)
+	//fmt.Printf("[Take Snap Shot] %v takes the lock successfully\n", rf.me)
 	defer rf.mu.Unlock()
 	// adding the lock here will result in dead lock, will need to figure out a way to deal with this 
 	if index < rf.lastIncludedIndex {
@@ -207,8 +207,8 @@ func (rf *Raft) TakeSnapShot(index int, term int, snapShot []byte){
 	rf.lastApplied = GetMax(rf.lastApplied, index)
 	rf.lastIncludedTerm = GetMax(rf.lastIncludedTerm, rf.term)
 
-	fmt.Printf("[After Taking Snapshot] %v lastIncludedIndex: %v, lastIncludedTerm: %v, Commit: %v, lastApplied: %v, logs: %v \n",
-	 rf.me, rf.lastIncludedIndex, rf.lastIncludedTerm, rf.commitIndex, rf.lastApplied, rf.entries)
+	//fmt.Printf("[After Taking Snapshot] %v lastIncludedIndex: %v, lastIncludedTerm: %v, Commit: %v, lastApplied: %v, logs: %v \n",
+	 //rf.me, rf.lastIncludedIndex, rf.lastIncludedTerm, rf.commitIndex, rf.lastApplied, rf.entries)
 
 
 	raftState := rf.generateRaftState()

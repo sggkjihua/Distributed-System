@@ -463,14 +463,14 @@ func (kv *ShardKV) checkSnapShot(commit raft.ApplyMsg){
 		return
 	}
 	//fmt.Printf("RaftStateSize %v, Max: %v \n", kv.persister.RaftStateSize(), kv.maxraftstate)
-	op, _ := commit.Command.(Op)
+	//op, _ := commit.Command.(Op)
 	//if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 && (ok && op.Operation!="Sync") {
 	if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 {
 			// when not exceed
-		fmt.Printf("Operation: %v \n", op.Operation)
+		//fmt.Printf("Operation: %v \n", op.Operation)
 		return
 	}
-	fmt.Printf("[Compacting Required] %v will need to compact \n", kv.me)
+	//fmt.Printf("[Compacting Required] %v will need to compact \n", kv.me)
 	// taking the index of the current commit as the lastIncludedIndex
 	commitedIndex := commit.CommandIndex
 	term := commit.CommandTerm
@@ -610,6 +610,10 @@ func (kv *ShardKV) GetShard(args *FetchArgs, reply *FetchReply){
 	_, isLeader := kv.rf.GetState()
 	if !isLeader {
 		reply.Err = ErrWrongLeader
+		return
+	}
+	if len(kv.shardsToDiscard) == 0 {
+		reply.Err = OK
 		return
 	}
 	fmt.Printf("[GetShard] %v [GID: %v] receive fetchArgs %v from %v\n", kv.me, kv.gid, args, args.From)
