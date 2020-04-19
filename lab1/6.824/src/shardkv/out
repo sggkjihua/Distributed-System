@@ -248,8 +248,12 @@ Gid 0 left ........
 [Put/Append] GID: 102 is not responsible for shard 1 , MyShard: map[], ShardNeeded: map[3:true 4:true 8:true 9:true], Discarded: map[]
 [09:46:10.461 Leader] 0 has been terminated
 All gid shout down ........
+
+
 [09:46:10.462 Follower] 2 has been terminated
 [09:46:10.462 Follower] 1 has been terminated
+
+
 [ShardMaster] After leave {5 [101 101 101 101 101 101 101 101 101 101] map[101:[server-101-0 server-101-1 server-101-2]]}
 [Fetched Successfully] 0 [GID: 102]
 [After INIT] Server 0 [Gid: 100], myShards: map[], keyMap: 
@@ -316,7 +320,10 @@ All gid shout down ........
 [09:46:12.531 Candidate] 0 sending VoteRequest to 2 for term 2
 [09:46:12.531 Candidate] 0 sending VoteRequest to 1 for term 2
 [09:46:12.537 VoteRequest] 1 received a VoteRequest from 0 for term 2
+
+// 全都在 0 这里
 [GetShard] Server 0 [GID: 100] myShard: map[0:true 1:true 2:true 3:true 4:true], shardMap: 3:TrPstcDYvRh9FO_ 2:AY53fFl3jXEuiCI 5:p-4LmjpUlOLASyU 6:9H4G7wKyWZ2mIEc 8:TTt9QL6Z1Y 0:aNE3BOjI2n 4:08gLmz0pl5hI9DS 9:cbCTaRY777 7:lK06CyFtK3 1:u1HWVhofmL
+
 [After INIT] Server 2 [Gid: 102], myShards: map[], keyMap:
 [Put/Append] GID: 101 is not responsible for shard 9 , MyShard: map[], ShardNeeded: map[5:true 6:true 7:true 8:true 9:true], Discarded: map[]
 [Put/Append] GID: 101 is not responsible for shard 1 , MyShard: map[], ShardNeeded: map[5:true 6:true 7:true 8:true 9:true], Discarded: map[]
@@ -331,6 +338,7 @@ All gid shout down ........
 [Put/Append] GID: 101 is not responsible for shard 6 , MyShard: map[], ShardNeeded: map[5:true 6:true 7:true 8:true 9:true], Discarded: map[]
 [GetShard] 100 reply successfully &{OK [{8 1 map[0:aNE3BOjI2n] map[459018369882745874:1 1732096666553406614:1]} {9 1 map[1:u1HWVhofmL] map[574596061204142891:1 1732096666553406614:2]} {5 1 map[7:lK06CyFtK3] map[1732096666553406614:8 2525839513922501213:1]} {6 1 map[8:TTt9QL6Z1Y] map[545364070555715751:1 1732096666553406614:9]} {7 1 map[9:cbCTaRY777] map[1732096666553406614:10 1861049624558700589:1]}]} for request map[5:true 6:true 7:true 8:true 9:true]
 [ShardKV] 2 [GID: 102] receive a snapShot
+
 [Fetched Successfully] 1 [GID: 101]
 [ShardMaster] After join {6 [101 100 101 100 100 101 101 101 100 100] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
 [Put/Append] GID: 100 is not responsible for shard 9 , MyShard: map[0:true 1:true 2:true 3:true 4:true], ShardNeeded: map[], Discarded: map[5:true 6:true 7:true 8:true 9:true]
@@ -346,6 +354,7 @@ All gid shout down ........
 [Sequence Less] Key 6 [Shard: 4] Seq 3 is <= record 3
 [Reconfig] Server 0 [GID: 100] sending reconfiguration for {3 [100 100 100 102 102 101 101 101 102 102] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2] 102:[server-102-0 server-102-1 server-102-2]]}
 [Sequence Less] Key 6 [Shard: 4] Seq 3 is <= record 3
+
 [Reconfig] Server 1 [GID: 101] sending reconfiguration for {3 [100 100 100 102 102 101 101 101 102 102] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2] 102:[server-102-0 server-102-1 server-102-2]]}
 [GetShard] Server 0 [GID: 100] myShard: map[0:true 1:true 2:true 3:true 4:true], shardMap: 5:p-4LmjpUlOLASyUQhrwj 6:9H4G7wKyWZ2mIEcaqiE2 4:08gLmz0pl5hI9DSTaqmj 3:TrPstcDYvRh9FO_ 2:AY53fFl3jXEuiCIgghj_ 
 [GetShard] 100 reply successfully &{OK []} for request map[3:true 4:true 8:true 9:true]
@@ -362,9 +371,13 @@ All gid shout down ........
 [After Append] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 4:08gLmz0pl5hI9DSTaqmj 3:TrPstcDYvRh9FO_Xq0d2 2:AY53fFl3jXEuiCIgghj_ 5:p-4LmjpUlOLASyUQhrwj 6:9H4G7wKyWZ2mIEcaqiE2
 [Commitment] 1 [GID: 101] receive a commitment {true {Reconfiguration   0 0 3 {0 0 map[] map[]} {3 [100 100 100 102 102 101 101 101 102 102] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2] 102:[server-102-0 server-102-1 server-102-2]]}} 9 3 []}
 [Commitment] 0 [GID: 100] receive a commitment {true {Reconfiguration   0 0 3 {0 0 map[] map[]} {3 [100 100 100 102 102 101 101 101 102 102] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2] 102:[server-102-0 server-102-1 server-102-2]]}} 42 3 []}
+
 [Reconfig] Server 1 [GID: 101] sending reconfiguration for {3 [100 100 100 102 102 101 101 101 102 102] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2] 102:[server-102-0 server-102-1 server-102-2]]}
 [Reconfig] Server 0 [GID: 100] sending reconfiguration for {3 [100 100 100 102 102 101 101 101 102 102] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2] 102:[server-102-0 server-102-1 server-102-2]]}
+
 [Request Commited] Leader 0 [GID: 100] commited a putAppend request {3 Xq0d2 Append 4481233932319199269 3}
+
+// 全都在 0 和 1 这两个group中,而 2 什么都没有
 [After Reconfiguration] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true], keyMap: 2:AY53fFl3jXEuiCIgghj_ 5:p-4LmjpUlOLASyUQhrwj 6:9H4G7wKyWZ2mIEcaqiE2 4:08gLmz0pl5hI9DSTaqmj 3:TrPstcDYvRh9FO_Xq0d2
 [After Reconfiguration] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true], keyMap: 0:aNE3BOjI2n 1:u1HWVhofmL 7:lK06CyFtK3 8:TTt9QL6Z1Y 9:cbCTaRY777
 [Put/Append] GID: 100 is not responsible for shard 7 , MyShard: map[0:true 1:true 2:true], ShardNeeded: map[], Discarded: map[3:true 4:true]
@@ -405,9 +418,12 @@ All gid shout down ........
 [Put/Append] GID: 100 is not responsible for shard 9 , MyShard: map[0:true 1:true 2:true], ShardNeeded: map[], Discarded: map[3:true 4:true]
 [Put/Append] GID: 100 is not responsible for shard 7 , MyShard: map[0:true 1:true 2:true], ShardNeeded: map[], Discarded: map[3:true 4:true] 
 [Put/Append] GID: 100 is not responsible for shard 6 , MyShard: map[0:true 1:true 2:true], ShardNeeded: map[], Discarded: map[3:true 4:true]
+
+// 102 终于开始觉醒，需要去从0和1那里获取shard了，对方的shard2discard 刚好也都 match
 [Fetching] Server 0 [GID: 102] is requesting shards map[3:true 4:true 8:true 9:true] from map[100:true 101:true], myShard: map[] , shardsToDiscard: map[] myConfig: {3 [100 100 100 102 102 101 101 101 102 102] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2] 102:[server-102-0 server-102-1 server-102-2]]}
 [GetShard] 0 [GID: 100] receive fetchArgs &{3 map[3:true 4:true 8:true 9:true] 102} from 102, myShard map[0:true 1:true 2:true], shard2Discard: map[3:true 4:true]
 [GetShard] 1 [GID: 101] receive fetchArgs &{3 map[3:true 4:true 8:true 9:true] 102} from 102, myShard map[5:true 6:true 7:true], shard2Discard: map[8:true 9:true]
+
 [Commitment] 0 [GID: 100] receive a commitment {true {Append 2 185DF 4 3871176495103924316 3 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 49 3 []}
 [After Append] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true], keyMap: 4:08gLmz0pl5hI9DSTaqmj 3:TrPstcDYvRh9FO_Xq0d2p7Oo7 2:AY53fFl3jXEuiCIgghj_185DF 5:p-4LmjpUlOLASyUQhrwj 6:9H4G7wKyWZ2mIEcaqiE2
 [Commitment] 0 [GID: 100] receive a commitment {true {Append 4 INtEu 4 2928684374381296052 3 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 50 3 []}
@@ -420,10 +436,18 @@ All gid shout down ........
 [Request Received] Leader 0 [GID: 100] receive a putAppend request {2 TEWXX Append 3871176495103924316 5}
 [Request Received] Leader 0 [GID: 100] receive a putAppend request {4 vvJYE Append 2928684374381296052 5}
 [Request Received] Leader 0 [GID: 100] receive a putAppend request {3 onvGV Append 4481233932319199269 6}
+
 [GetShard] Server 1 [GID: 101] myShard: map[5:true 6:true 7:true], shardMap: 7:lK06CyFtK3 8:TTt9QL6Z1Y 9:cbCTaRY777 0:aNE3BOjI2n 1:u1HWVhofmL 
 [GetShard] 101 reply successfully &{OK [{9 2 map[1:u1HWVhofmL] map[574596061204142891:1 1732096666553406614:2]} {8 2 map[0:aNE3BOjI2n] map[459018369882745874:1 1732096666553406614:1]}]} for request map[3:true 4:true 8:true 9:true]
+
 [ShardMaster] After join {8 [101 100 101 100 100 101 101 101 100 100] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
 [Commitment] 0 [GID: 100] receive a commitment {true {Append 2 TEWXX 5 3871176495103924316 3 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 52 3 []}
+
+
+// 原因原来就是这个Get Shard 的时候其中一个 gid 0 并没有返回给 2，由此导致 2一直没有办法更新自己的 needed
+// 而0也没有办法删掉对应的 discarded, 而此时 1 已经没有任何负担了，所以1可以直接往后走，这样所有的请求都可能会找到1那里去
+// 但是1也没有拿到，所以只能一直都是invalid的请求
+// 根本原因就是这个 0 卡在了返回的这个过程，其实是不是死锁？？ 可以考虑下把阻塞状态改变一下
 [GetShard] Server 0 [GID: 100] myShard: map[0:true 1:true 2:true], shardMap: 3:TrPstcDYvRh9FO_Xq0d2p7Oo7jhu-_ 2:AY53fFl3jXEuiCIgghj_185DF 5:p-4LmjpUlOLASyUQhrwj 6:9H4G7wKyWZ2mIEcaqiE2 4:08gLmz0pl5hI9DSTaqmjINtEu
 [Request Received] Leader 1 [GID: 101] receive a putAppend request {9 v7U9c Append 1861049624558700589 2}
 [Request Received] Leader 1 [GID: 101] receive a putAppend request {8 Ahn8X Append 545364070555715751 2}
@@ -468,6 +492,7 @@ All gid shout down ........
 [Request Received] Leader 1 [GID: 101] receive a putAppend request {8 mMra6 Append 545364070555715751 5}
 [Request Received] Leader 1 [GID: 101] receive a putAppend request {9 6ocIL Append 1861049624558700589 5}
 [Commitment] 1 [GID: 101] receive a commitment {true {Append 7 ElzMI 4 2525839513922501213 4 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 22 3 []}
+
 [Fetching] Server 1 [GID: 101] is requesting shards map[0:true 2:true] from map[100:true], myShard: map[5:true 6:true 7:true] , shardsToDiscard: map[] myConfig: {4 [101 102 101 102 102 101 101 101 102 
 102] map[101:[server-101-0 server-101-1 server-101-2] 102:[server-102-0 server-102-1 server-102-2]]}
 [Put/Append] GID: 101 is not responsible for shard 2 , MyShard: map[5:true 6:true 7:true], ShardNeeded: map[0:true 2:true], Discarded: map[]

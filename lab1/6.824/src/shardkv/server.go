@@ -264,6 +264,13 @@ func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Sh
 			return compareShard(Shard, mShard), true
 			//return compareShard(Shard, mShard), true
 		}
+	} else if Op == "Delete" {
+		shard = Shard.Id
+		_, shouldDiscard := kv.shardsToDiscard[shard]
+		if shouldDiscard {
+			return true, true
+		}
+		return false, true
 	}
 	if Num >= kv.config.Num {
 		return true, true
@@ -273,13 +280,31 @@ func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Sh
 }
 
 func compareShard(comin Shard, mine Shard)bool{
+	// we can either compare the len of the value or seqOfCid??
+	// 感觉这个判断还是错的
 	for k,v := range comin.SeqOfCid {
 		seq, ok := mine.SeqOfCid[k]
-		if !ok || seq < v {
+		if !ok{
 			return true
 		}
+		if seq < v{
+			return true
+		}else if seq > v{
+			return false
+		}
 	}
-	return false
+	for k, v:= range comin.KvMap{
+		val, ok := mine.KvMap[k]
+		if !ok{
+			return true
+		}
+		if len(val) < len(v){
+			return true
+		}else if len(val) > len(v) {
+			return false
+		}
+	}
+	return true
 }
 
 

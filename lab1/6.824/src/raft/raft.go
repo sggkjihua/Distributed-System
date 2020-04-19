@@ -733,7 +733,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 			lastIndex := rf.handleConflict()
 			reply.ConflictIndex = lastIndex + baseIndex
 			reply.ConflictEntries = rf.entries[lastIndex:]
-			fmt.Printf("[Handle Conflict]%v conflict index is %v, my entries:%v and logs from leader %v\n", rf.me, reply.ConflictIndex, rf.entries, logs)
+			//fmt.Printf("[Handle Conflict]%v conflict index is %v, my entries:%v and logs from leader %v\n", rf.me, reply.ConflictIndex, rf.entries, logs)
 		}else if ahead{
 			// when the included index is actually larger than the leader thinks me has
 			reply.Success = false
@@ -774,7 +774,7 @@ func (rf *Raft) AppendEntries(args *AppendEntries, reply *AppendEntriesReply) {
 
 func (rf *Raft) handleConflict() int {
 	// no need to add lock, see AppendEntries
-	fmt.Printf("[Handle Conflict] %v entries: %v\n", rf.me, rf.entries)
+	//fmt.Printf("[Handle Conflict] %v entries: %v\n", rf.me, rf.entries)
 	lastIndex := len(rf.entries)-1
 	// for 3B when it is empty
 	if lastIndex == -1 {

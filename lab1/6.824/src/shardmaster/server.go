@@ -31,8 +31,6 @@ type ShardMaster struct {
 	// term, gid, servers
 	gid2Servers map[int][]string
 	gid2Shards map[int][]int
-	shard2Gid map[int]int
-	totalShards int
 }
 
 type Notification struct{
@@ -62,7 +60,7 @@ type Op struct {
 
 func (sm *ShardMaster) Join(args *JoinArgs, reply *JoinReply) {
 	// Your code here.
-	op := Op{Operation:"Join" , Servers:args.Servers}
+	op := Op{Operation:"Join" , Servers:args.Servers, Cid:args.Cid, Seq:args.Seq}
 
 	index, _, isLeader := sm.rf.Start(op)
 
@@ -100,7 +98,7 @@ func (sm *ShardMaster) Join(args *JoinArgs, reply *JoinReply) {
 
 func (sm *ShardMaster) Leave(args *LeaveArgs, reply *LeaveReply) {
 	// Your code here.
-	op := Op{Operation:"Leave" , GIDs:args.GIDs}
+	op := Op{Operation:"Leave" , GIDs:args.GIDs, Cid:args.Cid, Seq:args.Seq}
 
 	index, _, isLeader := sm.rf.Start(op)
 
@@ -137,7 +135,7 @@ func (sm *ShardMaster) Leave(args *LeaveArgs, reply *LeaveReply) {
 }
 
 func (sm *ShardMaster) Move(args *MoveArgs, reply *MoveReply) {
-	op := Op{Operation:"Move" , GID:args.GID, Shard:args.Shard}
+	op := Op{Operation:"Move" , GID:args.GID, Shard:args.Shard, Seq:args.Seq, Cid:args.Cid}
 
 	index, _, isLeader := sm.rf.Start(op)
 
@@ -173,7 +171,7 @@ func (sm *ShardMaster) Move(args *MoveArgs, reply *MoveReply) {
 }
 
 func (sm *ShardMaster) Query(args *QueryArgs, reply *QueryReply) {
-	op := Op{Operation:"Query" , Num:args.Num}
+	op := Op{Operation:"Query" , Num:args.Num,  Cid:args.Cid, Seq:args.Seq}
 
 	index, _, isLeader := sm.rf.Start(op)
 
@@ -255,8 +253,8 @@ func (sm *ShardMaster) handleCommitment(commit raft.ApplyMsg){
 	Seq := op.Seq
 	Cid := op.Cid
 	sm.mu.Lock()
-	//val, exists := sm.seqOfClient[Cid]
-	if true {
+	val, exists := sm.seqOfClient[Cid]
+	if !exists || val < Seq {
 
 		Operation := op.Operation
 		Servers := op.Servers
