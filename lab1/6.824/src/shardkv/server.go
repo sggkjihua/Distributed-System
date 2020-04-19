@@ -113,7 +113,7 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 		// as required, all previous operation should reveal on the get request
 		kv.mu.Lock()
 
-		if notification.Seq == op.Seq && notification.Cid == op.Cid && kv.hasBeenProcessed(args.Key, args.Cid, args.Seq) {
+		if notification.Seq == op.Seq && notification.Cid == op.Cid && notification.Valid {
 			delete(kv.dispatcher, index)
 			reply.Err = OK
 			reply.Value = kv.getValueByKey(args.Key)
@@ -133,16 +133,6 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 		reply.Err = ErrWrongLeader
 		return
 	}
-}
-
-func (kv *ShardKV) hasBeenProcessed(key string, cid int64, seq int) bool {
-	shard := key2shard(key)
-	Shard, exists := kv.shardMap[shard]
-	if !exists {
-		return false
-	}
-	maxSeq, ok := Shard.SeqOfCid[cid]
-	return !ok || maxSeq >= seq
 }
 
 // 要保证整个迁移的期间是不能够去接受新的 PutAppend 和 Get 的请求的
@@ -180,7 +170,7 @@ func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	// leader should wait until it get the result
 	// should we set a timer here?
 	case notification := <-ch:
-		if notification.Seq == op.Seq && notification.Cid == op.Cid && kv.hasBeenProcessed(args.Key, args.Cid, args.Seq) {
+		if notification.Seq == op.Seq && notification.Cid == op.Cid && notification.Valid {
 			kv.mu.Lock()
 			delete(kv.dispatcher, index)
 			kv.mu.Unlock()
@@ -242,7 +232,8 @@ func (kv *ShardKV) putShard(key string, val string, append bool, cid int64, seq 
 	Shard.Num = kv.config.Num
 }
 
-func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Shard, Num int, Op string) bool {
+func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Shard, Num int, Op string)(bool,bool) {
+	// 现在能够确保的是myShard永远记录着属于自己的那一shard，只要不被
 	shard := key2shard(Key)
 	if Op == "Get" || Op == "Put" || Op == "Append" {
 		// Put/Append/Get, first check if we are responsible for this
@@ -252,7 +243,7 @@ func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Sh
 			if kv.isLeader {
 				fmt.Printf("[Not in myShard] Key %v [Shard: %v] is not int myShard %v\n", Key, shard, kv.myShard)
 			}
-			return false
+			return false, false
 		}
 		// Next we need to check whether this is actually an old request
 		Shard, ok := kv.shardMap[shard]
@@ -261,23 +252,37 @@ func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Sh
 			if exist && seq >= Seq {
 				// 这里其实应该是大于等于的，但是不知道为什么当start的时候会重新去accept
 				fmt.Printf("[Sequence Less] Key %v [Shard: %v] Seq %v is <= record %v\n", Key, shard, Seq, seq)
-				return false
+				return false, true
 			}
 		}
-		//return true
-	} else if Op == "Accept" {
+		return true, true
+	} else if Op == "Accept"{
 		shard = Shard.Id
 		if mShard, ok := kv.shardMap[shard]; ok {
-			preSeqOfCid := mShard.SeqOfCid
-			return len(Shard.SeqOfCid) > len(preSeqOfCid)
+			//preSeqOfCid := mShard.SeqOfCid
+			// 唯一的可能性就是这里？？？？？？？
+			return compareShard(Shard, mShard), true
+			//return compareShard(Shard, mShard), true
 		}
 	}
 	if Num >= kv.config.Num {
-		return true
+		return true, true
 	}
 	fmt.Printf("[My Num is higher] Key %v [Shard: %v] my num %v is higher than %v\n", Key, shard, kv.config.Num, Num)
+	return false,false
+}
+
+func compareShard(comin Shard, mine Shard)bool{
+	for k,v := range comin.SeqOfCid {
+		seq, ok := mine.SeqOfCid[k]
+		if !ok || seq < v {
+			return true
+		}
+	}
 	return false
 }
+
+
 
 func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg) {
 	command := commit.Command
@@ -297,7 +302,7 @@ func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg) {
 	Config := op.Config
 	kv.mu.Lock()
 
-	shouldProcess := kv.shouldProcessRequest(op.Key, Cid, Seq, Shard, Num, Operation)
+	shouldProcess, processed := kv.shouldProcessRequest(op.Key, Cid, Seq, Shard, Num, Operation)
 	if shouldProcess {
 		Key := op.Key
 		Value := op.Val
@@ -331,7 +336,7 @@ func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg) {
 		notify := Notification{
 			Cid:   op.Cid,
 			Seq:   op.Seq,
-			Valid: shouldProcess,
+			Valid: processed,
 		}
 		ch <- notify
 	}
@@ -630,20 +635,22 @@ func (kv *ShardKV) GetShard(args *FetchArgs, reply *FetchReply) {
 		reply.Err = OK
 		return
 	}
-	fmt.Printf("[GetShard] %v [GID: %v] receive fetchArgs %v from %v\n", kv.me, kv.gid, args, args.From)
+	fmt.Printf("[GetShard] %v [GID: %v] receive fetchArgs %v from %v, myShard %v, shard2Discard: %v \n", kv.me, kv.gid, args, args.From, kv.myShard, kv.shardsToDiscard)
 	Num := args.Num
 	ShardsNeeded := args.ShardsNeeded
 	preConfig := kv.sm.Query(Num - 1)
 	kv.mu.Lock()
-	defer kv.mu.Unlock()
+
+
 	if Num < kv.config.Num {
 		// and old request, reject
 		reply.Err = ErrWrongGroup
+		kv.mu.Unlock()
 		return
 	}
 	Shards := make([]Shard, 0)
 	//kv.printState("GetShard")
-	fmt.Printf("[GetShard] Server %v [GID: %v] myShard: %v, shardMap: %v\n", kv.me, kv.gid, kv.myShard, kv.shardMap)
+	fmt.Printf("[GetShard] Server %v [GID: %v] myShard: %v, shardMap: %v\n", kv.me, kv.gid, kv.myShard, kv.printAllKeys())
 	for shardId := range ShardsNeeded {
 		if preConfig.Shards[shardId] != kv.gid {
 			continue
@@ -663,6 +670,7 @@ func (kv *ShardKV) GetShard(args *FetchArgs, reply *FetchReply) {
 		// only return those which is hold by me last configuration
 	}
 	// 也许之后需要把这里优化一下，确保之前传出去的shards都不在这里了
+	kv.mu.Unlock()
 	for _, shard := range Shards {
 		// 具体意思就是在 Num th config 需要将这个shard 从自己这里抹除
 		op := Op{Operation: "Delete", Shard: shard, Num: Num}

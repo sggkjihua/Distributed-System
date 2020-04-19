@@ -430,7 +430,7 @@ func TestConcurrent14F(t *testing.T) {
 // this tests the various sources from which a re-starting
 // group might need to fetch shard contents.
 //
-func TestConcurrent2(t *testing.T) {
+func TestConcurrent2G(t *testing.T) {
 	fmt.Printf("Test: more concurrent puts and configuration changes...\n")
 
 	cfg := make_config(t, 3, false, -1)
@@ -450,6 +450,8 @@ func TestConcurrent2(t *testing.T) {
 		va[i] = randstring(1)
 		ck.Put(ka[i], va[i])
 	}
+
+	fmt.Printf("Passed first 10 puts for 3 groups.......\n")
 
 	var done int32
 	ch := make(chan bool)
@@ -471,21 +473,32 @@ func TestConcurrent2(t *testing.T) {
 
 	cfg.leave(0)
 	cfg.leave(2)
+	fmt.Printf("0, 2 left, only 1 is responsible for everything.......\n")
 	time.Sleep(3000 * time.Millisecond)
+
 	cfg.join(0)
 	cfg.join(2)
-	cfg.leave(1)
+	cfg.leave(1)	
+	fmt.Printf("0, 2 join, 1 left now.......\n")
 	time.Sleep(3000 * time.Millisecond)
+
+
 	cfg.join(1)
 	cfg.leave(0)
 	cfg.leave(2)
+
+	fmt.Printf("0, 2 left again, only 1 is responsible for everything.......\n")
 	time.Sleep(3000 * time.Millisecond)
 
 	cfg.ShutdownGroup(1)
 	cfg.ShutdownGroup(2)
+
+	fmt.Printf("1, 2 shut down, only 0 is alive but not in charge()......\n")
 	time.Sleep(1000 * time.Millisecond)
+
 	cfg.StartGroup(1)
 	cfg.StartGroup(2)
+	fmt.Printf("1, 2 shut down, 1 is still in charge......\n")
 
 	time.Sleep(2 * time.Second)
 
@@ -501,7 +514,7 @@ func TestConcurrent2(t *testing.T) {
 	fmt.Printf("  ... Passed\n")
 }
 
-func TestUnreliable1(t *testing.T) {
+func TestUnreliable1A(t *testing.T) {
 	fmt.Printf("Test: unreliable 1...\n")
 
 	cfg := make_config(t, 3, true, 100)
@@ -543,7 +556,7 @@ func TestUnreliable1(t *testing.T) {
 	fmt.Printf("  ... Passed\n")
 }
 
-func TestUnreliable2(t *testing.T) {
+func TestUnreliable2B(t *testing.T) {
 	fmt.Printf("Test: unreliable 2...\n")
 
 	cfg := make_config(t, 3, true, 100)
@@ -715,7 +728,7 @@ func TestUnreliable3(t *testing.T) {
 // optional test to see whether servers are deleting
 // shards for which they are no longer responsible.
 //
-func TestChallenge1Delete(t *testing.T) {
+func TestChallenge1Delete3A(t *testing.T) {
 	fmt.Printf("Test: shard deletion (challenge 1) ...\n")
 
 	// "1" means force snapshot after every log entry.
