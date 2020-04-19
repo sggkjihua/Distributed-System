@@ -619,7 +619,7 @@ func TestUnreliable2B(t *testing.T) {
 	fmt.Printf("  ... Passed\n")
 }
 
-func TestUnreliable3(t *testing.T) {
+func TestUnreliable3B(t *testing.T) {
 	fmt.Printf("Test: unreliable 3...\n")
 
 	cfg := make_config(t, 3, true, 100)
@@ -809,7 +809,7 @@ func TestChallenge1Delete3A(t *testing.T) {
 	fmt.Printf("  ... Passed\n")
 }
 
-func TestChallenge1Concurrent(t *testing.T) {
+func TestChallenge1Concurrent3C(t *testing.T) {
 	fmt.Printf("Test: concurrent configuration change and restart (challenge 1)...\n")
 
 	cfg := make_config(t, 3, false, 300)
@@ -882,7 +882,7 @@ func TestChallenge1Concurrent(t *testing.T) {
 // shards that are not affected by a config change
 // while the config change is underway
 //
-func TestChallenge2Unaffected4Z(t *testing.T) {
+func TestChallenge2Unaffected4K(t *testing.T) {
 	fmt.Printf("Test: unaffected shard access (challenge 2) ...\n")
 
 	cfg := make_config(t, 3, true, 100)
