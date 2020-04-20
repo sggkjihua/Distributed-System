@@ -606,7 +606,7 @@ func (kv *ShardKV) pollShards() {
 	// used this function in case that the leader breakdown
 	for {
 		kv.fetchShards()
-		time.Sleep(30 * time.Millisecond)
+		time.Sleep(60 * time.Millisecond)
 	}
 }
 
@@ -763,7 +763,7 @@ func Max(a int, b int) int {
 func (kv *ShardKV) pushDelete(){
 	for{
 		kv.pushDeleteMessage()
-		time.Sleep(100 * time.Millisecond)
+		time.Sleep(50 * time.Millisecond)
 	}
 }
 
@@ -858,6 +858,8 @@ func (kv *ShardKV) DeleteShard(args *DeleteArgs, reply *DeleteReply){
 	reply.Err = OK
 	fmt.Printf("[DeleteShard] %v delete successfully %v for request %v\n", kv.gid, ShardsToDelete, ShardsConfirmed)
 }
+
+
 //
 // servers[] contains the ports of the servers in this group.
 //
