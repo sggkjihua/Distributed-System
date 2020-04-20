@@ -2325,3 +2325,1279 @@ All gid shout down ........
 [Put/Append] GID: 100 is not responsible for shard 9 , MyShard: map[0:true 1:true 2:true], ShardNeeded: map[], Discarded: map[3:true 4:true] 
 [Put/Append] GID: 100 is not responsible for shard 4 , MyShard: map[0:true 1:true 2:true], ShardNeeded: map[], Discarded: map[3:true 4:true] 
 [Put/Append] GID: 100 is not responsible for shard 3 , MyShard: map[0:true 1:true 2:true], ShardNeeded: map[], Discarded: map[3:true 4:true] 
+SIGQUIT: quit
+PC=0x45f403 m=0 sigcode=0
+
+goroutine 35 [syscall]:
+runtime.notetsleepg(0x7cad40, 0x206cf3c, 0x0)
+	/usr/local/go/src/runtime/lock_futex.go:227 +0x34 fp=0xc000032760 sp=0xc000032730 pc=0x40acc4
+runtime.timerproc(0x7cad20)
+	/usr/local/go/src/runtime/time.go:311 +0x2f1 fp=0xc0000327d8 sp=0xc000032760 pc=0x44c8e1
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1357 +0x1 fp=0xc0000327e0 sp=0xc0000327d8 pc=0x45d4d1
+created by runtime.(*timersBucket).addtimerLocked
+	/usr/local/go/src/runtime/time.go:169 +0x10e
+
+goroutine 1 [chan receive, 10 minutes]:
+testing.(*T).Run(0xc0000c8100, 0x62fc3c, 0x11, 0x641100, 0x47f001)
+	/usr/local/go/src/testing/testing.go:961 +0x377
+testing.runTests.func1(0xc0000c8000)
+	/usr/local/go/src/testing/testing.go:1202 +0x78
+testing.tRunner(0xc0000c8000, 0xc000047dc0)
+	/usr/local/go/src/testing/testing.go:909 +0xc9
+testing.runTests(0xc00000c800, 0x7c3b60, 0xd, 0xd, 0x0)
+	/usr/local/go/src/testing/testing.go:1200 +0x2a7
+testing.(*M).Run(0xc0000b8000, 0x0)
+	/usr/local/go/src/testing/testing.go:1117 +0x176
+main.main()
+	_testmain.go:68 +0x135
+
+goroutine 7 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.TestConcurrent14F(0xc0000c8100)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/test_test.go:419 +0x8a9
+testing.tRunner(0xc0000c8100, 0x641100)
+	/usr/local/go/src/testing/testing.go:909 +0xc9
+created by testing.(*T).Run
+	/usr/local/go/src/testing/testing.go:960 +0x350
+
+goroutine 8 [select]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1(0xc0000b0140)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:151 +0x160
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:149 +0x138
+
+goroutine 31 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc0000a62c0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 10 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*ShardMaster).listenForCommitment(0xc000058240)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:527 +0x80
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:607 +0x2fd
+
+goroutine 105 [semacquire, 10 minutes]:
+sync.runtime_SemacquireMutex(0xc0000a66e4, 0x0, 0x1)
+	/usr/local/go/src/runtime/sema.go:71 +0x47
+sync.(*Mutex).lockSlow(0xc0000a66e0)
+	/usr/local/go/src/sync/mutex.go:138 +0xfc
+sync.(*Mutex).Lock(...)
+	/usr/local/go/src/sync/mutex.go:81
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).handleCommitment(0xc0000a66e0, 0x1, 0x615d20, 0xc00007b930, 0x2c, 0x1, 0x0, 0x0, 0x0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:335 +0x9b2
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc0000a66e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:483 +0x151
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 12 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*ShardMaster).listenForCommitment(0xc0000589c0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:527 +0x80
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:607 +0x2fd
+
+goroutine 18309 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc00022c9e0, 0x62fc2b, 0x11, 0x5cd760, 0xc000017220, 0x5cd7a0, 0xc0000b8680, 0x8f)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*Clerk).Query(0xc000204f60, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/client.go:45 +0x127
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).GetShard(0xc00025a000, 0xc000400080, 0xc0001c8930)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:687 +0x221
+reflect.Value.call(0xc00010cde0, 0xc00000ed50, 0x13, 0x62d42f, 0x4, 0xc0003abbb8, 0x3, 0x3, 0xc0003aba80, 0x4b839d, ...)
+	/usr/local/go/src/reflect/value.go:460 +0x5f6
+reflect.Value.Call(0xc00010cde0, 0xc00000ed50, 0x13, 0xc0003abbb8, 0x3, 0x3, 0x8, 0xc000577a60, 0x543287)
+	/usr/local/go/src/reflect/value.go:321 +0xb4
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Service).dispatch(0xc000436940, 0x62f7de, 0x8, 0x5da200, 0xc0002d1a10, 0x62f7d6, 0x10, 0x67dbc0, 0x5cd260, 0xc000288000, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:494 +0x682
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Server).dispatch(0xc0004207e0, 0x5da200, 0xc0002d1a10, 0x62f7d6, 0x10, 0x67dbc0, 0x5cd260, 0xc000288000, 0x57, 0x8f, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:418 +0x4a3
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq.func1(0xc0004207e0, 0x5da200, 0xc0002d1a10, 0x62f7d6, 0x10, 0x67dbc0, 0x5cd260, 0xc000288000, 0x57, 0x8f, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:238 +0x60
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+goroutine 14 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*ShardMaster).listenForCommitment(0xc000059140)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:527 +0x80
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:607 +0x2fd
+
+goroutine 2560 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc0000a6160)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 98 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc0000a62c0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:766 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 153 [semacquire, 10 minutes]:
+sync.runtime_SemacquireMutex(0xc0000a6c64, 0xc00012f400, 0x1)
+	/usr/local/go/src/runtime/sema.go:71 +0x47
+sync.(*Mutex).lockSlow(0xc0000a6c60)
+	/usr/local/go/src/sync/mutex.go:138 +0xfc
+sync.(*Mutex).Lock(...)
+	/usr/local/go/src/sync/mutex.go:81
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).fetchShards(0xc0000a6c60)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:617 +0x58b
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc0000a6c60)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:608 +0x2b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 210 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc00028a420)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 32 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc0000a62c0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:600 +0x41
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 73 [sleep]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x9e4f580)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asLeader(0xc0000c8200)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:386 +0x181
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asCandidate
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:344 +0x1c0
+
+goroutine 97 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x3938700)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc0000a62c0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:609 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 72 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower(0xc0000c8400)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:302 +0x105
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).transferToFollower(0xc0000c8400, 0x1, 0x0, 0x1)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:416 +0x9d
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:313 +0x1a5
+
+goroutine 24 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower(0xc0000c8300)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:302 +0x105
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).transferToFollower(0xc0000c8300, 0x1, 0x0, 0x1)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:416 +0x9d
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:313 +0x1a5
+
+goroutine 108 [semacquire, 10 minutes]:
+sync.runtime_SemacquireMutex(0xc0000c8704, 0x0, 0x1)
+	/usr/local/go/src/runtime/sema.go:71 +0x47
+sync.(*Mutex).lockSlow(0xc0000c8700)
+	/usr/local/go/src/sync/mutex.go:138 +0xfc
+sync.(*Mutex).Lock(...)
+	/usr/local/go/src/sync/mutex.go:81
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).GetState(0xc0000c8700, 0x0, 0xc0003d9e00)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:92 +0xb2
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDeleteMessage(0xc0000a66e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:771 +0x47
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc0000a66e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:765 +0x2b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 18297 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*ShardMaster).Query(0xc000058240, 0xc000380b60, 0xc00013a500)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:191 +0x26f
+reflect.Value.call(0xc0000585a0, 0xc00000e5d0, 0x13, 0x62d42f, 0x4, 0xc00043fbb8, 0x3, 0x3, 0xc00043fa80, 0x4b839d, ...)
+	/usr/local/go/src/reflect/value.go:460 +0x5f6
+reflect.Value.Call(0xc0000585a0, 0xc00000e5d0, 0x13, 0xc00043fbb8, 0x3, 0x3, 0xc000574b18, 0x5cd760, 0xc000380900)
+	/usr/local/go/src/reflect/value.go:321 +0xb4
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Service).dispatch(0xc000077a40, 0x62fc37, 0x5, 0x5da200, 0xc00011ae00, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0001e41e0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:494 +0x682
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Server).dispatch(0xc00000cd40, 0x5da200, 0xc00011ae00, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0001e41e0, 0x42, 0x92, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:418 +0x4a3
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq.func1(0xc00000cd40, 0x5da200, 0xc00011ae00, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0001e41e0, 0x42, 0x92, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:238 +0x60
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+goroutine 106 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc0001cfa00, 0x62fc2b, 0x11, 0x5cd760, 0xc0002b4b60, 0x5cd7a0, 0xc0000b8080, 0x3e5eb366a00)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*Clerk).Query(0xc0001c9a40, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/client.go:45 +0x127
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollExpectedConfig(...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:570
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc0000a66e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:589 +0x124
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 203 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x3938700)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc0001ba9a0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:609 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 47 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc00025a420)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:766 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 107 [semacquire, 10 minutes]:
+sync.runtime_SemacquireMutex(0xc0000a66e4, 0xc0002a8c00, 0x1)
+	/usr/local/go/src/runtime/sema.go:71 +0x47
+sync.(*Mutex).lockSlow(0xc0000a66e0)
+	/usr/local/go/src/sync/mutex.go:138 +0xfc
+sync.(*Mutex).Lock(...)
+	/usr/local/go/src/sync/mutex.go:81
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).fetchShards(0xc0000a66e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:617 +0x58b
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc0000a66e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:608 +0x2b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 133 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x3938700)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc0000a69a0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:609 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 2489 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc00025a2c0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:600 +0x41
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 131 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc0000a69a0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 132 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc0000a69a0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:600 +0x41
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 46 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x3938700)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc00025a420)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:609 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 134 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc0000a69a0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:766 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 151 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc0000a6c60)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 152 [semacquire, 10 minutes]:
+sync.runtime_SemacquireMutex(0xc0000a6c64, 0xc000634b00, 0x1)
+	/usr/local/go/src/runtime/sema.go:71 +0x47
+sync.(*Mutex).lockSlow(0xc0000a6c60)
+	/usr/local/go/src/sync/mutex.go:138 +0xfc
+sync.(*Mutex).Lock(...)
+	/usr/local/go/src/sync/mutex.go:81
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc0000a6c60)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:582 +0x488
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 2330 [semacquire, 10 minutes]:
+sync.runtime_SemacquireMutex(0xc00025a004, 0xc0002beb00, 0x1)
+	/usr/local/go/src/runtime/sema.go:71 +0x47
+sync.(*Mutex).lockSlow(0xc00025a000)
+	/usr/local/go/src/sync/mutex.go:138 +0xfc
+sync.(*Mutex).Lock(...)
+	/usr/local/go/src/sync/mutex.go:81
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc00025a000)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:582 +0x488
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 154 [chan receive]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc000290820, 0x62fc2b, 0x11, 0x5cd760, 0xc000017c20, 0x5cd7a0, 0xc000176000, 0x0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*Clerk).Query(0xc0002a4450, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/client.go:45 +0x127
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDeleteMessage(0xc0000a6c60)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:779 +0xda
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc0000a6c60)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:765 +0x2b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 44 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc00025a420)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 45 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc00025a420)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:600 +0x41
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 204 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc0001ba9a0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:766 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 2384 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x3938700)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc0001ba160)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:609 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 309 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc0000a7340)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:766 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 211 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc00028a420)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:600 +0x41
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 242 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc0001ba6e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 243 [semacquire, 10 minutes]:
+sync.runtime_SemacquireMutex(0xc0001ba6e4, 0xc000465b00, 0x1)
+	/usr/local/go/src/runtime/sema.go:71 +0x47
+sync.(*Mutex).lockSlow(0xc0001ba6e0)
+	/usr/local/go/src/sync/mutex.go:138 +0xfc
+sync.(*Mutex).Lock(...)
+	/usr/local/go/src/sync/mutex.go:81
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc0001ba6e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:582 +0x488
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 2883 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc00028a840)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 212 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x3938700)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc00028a420)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:609 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 213 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc00028a420)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:766 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 18295 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc000291d60, 0x62f7d6, 0x10, 0x5cd260, 0xc0002918e0, 0x5cd2a0, 0xc000188360, 0x3)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).fetchShards.func1(0xc00019d970, 0xc00025a6e0, 0xc0002918e0, 0x4, 0xc0002a59b0, 0x3, 0x3)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:644 +0x135
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).fetchShards
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:639 +0x4cd
+
+goroutine 2385 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc0001ba160)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:766 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 308 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x3938700)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc0000a7340)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:609 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 244 [semacquire, 10 minutes]:
+sync.runtime_SemacquireMutex(0xc0001ba6e4, 0xc000255c00, 0x1)
+	/usr/local/go/src/runtime/sema.go:71 +0x47
+sync.(*Mutex).lockSlow(0xc0001ba6e0)
+	/usr/local/go/src/sync/mutex.go:138 +0xfc
+sync.(*Mutex).Lock(...)
+	/usr/local/go/src/sync/mutex.go:81
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).fetchShards(0xc0001ba6e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:617 +0x58b
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc0001ba6e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:608 +0x2b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 245 [sleep]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*Clerk).Query(0xc000355170, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/client.go:50 +0x176
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDeleteMessage(0xc0001ba6e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:779 +0xda
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc0001ba6e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:765 +0x2b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 201 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc0001ba9a0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 202 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc0001ba9a0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:600 +0x41
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 2491 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc00025a2c0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:766 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 2452 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc00025a160)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:600 +0x41
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 306 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc0000a7340)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 307 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc0000a7340)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:600 +0x41
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 2454 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc00025a160)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:766 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 18323 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*ShardMaster).Query(0xc000058240, 0xc000016520, 0xc00013a180)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:191 +0x26f
+reflect.Value.call(0xc0000585a0, 0xc00000e5d0, 0x13, 0x62d42f, 0x4, 0xc0001c3bb8, 0x3, 0x3, 0xc0001c3a80, 0x4b839d, ...)
+	/usr/local/go/src/reflect/value.go:460 +0x5f6
+reflect.Value.Call(0xc0000585a0, 0xc00000e5d0, 0x13, 0xc0001c3bb8, 0x3, 0x3, 0x0, 0x10, 0x9)
+	/usr/local/go/src/reflect/value.go:321 +0xb4
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Service).dispatch(0xc000077a40, 0x62fc37, 0x5, 0x5da200, 0xc0003648c0, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000264140, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:494 +0x682
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Server).dispatch(0xc00000cd40, 0x5da200, 0xc0003648c0, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000264140, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:418 +0x4a3
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq.func1(0xc00000cd40, 0x5da200, 0xc0003648c0, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000264140, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:238 +0x60
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+goroutine 1385 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc0004c7f60, 0x62fc2b, 0x11, 0x5cd760, 0xc000016140, 0x5cd7a0, 0xc00013a080, 0x7cad20)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*Clerk).Query(0xc00046cde0, 0xffffffffffffffff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/client.go:45 +0x127
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*Clerk).PutAppend(0xc000176b80, 0x6352cb, 0x1, 0xc00019cd70, 0x5, 0x62d798, 0x6)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/client.go:135 +0x24b
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*Clerk).Append(...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/client.go:143
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.TestConcurrent14F.func1(0x5)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/test_test.go:365 +0x15a
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.TestConcurrent14F
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/test_test.go:372 +0x418
+
+goroutine 17272 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower(0xc0002e4300)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:302 +0x105
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).transferToFollower(0xc0002e4300, 0x4, 0xffffffffffffffff, 0xc00040a400)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:416 +0x9d
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asCandidate
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:340 +0x43f
+
+goroutine 1386 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc00010e020, 0x62fc2b, 0x11, 0x5cd760, 0xc0002b4cc0, 0x5cd7a0, 0xc000176580, 0x7cac20)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*Clerk).Query(0xc00046ce40, 0xffffffffffffffff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/client.go:45 +0x127
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*Clerk).PutAppend(0xc000176c00, 0x6352cc, 0x1, 0xc000357db0, 0x5, 0x62d798, 0x6)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/client.go:135 +0x24b
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*Clerk).Append(...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/client.go:143
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.TestConcurrent14F.func1(0x6)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/test_test.go:365 +0x15a
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.TestConcurrent14F
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/test_test.go:372 +0x418
+
+goroutine 1912 [semacquire, 10 minutes]:
+sync.runtime_SemacquireMutex(0xc0000c8704, 0x0, 0x1)
+	/usr/local/go/src/runtime/sema.go:71 +0x47
+sync.(*Mutex).lockSlow(0xc0000c8700)
+	/usr/local/go/src/sync/mutex.go:138 +0xfc
+sync.(*Mutex).Lock(...)
+	/usr/local/go/src/sync/mutex.go:81
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).updateCommit(0xc0000c8700)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:593 +0x2b7
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).sendAppendEntries(0xc0000c8700, 0x0, 0x1)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:534 +0x37b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).heartBeating
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:509 +0xc5
+
+goroutine 17191 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0xc474f80)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asLeader(0xc0002e4500)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:386 +0x181
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asCandidate
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:344 +0x1c0
+
+goroutine 2329 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc00025a000)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 1380 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc00010e320, 0x62fc2b, 0x11, 0x5cd760, 0xc0002b44e0, 0x5cd7a0, 0xc000176100, 0x7cad20)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*Clerk).Query(0xc00046d020, 0xffffffffffffffff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/client.go:45 +0x127
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*Clerk).PutAppend(0xc000176e00, 0x6352c6, 0x1, 0xc00031b570, 0x5, 0x62d798, 0x6)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/client.go:135 +0x24b
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*Clerk).Append(...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/client.go:143
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.TestConcurrent14F.func1(0x0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/test_test.go:365 +0x15a
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.TestConcurrent14F
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/test_test.go:372 +0x418
+
+goroutine 18271 [select]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*ShardMaster).Query(0xc000058240, 0xc0002b4f40, 0xc000176680)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:191 +0x26f
+reflect.Value.call(0xc0000585a0, 0xc00000e5d0, 0x13, 0x62d42f, 0x4, 0xc0003e3bb8, 0x3, 0x3, 0xc0003e3a80, 0x4b839d, ...)
+	/usr/local/go/src/reflect/value.go:460 +0x5f6
+reflect.Value.Call(0xc0000585a0, 0xc00000e5d0, 0x13, 0xc0003e3bb8, 0x3, 0x3, 0x0, 0x10, 0x9)
+	/usr/local/go/src/reflect/value.go:321 +0xb4
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Service).dispatch(0xc000077a40, 0x62fc37, 0x5, 0x5da200, 0xc000364990, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0001381e0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:494 +0x682
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Server).dispatch(0xc00000cd40, 0x5da200, 0xc000364990, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0001381e0, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:418 +0x4a3
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq.func1(0xc00000cd40, 0x5da200, 0xc000364990, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0001381e0, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:238 +0x60
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+goroutine 2488 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc00025a2c0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 1381 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc00010e260, 0x62fc2b, 0x11, 0x5cd760, 0xc0002b49e0, 0x5cd7a0, 0xc000176400, 0x7cad20)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*Clerk).Query(0xc00046cfc0, 0xffffffffffffffff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/client.go:45 +0x127
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*Clerk).PutAppend(0xc000176d80, 0x6352c7, 0x1, 0xc00031b4f0, 0x5, 0x62d798, 0x6)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/client.go:135 +0x24b
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*Clerk).Append(...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/client.go:143
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.TestConcurrent14F.func1(0x1)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/test_test.go:365 +0x15a
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.TestConcurrent14F
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/test_test.go:372 +0x418
+
+goroutine 2500 [select]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower(0xc0002e4200)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:302 +0x105
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).transferToFollower(0xc0002e4200, 0x2, 0x0, 0x101)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:416 +0x9d
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:313 +0x1a5
+
+goroutine 2884 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc00028a840)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:600 +0x41
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 18269 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*ShardMaster).Query(0xc000058240, 0xc0002b4c80, 0xc000176500)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:191 +0x26f
+reflect.Value.call(0xc0000585a0, 0xc00000e5d0, 0x13, 0x62d42f, 0x4, 0xc0003b9bb8, 0x3, 0x3, 0xc0003b9a80, 0x4b839d, ...)
+	/usr/local/go/src/reflect/value.go:460 +0x5f6
+reflect.Value.Call(0xc0000585a0, 0xc00000e5d0, 0x13, 0xc0003b9bb8, 0x3, 0x3, 0x0, 0x10, 0x9)
+	/usr/local/go/src/reflect/value.go:321 +0xb4
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Service).dispatch(0xc000077a40, 0x62fc37, 0x5, 0x5da200, 0xc000364c00, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000138140, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:494 +0x682
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Server).dispatch(0xc00000cd40, 0x5da200, 0xc000364c00, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000138140, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:418 +0x4a3
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq.func1(0xc00000cd40, 0x5da200, 0xc000364c00, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000138140, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:238 +0x60
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+goroutine 2383 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc0001ba160)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:600 +0x41
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 2501 [sleep]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0xa21fe80)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asLeader(0xc0002e4100)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:386 +0x181
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asCandidate
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:344 +0x1c0
+
+goroutine 2609 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc0000a6160)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:600 +0x41
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 2382 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc0001ba160)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 17190 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower(0xc0002e4400)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:302 +0x105
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).transferToFollower(0xc0002e4400, 0x4, 0x2, 0x430901)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:416 +0x9d
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:313 +0x1a5
+
+goroutine 2995 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc0001ba000)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:600 +0x41
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 18310 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc0003da570, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000264280, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 18316 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc0003da570, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000264320, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 2331 [semacquire]:
+sync.runtime_SemacquireMutex(0xc00025a004, 0xc0003c9400, 0x1)
+	/usr/local/go/src/runtime/sema.go:71 +0x47
+sync.(*Mutex).lockSlow(0xc00025a000)
+	/usr/local/go/src/sync/mutex.go:138 +0xfc
+sync.(*Mutex).Lock(...)
+	/usr/local/go/src/sync/mutex.go:81
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).fetchShards(0xc00025a000)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:617 +0x58b
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc00025a000)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:608 +0x2b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 18255 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc00010f620, 0x62f7d6, 0x10, 0x5cd260, 0xc000472160, 0x5cd2a0, 0xc0001c8120, 0x3)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).fetchShards.func1(0xc00040f140, 0xc00028a580, 0xc000472160, 0x4, 0xc00046cb40, 0x3, 0x3)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:644 +0x135
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).fetchShards
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:639 +0x4cd
+
+goroutine 18314 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc0002b8a00, 0x62f7d6, 0x10, 0x67dbc0, 0x5cd260, 0xc0004ff0e0, 0x59, 0x8f, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 18264 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc000364cd0, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000138000, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 2513 [select]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower(0xc00031e100)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:302 +0x105
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).transferToFollower(0xc00031e100, 0x2, 0x0, 0xc0003b4c01)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:416 +0x9d
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:313 +0x1a5
+
+goroutine 1913 [chan send, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).updateCommit(0xc0000c8700)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:614 +0x1b4
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).sendAppendEntries(0xc0000c8700, 0x2, 0x1)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:534 +0x37b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).heartBeating
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:509 +0xc5
+
+goroutine 2453 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x3938700)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc00025a160)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:609 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 18256 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc00011a820, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0002641e0, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 2332 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc00022c9e0, 0x62fc2b, 0x11, 0x5cd760, 0xc0002b4760, 0x5cd7a0, 0xc000176280, 0x8)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*Clerk).Query(0xc000204f60, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/client.go:45 +0x127
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDeleteMessage(0xc00025a000)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:779 +0xda
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc00025a000)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:765 +0x2b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 2451 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc00025a160)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 18296 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc00011ae00, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0001e41e0, 0x42, 0x92, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 2996 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x3938700)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc0001ba000)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:609 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 2490 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x3938700)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc00025a2c0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:609 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 18315 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc00022c9e0, 0x62fc2b, 0x11, 0x5cd760, 0xc000017980, 0x5cd7a0, 0xc0000b8980, 0x96)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*Clerk).Query(0xc000204f60, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/client.go:45 +0x127
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).GetShard(0xc00025a000, 0xc0002cd6a0, 0xc0001c9800)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:687 +0x221
+reflect.Value.call(0xc00010cde0, 0xc00000ed50, 0x13, 0x62d42f, 0x4, 0xc00044bbb8, 0x3, 0x3, 0xc00044ba80, 0x4b839d, ...)
+	/usr/local/go/src/reflect/value.go:460 +0x5f6
+reflect.Value.Call(0xc00010cde0, 0xc00000ed50, 0x13, 0xc00044bbb8, 0x3, 0x3, 0xffffffff00000042, 0xc000231b40, 0x53aa0b)
+	/usr/local/go/src/reflect/value.go:321 +0xb4
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Service).dispatch(0xc000436940, 0x62f7de, 0x8, 0x5da200, 0xc0002b8a00, 0x62f7d6, 0x10, 0x67dbc0, 0x5cd260, 0xc0004ff0e0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:494 +0x682
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Server).dispatch(0xc0004207e0, 0x5da200, 0xc0002b8a00, 0x62f7d6, 0x10, 0x67dbc0, 0x5cd260, 0xc0004ff0e0, 0x59, 0x8f, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:418 +0x4a3
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq.func1(0xc0004207e0, 0x5da200, 0xc0002b8a00, 0x62f7d6, 0x10, 0x67dbc0, 0x5cd260, 0xc0004ff0e0, 0x59, 0x8f, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:238 +0x60
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+goroutine 2802 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc00014ef80, 0x62fc2b, 0x11, 0x5cd760, 0xc000016820, 0x5cd7a0, 0xc0000b8380, 0x3eeeebadb38)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*Clerk).Query(0xc000189830, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/client.go:45 +0x127
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDeleteMessage(0xc00028a580)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:779 +0xda
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc00028a580)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:765 +0x2b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 18356 [chan receive]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc00000c8a0, 0x630066, 0x12, 0x5ccf60, 0xc00011c000, 0x5ccfa0, 0xc000188030, 0xc00050b328)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).sendAppendEntriesRPC(...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:698
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).sendAppendEntries(0xc0000c8200, 0x1, 0x1)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:520 +0x12e
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).heartBeating
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:509 +0xc5
+
+goroutine 18359 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+goroutine 2801 [semacquire, 10 minutes]:
+sync.runtime_Semacquire(0xc00040f148)
+	/usr/local/go/src/runtime/sema.go:56 +0x42
+sync.(*WaitGroup).Wait(0xc00040f140)
+	/usr/local/go/src/sync/waitgroup.go:130 +0x64
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).fetchShards(0xc00028a580)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:657 +0x518
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc00028a580)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:608 +0x2b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 2610 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x3938700)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc0000a6160)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:609 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 2611 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc0000a6160)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:766 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 2637 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc00025a6e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 2638 [semacquire, 10 minutes]:
+sync.runtime_SemacquireMutex(0xc00025a6e4, 0xc000081b00, 0x1)
+	/usr/local/go/src/runtime/sema.go:71 +0x47
+sync.(*Mutex).lockSlow(0xc00025a6e0)
+	/usr/local/go/src/sync/mutex.go:138 +0xfc
+sync.(*Mutex).Lock(...)
+	/usr/local/go/src/sync/mutex.go:81
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc00025a6e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:582 +0x488
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 2639 [semacquire, 10 minutes]:
+sync.runtime_Semacquire(0xc00019d978)
+	/usr/local/go/src/runtime/sema.go:56 +0x42
+sync.(*WaitGroup).Wait(0xc00019d970)
+	/usr/local/go/src/sync/waitgroup.go:130 +0x64
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).fetchShards(0xc00025a6e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:657 +0x518
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc00025a6e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:608 +0x2b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 2640 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc0003c5440, 0x62fc2b, 0x11, 0x5cd760, 0xc000380900, 0x5cd7a0, 0xc00013a400, 0x3eeeedbbb3c)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*Clerk).Query(0xc0002d7f80, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/client.go:45 +0x127
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDeleteMessage(0xc00025a6e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:779 +0xda
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc00025a6e0)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:765 +0x2b
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 2767 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc00028a580)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 2768 [semacquire, 10 minutes]:
+sync.runtime_SemacquireMutex(0xc00028a584, 0xc0006c1b00, 0x1)
+	/usr/local/go/src/runtime/sema.go:71 +0x47
+sync.(*Mutex).lockSlow(0xc00028a580)
+	/usr/local/go/src/sync/mutex.go:138 +0xfc
+sync.(*Mutex).Lock(...)
+	/usr/local/go/src/sync/mutex.go:81
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollNextConfig(0xc00028a580)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:582 +0x488
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:954 +0x56a
+
+goroutine 2914 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x9c67100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asLeader(0xc0002e4600)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:386 +0x181
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asCandidate
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:344 +0x1c0
+
+goroutine 18322 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc0003648c0, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000264140, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 2885 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x3938700)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pollShards(0xc00028a840)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:609 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:955 +0x58c
+
+goroutine 3043 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower(0xc0002e4800)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:302 +0x105
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).transferToFollower(0xc0002e4800, 0x2, 0x0, 0xc00038c801)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:416 +0x9d
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:313 +0x1a5
+
+goroutine 18308 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc0002d1a10, 0x62f7d6, 0x10, 0x67dbc0, 0x5cd260, 0xc000288000, 0x57, 0x8f, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 2994 [chan receive, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).listenForCommitment(0xc0001ba000)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:477 +0x83
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:953 +0x548
+
+goroutine 18287 [select]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc00004d4a0, 0x630066, 0x12, 0x67dbc0, 0x5ccf60, 0xc000250000, 0x52d, 0x8ba, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 2886 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc00028a840)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:766 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 2913 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower(0xc0002e4700)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:302 +0x105
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).transferToFollower(0xc0002e4700, 0x2, 0x0, 0xc0002a9e01)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:416 +0x9d
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).asFollower
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:313 +0x1a5
+
+goroutine 18267 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*ShardMaster).Query(0xc000058240, 0xc0002b49c0, 0xc000176380)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:191 +0x26f
+reflect.Value.call(0xc0000585a0, 0xc00000e5d0, 0x13, 0x62d42f, 0x4, 0xc0003bdbb8, 0x3, 0x3, 0xc0003bda80, 0x4b839d, ...)
+	/usr/local/go/src/reflect/value.go:460 +0x5f6
+reflect.Value.Call(0xc0000585a0, 0xc00000e5d0, 0x13, 0xc0003bdbb8, 0x3, 0x3, 0xc000576b18, 0x5cd760, 0xc0002b4760)
+	/usr/local/go/src/reflect/value.go:321 +0xb4
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Service).dispatch(0xc000077a40, 0x62fc37, 0x5, 0x5da200, 0xc0003da570, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0001380a0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:494 +0x682
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Server).dispatch(0xc00000cd40, 0x5da200, 0xc0003da570, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0001380a0, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:418 +0x4a3
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq.func1(0xc00000cd40, 0x5da200, 0xc0003da570, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0001380a0, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:238 +0x60
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+goroutine 2997 [sleep, 10 minutes]:
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:310
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:105 +0x157
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.(*ShardKV).pushDelete(0xc0001ba000)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:766 +0x38
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardkv.StartServer
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardkv/server.go:956 +0x5ae
+
+goroutine 18357 [chan receive]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*ClientEnd).Call(0xc00000c8c0, 0x630066, 0x12, 0x5ccf60, 0xc000332b80, 0x5ccfa0, 0xc00046cc30, 0xc00050b328)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:110 +0x2d6
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).sendAppendEntriesRPC(...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:698
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).sendAppendEntries(0xc0000c8200, 0x2, 0x1)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:520 +0x12e
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/raft.(*Raft).heartBeating
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/raft/raft.go:509 +0xc5
+
+goroutine 18305 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*ShardMaster).Query(0xc000058240, 0xc000016a80, 0xc0000b8480)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:191 +0x26f
+reflect.Value.call(0xc0000585a0, 0xc00000e5d0, 0x13, 0x62d42f, 0x4, 0xc0003e3bb8, 0x3, 0x3, 0xc0003e3a80, 0x4b839d, ...)
+	/usr/local/go/src/reflect/value.go:460 +0x5f6
+reflect.Value.Call(0xc0000585a0, 0xc00000e5d0, 0x13, 0xc0003e3bb8, 0x3, 0x3, 0xc000632b18, 0x5cd760, 0xc000016820)
+	/usr/local/go/src/reflect/value.go:321 +0xb4
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Service).dispatch(0xc000077a40, 0x62fc37, 0x5, 0x5da200, 0xc00011a820, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0002641e0, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:494 +0x682
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Server).dispatch(0xc00000cd40, 0x5da200, 0xc00011a820, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0002641e0, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:418 +0x4a3
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq.func1(0xc00000cd40, 0x5da200, 0xc00011a820, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0002641e0, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:238 +0x60
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+goroutine 18311 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*ShardMaster).Query(0xc000058240, 0xc000017480, 0xc0000b8800)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:191 +0x26f
+reflect.Value.call(0xc0000585a0, 0xc00000e5d0, 0x13, 0x62d42f, 0x4, 0xc0003bdbb8, 0x3, 0x3, 0xc0003bda80, 0x4b839d, ...)
+	/usr/local/go/src/reflect/value.go:460 +0x5f6
+reflect.Value.Call(0xc0000585a0, 0xc00000e5d0, 0x13, 0xc0003bdbb8, 0x3, 0x3, 0x8, 0xc000577a60, 0x543287)
+	/usr/local/go/src/reflect/value.go:321 +0xb4
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Service).dispatch(0xc000077a40, 0x62fc37, 0x5, 0x5da200, 0xc0003da570, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000264280, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:494 +0x682
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Server).dispatch(0xc00000cd40, 0x5da200, 0xc0003da570, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000264280, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:418 +0x4a3
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq.func1(0xc00000cd40, 0x5da200, 0xc0003da570, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000264280, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:238 +0x60
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+goroutine 18270 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc000364990, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0001381e0, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 18268 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc000364c00, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000138140, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 18266 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc0003da570, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc0001380a0, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 18265 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*ShardMaster).Query(0xc000058240, 0xc0002b4740, 0xc000176200)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:191 +0x26f
+reflect.Value.call(0xc0000585a0, 0xc00000e5d0, 0x13, 0x62d42f, 0x4, 0xc000447bb8, 0x3, 0x3, 0xc000447a80, 0x4b839d, ...)
+	/usr/local/go/src/reflect/value.go:460 +0x5f6
+reflect.Value.Call(0xc0000585a0, 0xc00000e5d0, 0x13, 0xc000447bb8, 0x3, 0x3, 0x0, 0x10, 0x9)
+	/usr/local/go/src/reflect/value.go:321 +0xb4
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Service).dispatch(0xc000077a40, 0x62fc37, 0x5, 0x5da200, 0xc000364cd0, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000138000, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:494 +0x682
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Server).dispatch(0xc00000cd40, 0x5da200, 0xc000364cd0, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000138000, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:418 +0x4a3
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq.func1(0xc00000cd40, 0x5da200, 0xc000364cd0, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000138000, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:238 +0x60
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+goroutine 18288 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+goroutine 18358 [select]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq(0xc0000b0140, 0x5da200, 0xc00004d4e0, 0x630066, 0x12, 0x67dbc0, 0x5ccf60, 0xc000098900, 0x52d, 0x8ba, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:249 +0x258
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.MakeNetwork.func1
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:155 +0xae
+
+goroutine 18317 [select, 10 minutes]:
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/shardmaster.(*ShardMaster).Query(0xc000058240, 0xc000017be0, 0xc0000b8a80)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/shardmaster/server.go:191 +0x26f
+reflect.Value.call(0xc0000585a0, 0xc00000e5d0, 0x13, 0x62d42f, 0x4, 0xc000493bb8, 0x3, 0x3, 0xc000493a80, 0x4b839d, ...)
+	/usr/local/go/src/reflect/value.go:460 +0x5f6
+reflect.Value.Call(0xc0000585a0, 0xc00000e5d0, 0x13, 0xc000493bb8, 0x3, 0x3, 0xffffffff00000042, 0xc000231b40, 0x53aa0b)
+	/usr/local/go/src/reflect/value.go:321 +0xb4
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Service).dispatch(0xc000077a40, 0x62fc37, 0x5, 0x5da200, 0xc0003da570, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000264320, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:494 +0x682
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Server).dispatch(0xc00000cd40, 0x5da200, 0xc0003da570, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000264320, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:418 +0x4a3
+_/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq.func1(0xc00000cd40, 0x5da200, 0xc0003da570, 0x62fc2b, 0x11, 0x67dbc0, 0x5cd760, 0xc000264320, 0x44, 0x94, ...)
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:238 +0x60
+created by _/mnt/c/Users/Think/Desktop/Distributed_System/lab1/6.824/src/labrpc.(*Network).processReq
+	/mnt/c/Users/Think/Desktop/Distributed System/lab1/6.824/src/labrpc/labrpc.go:237 +0x141
+
+rax    0xfffffffffffffffc
+rbx    0x206cf3c
+rcx    0xc0000326d8
+rdx    0x0
+rdi    0x7cad40
+rsi    0x80
+rbp    0xc0000326e8
+rsp    0xc0000326a0
+r8     0x0
+r9     0x0
+r10    0xc0000326d8
+r11    0xc0000326d8
+r12    0x3eef8df1bd8
+r13    0x2
+r14    0x3eef8df1bd8
+r15    0xff
+rip    0x45f403
+rflags 0x206
+cs     0x33
+fs     0x53
+gs     0x2b

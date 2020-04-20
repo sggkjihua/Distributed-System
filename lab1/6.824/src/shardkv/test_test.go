@@ -745,7 +745,8 @@ func TestChallenge1Delete3A(t *testing.T) {
 	va := make([]string, n)
 	for i := 0; i < n; i++ {
 		ka[i] = strconv.Itoa(i)
-		va[i] = randstring(1000)
+		//va[i] = randstring(1000)
+		va[i] = randstring(1)
 		ck.Put(ka[i], va[i])
 	}
 	for i := 0; i < 3; i++ {

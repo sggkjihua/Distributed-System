@@ -606,7 +606,7 @@ func (kv *ShardKV) pollShards() {
 	// used this function in case that the leader breakdown
 	for {
 		kv.fetchShards()
-		time.Sleep(50 * time.Millisecond)
+		time.Sleep(30 * time.Millisecond)
 	}
 }
 
@@ -919,9 +919,10 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister,
 
 	kv.shardMap = make(map[int]Shard)
 
+	/*
 	fmt.Printf("[After %v] Server %v [Gid: %v], myShards: %v, keyMap: %v\n, shardsNeeded: %v, toDiscard:%v\n", "INIT", 
 	kv.me, kv.gid, kv.myShard, kv.printAllKeys(), kv.shardsNeeded,kv.shardsToDiscard)
-
+	*/
 	//fmt.Printf("[GID] %v come to live again!!!!!!\n", kv.gid)
 
 	go kv.listenForCommitment()
