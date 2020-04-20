@@ -12,6 +12,8 @@ import "math/big"
 type Clerk struct {
 	servers []*labrpc.ClientEnd
 	// Your data here.
+	cid int64
+	seq int
 }
 
 func nrand() int64 {
@@ -24,6 +26,7 @@ func nrand() int64 {
 func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 	ck := new(Clerk)
 	ck.servers = servers
+	ck.cid = nrand()
 	// Your code here.
 	return ck
 }
@@ -32,12 +35,15 @@ func (ck *Clerk) Query(num int) Config {
 	args := &QueryArgs{}
 	// Your code here.
 	args.Num = num
+	ck.seq ++
+	args.Seq = ck.seq
+	args.Cid = ck.cid
 	for {
 		// try each known server.
 		for _, srv := range ck.servers {
 			var reply QueryReply
 			ok := srv.Call("ShardMaster.Query", args, &reply)
-			if ok && reply.WrongLeader == false {
+			if ok && !reply.WrongLeader {
 				return reply.Config
 			}
 		}
@@ -49,13 +55,16 @@ func (ck *Clerk) Join(servers map[int][]string) {
 	args := &JoinArgs{}
 	// Your code here.
 	args.Servers = servers
+	ck.seq ++
+	args.Seq = ck.seq
+	args.Cid = ck.cid
 
 	for {
 		// try each known server.
 		for _, srv := range ck.servers {
 			var reply JoinReply
 			ok := srv.Call("ShardMaster.Join", args, &reply)
-			if ok && reply.WrongLeader == false {
+			if ok && !reply.WrongLeader {
 				return
 			}
 		}
@@ -67,13 +76,16 @@ func (ck *Clerk) Leave(gids []int) {
 	args := &LeaveArgs{}
 	// Your code here.
 	args.GIDs = gids
+	ck.seq ++
+	args.Seq = ck.seq
+	args.Cid = ck.cid
 
 	for {
 		// try each known server.
 		for _, srv := range ck.servers {
 			var reply LeaveReply
 			ok := srv.Call("ShardMaster.Leave", args, &reply)
-			if ok && reply.WrongLeader == false {
+			if ok && !reply.WrongLeader {
 				return
 			}
 		}
@@ -86,13 +98,16 @@ func (ck *Clerk) Move(shard int, gid int) {
 	// Your code here.
 	args.Shard = shard
 	args.GID = gid
+	ck.seq ++
+	args.Seq = ck.seq
+	args.Cid = ck.cid
 
 	for {
 		// try each known server.
 		for _, srv := range ck.servers {
 			var reply MoveReply
 			ok := srv.Call("ShardMaster.Move", args, &reply)
-			if ok && reply.WrongLeader == false {
+			if ok && !reply.WrongLeader {
 				return
 			}
 		}

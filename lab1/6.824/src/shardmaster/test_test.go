@@ -53,6 +53,7 @@ func check(t *testing.T, groups []int, ck *Clerk) {
 }
 
 func check_same_config(t *testing.T, c1 Config, c2 Config) {
+	//fmt.Printf("A:%v B:%v\n", c1, c2)
 	if c1.Num != c2.Num {
 		t.Fatalf("Num wrong")
 	}
@@ -76,6 +77,7 @@ func check_same_config(t *testing.T, c1 Config, c2 Config) {
 		}
 	}
 }
+
 
 func TestBasic(t *testing.T) {
 	const nservers = 3
@@ -179,6 +181,7 @@ func TestBasic(t *testing.T) {
 	}
 	fmt.Printf("  ... Passed\n")
 
+
 	fmt.Printf("Test: Concurrent leave/join ...\n")
 
 	const npara = 10
@@ -247,7 +250,9 @@ func TestBasic(t *testing.T) {
 	}
 
 	fmt.Printf("  ... Passed\n")
+
 }
+
 
 func TestMulti(t *testing.T) {
 	const nservers = 3
@@ -378,3 +383,4 @@ func TestMulti(t *testing.T) {
 
 	fmt.Printf("  ... Passed\n")
 }
+
