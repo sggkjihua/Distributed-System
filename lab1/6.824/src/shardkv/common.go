@@ -73,14 +73,15 @@ type FetchReply struct{
 	Num int
 }
 
-
-type DeleteArgs struct{
+type DeletePermitArgs struct{
 	Num int
-	ShardsConfirmed map[int]bool
+	ShardsToDiscard map[int]bool
 	From int
 }
 
-type DeleteReply struct{
+type DeletePermitReply struct{
 	Err Err
+	ShardsConfirmed []int
 	Num int
 }
+

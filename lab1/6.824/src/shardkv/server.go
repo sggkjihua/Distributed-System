@@ -569,6 +569,117 @@ func (kv *ShardKV) pollNextConfig() {
 	}
 }
 
+
+
+func (kv *ShardKV) pollDelete(){
+	for {
+		kv.pollIfCanDelete()
+		time.Sleep(100 * time.Millisecond)
+	}
+}
+
+func (kv *ShardKV) pollIfCanDelete(){
+	// basic idea is to get all shards from others.
+	// and then I am able to sync with followers
+	_, isLeader := kv.rf.GetState()
+	kv.mu.Lock()
+	if !isLeader || len(kv.shardsToDiscard) == 0 {
+		// no need to ask for any shards from others
+		kv.mu.Unlock()
+		return
+	}
+	//curConfig := kv.config
+	//preConfig := kv.sm.Query(curConfig.Num - 1)
+	Num := kv.config.Num
+	Gids := kv.gidsToAskForDeletePermission()
+
+	//fmt.Printf("[Fetching] Server %v [GID: %v] is requesting shards %v from %v, myShard: %v , shardsToDiscard: %v myConfig: %v\n", 
+	//kv.me, kv.gid, kv.shardsNeeded,Gids, kv.myShard, kv.shardsToDiscard, kv.config)
+
+	wg := sync.WaitGroup{}
+	args := DeletePermitArgs{Num: Num, ShardsToDiscard: kv.shardsToDiscard, From: kv.gid}
+	for _, servers := range Gids {
+		// used this to prevent from being called again
+		wg.Add(1)
+		go func(servers []string) {
+			defer wg.Done()
+			for si := 0; si < len(servers); si++ {
+				reply := DeletePermitReply{}
+				srv := kv.make_end(servers[si])
+				if srv.Call("ShardKV.Delete", &args, &reply) && reply.Err == OK {
+					shardsCouldDelete := reply.ShardsConfirmed
+					for _, shard := range shardsCouldDelete {
+						// receive the shard return from other gid
+						// put it into log and syn with followers
+						op := Op{Operation: "Delete", Num: Num, Shard: Shard{Id:shard}}
+						kv.rf.Start(op)
+					}
+				}
+			}
+		}(servers)
+	}
+	kv.mu.Unlock()
+	wg.Wait()
+	//fmt.Printf("[Fetched Successfully] %v [GID: %v]\n", kv.me, kv.gid)
+}
+
+func (kv *ShardKV) Delete(args *DeletePermitArgs, reply *DeletePermitReply){
+	_, isLeader := kv.rf.GetState()
+	if !isLeader {
+		reply.Err = ErrWrongLeader
+		return
+	}
+	fmt.Printf("[DeleteShard] %v [GID: %v] receive a request to delete %v from %v, myShard %v \n", kv.me, kv.gid, args, args.From, kv.myShard)
+	Num := args.Num
+	ShardsToDiscard := args.ShardsToDiscard
+	preConfig := kv.sm.Query(Num)
+	kv.mu.Lock()
+	if Num > kv.config.Num {
+		// and old request, reject
+		reply.Err = ErrWrongGroup
+		kv.mu.Unlock()
+		return
+	}
+	Shards := make([]int, 0)
+	for shardId := range ShardsToDiscard {
+		couldDelete := false
+		if preConfig.Shards[shardId] != kv.gid {
+			continue
+		}
+
+		if kv.config.Num > Num {
+			couldDelete =  true
+		}else{
+			// equals
+			if _, ok := kv.myShard[shardId];ok{
+				couldDelete = true
+			}
+
+		}
+		// condition here might be really critical
+		if couldDelete {
+			Shards = append(Shards, shardId)
+		}
+	}
+	// 也许之后需要把这里优化一下，确保之前传出去的shards都不在这里了
+	kv.mu.Unlock()
+	reply.Num = Num
+	reply.ShardsConfirmed = Shards
+	reply.Err = OK
+	fmt.Printf("[GetShard] %v reply successfully %v for request %v\n", kv.gid, reply, Shards)
+}
+
+
+func (kv *ShardKV) gidsToAskForDeletePermission() map[int][]string{
+	gids := make(map[int][]string)
+	for k := range kv.shardsToDiscard {
+		gid := kv.config.Shards[k]
+		gids[gid] = kv.config.Groups[gid]
+	}
+	return gids
+}
+
+
 func (kv *ShardKV) pollShards() {
 	// periodically poll shards from others
 	// used this function in case that the leader breakdown
@@ -698,7 +809,6 @@ func deepCopyOfShard(shard Shard) Shard {
 	}
 	nShard := Shard{Id: shard.Id, Num: shard.Num, SeqOfCid: seqOfCid, KvMap: kvMap}
 	return nShard
-
 }
 
 func RandTime() int {
@@ -710,116 +820,6 @@ func Max(a int, b int) int {
 		return a
 	}
 	return b
-}
-
-
-
-
-func (kv *ShardKV) pushDelete(){
-	for{
-		kv.pushDeleteMessage()
-		time.Sleep(40 * time.Millisecond)
-	}
-}
-
-func (kv *ShardKV) pushDeleteMessage(){
-	_, isLeader := kv.rf.GetState()
-	kv.mu.Lock()
-	if !isLeader || len(kv.myShard) == 0 {
-		// no need to ask for any shards from others
-		kv.mu.Unlock()
-		return
-	}
-	curConfig := kv.config
-	preConfig := kv.sm.Query(curConfig.Num - 1)
-	Num := curConfig.Num
-	Shards := preConfig.Shards
-	Groups := preConfig.Groups
-	Gids := kv.gidsToPush(Shards)
-
-	fmt.Printf("[PushDelete] Server %v [GID: %v] is pushing delete %v to %v, myShard: %v , shardsToDiscard: %v myConfig: %v\n", 
-	kv.me, kv.gid, kv.shardsNeeded,Gids, kv.myShard, kv.shardsToDiscard, kv.config)
-	wg := sync.WaitGroup{}
-	args := DeleteArgs{Num: Num, ShardsConfirmed: kv.myShard, From: kv.gid}
-	for gid := range Gids {
-		servers := Groups[gid]
-		// used this to prevent from being called again
-		wg.Add(1)
-		go func(servers []string) {
-			defer wg.Done()
-			for si := 0; si < len(servers); si++ {
-				reply := DeleteReply{}
-				srv := kv.make_end(servers[si])
-				if srv.Call("ShardKV.DeleteShard", &args, &reply) && reply.Err == OK {
-					fmt.Printf("[PushDelete] %v pushed delete to %v successfully\n", kv.gid, gid)
-				}
-			}
-		}(servers)
-	}
-	kv.mu.Unlock()
-	wg.Wait()
-	//fmt.Printf("[Delete Successfully] %v [GID: %v]\n", kv.me, kv.gid)
-}
-
-func (kv *ShardKV) gidsToPush(preShard [10]int) map[int]bool{
-	gids := make(map[int]bool)
-	for shard, gid := range preShard {
-		if gid == kv.gid || kv.config.Shards[shard]!=kv.gid{
-			continue
-		}
-		gids[gid] = true
-	}
-	return gids
-}
-
-
-
-func (kv *ShardKV) DeleteShard(args *DeleteArgs, reply *DeleteReply){
-	_, isLeader := kv.rf.GetState()
-	if !isLeader {
-		reply.Err = ErrWrongLeader
-		return
-	}
-	kv.mu.Lock()
-	if len(kv.shardsToDiscard)==0 {
-		// nothing to discard, simply return ok
-		reply.Err = OK
-		kv.mu.Unlock()
-		return
-	}
-	Num := args.Num
-	Gid := args.From
-	ShardsConfirmed := args.ShardsConfirmed
-	if kv.config.Num > Num {
-		reply.Err = ErrWrongGroup
-		kv.mu.Unlock()
-		return
-	}
-	ShardsToDelete := make([]Shard, 0)
-
-	for shard := range kv.shardsToDiscard{
-		add := false
-		if _, ok := ShardsConfirmed[shard]; ok {
-			add = true
-		}else{
-			if Num>kv.config.Num && kv.config.Shards[shard]==Gid {
-				add = true
-			}
-		}
-		if add {
-			if Shard, exist := kv.shardMap[shard]; exist {
-				ShardsToDelete = append(ShardsToDelete, Shard)
-			}
-		}
-	}
-	// release the lock first
-	kv.mu.Unlock()
-	for _, sh := range ShardsToDelete {
-		op := Op{Operation: "Delete", Num: Num, Shard: sh}
-		kv.rf.Start(op)
-	}
-	reply.Err = OK
-	fmt.Printf("[DeleteShard] %v delete successfully %v for request %v\n", kv.gid, ShardsToDelete, ShardsConfirmed)
 }
 
 
@@ -893,7 +893,7 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister,
 	go kv.listenForCommitment()
 	go kv.pollNextConfig()
 	go kv.pollShards()
-	go kv.pushDelete()
-
+	//go kv.pushDelete()
+	go kv.pollDelete()
 	return kv
 }
