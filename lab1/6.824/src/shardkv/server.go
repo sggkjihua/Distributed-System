@@ -277,7 +277,7 @@ func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Sh
 	} else if Op == "Delete" {
 		shard = Shard.Id
 		_, shouldDiscard := kv.shardsToDiscard[shard]
-		if shouldDiscard && Num == kv.config.Num {
+		if shouldDiscard && Num >= kv.config.Num {
 			return true, true
 		}
 		return false, true
@@ -430,8 +430,11 @@ func (kv *ShardKV) handleReconfiguration(config shardmaster.Config) {
 }
 
 func (kv *ShardKV) checkShard(key string) bool {
+	// may try other version
 	shard := key2shard(key)
+	//gid := kv.config.Shards[shard]
 	_, ok := kv.myShard[shard]
+	//return kv.gid == gid
 	return ok
 }
 
@@ -833,13 +836,32 @@ func (kv *ShardKV) DeleteShard(args *DeleteArgs, reply *DeleteReply){
 		return
 	}
 	Num := args.Num
+	Gid := args.From
 	ShardsConfirmed := args.ShardsConfirmed
-	if kv.config.Num != Num {
+	if kv.config.Num > Num {
 		reply.Err = ErrWrongGroup
 		kv.mu.Unlock()
 		return
 	}
 	ShardsToDelete := make([]Shard, 0)
+
+	for shard := range kv.shardsToDiscard{
+		add := false
+		if _, ok := ShardsConfirmed[shard]; ok {
+			add = true
+		}else{
+			if Num>kv.config.Num && kv.config.Shards[shard]==Gid {
+				add = true
+			}
+		}
+		if add {
+			if Shard, exist := kv.shardMap[shard]; exist {
+				ShardsToDelete = append(ShardsToDelete, Shard)
+			}
+		}
+	}
+
+	/*
 	for shard := range ShardsConfirmed {
 		if _, ok := kv.shardsToDiscard[shard];ok {
 			sh, hold := kv.shardMap[shard]
@@ -849,6 +871,7 @@ func (kv *ShardKV) DeleteShard(args *DeleteArgs, reply *DeleteReply){
 			ShardsToDelete = append(ShardsToDelete, sh)
 		}
 	}
+	*/
 	// release the lock first
 	kv.mu.Unlock()
 	for _, sh := range ShardsToDelete {
