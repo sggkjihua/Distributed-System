@@ -285,36 +285,6 @@ func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Sh
 	return true,true
 }
 
-/*
-func compareShard(comin Shard, mine Shard)bool{
-	// we can either compare the len of the value or seqOfCid??
-	// 感觉这个判断还是错的
-	for k,v := range comin.SeqOfCid {
-		seq, ok := mine.SeqOfCid[k]
-		if !ok{
-			return true
-		}
-		if seq < v{
-			return true
-		}else if seq > v{
-			return false
-		}
-	}
-	for k, v:= range comin.KvMap{
-		val, ok := mine.KvMap[k]
-		if !ok{
-			return true
-		}
-		if len(val) < len(v){
-			return true
-		}else if len(val) > len(v) {
-			return false
-		}
-	}
-	return true
-}
-*/
-
 
 func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg) {
 	command := commit.Command
@@ -424,9 +394,7 @@ func (kv *ShardKV) handleReconfiguration(config shardmaster.Config) {
 			delete(kv.myShard, shard)
 		}
 	}
-	kv.askShardsFrom = kv.config.Shards
 	kv.config = config
-	//fmt.Printf("[After Reconfiguration] GID: %v, ShardMap: %v, MyShard: %v\n", kv.gid, kv.printAllKeys(), kv.myShard)
 }
 
 func (kv *ShardKV) checkShard(key string) bool {
@@ -521,12 +489,7 @@ func (kv *ShardKV) checkSnapShot(commit raft.ApplyMsg) {
 		return
 	}
 	op := commit.Command.(Op).Operation
-	//fmt.Printf("RaftStateSize %v, Max: %v \n", kv.persister.RaftStateSize(), kv.maxraftstate)
-	//op, _ := commit.Command.(Op)
-	//if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 && (ok && op.Operation!="Sync") {
 	if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 && op!="Reconfiguration" && op!="Delete" && op!="Accept" {
-		// when not exceed
-		//fmt.Printf("Operation: %v \n", op.Operation)
 		return
 	}
 	//fmt.Printf("[Compacting Required] %v will need to compact \n", kv.me)
@@ -713,22 +676,9 @@ func (kv *ShardKV) GetShard(args *FetchArgs, reply *FetchReply) {
 		if ok {
 			Shards = append(Shards, deepCopyOfShard(shard))
 		}
-		/* 
-		else if Num==2 {
-			fakeShard := Shard{Id: shardId, Num: Num - 1, KvMap: make(map[string]string), SeqOfCid: make(map[int64]int)}
-			Shards = append(Shards, fakeShard)
-		}
-		*/
-		// only return those which is hold by me last configuration
 	}
 	// 也许之后需要把这里优化一下，确保之前传出去的shards都不在这里了
 	kv.mu.Unlock()
-	/*
-	for _, shard := range Shards {
-		// 具体意思就是在 Num th config 需要将这个shard 从自己这里抹除
-		op := Op{Operation: "Delete", Shard: shard, Num: Num}
-		kv.rf.Start(op)
-	}*/
 	reply.Num = Num
 	reply.Shards = Shards
 	reply.Err = OK
@@ -860,18 +810,6 @@ func (kv *ShardKV) DeleteShard(args *DeleteArgs, reply *DeleteReply){
 			}
 		}
 	}
-
-	/*
-	for shard := range ShardsConfirmed {
-		if _, ok := kv.shardsToDiscard[shard];ok {
-			sh, hold := kv.shardMap[shard]
-			if !hold {
-				sh = Shard{Num:Num-1, Id:shard} 
-			}
-			ShardsToDelete = append(ShardsToDelete, sh)
-		}
-	}
-	*/
 	// release the lock first
 	kv.mu.Unlock()
 	for _, sh := range ShardsToDelete {
