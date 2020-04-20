@@ -70,4 +70,17 @@ type FetchArgs struct{
 type FetchReply struct{
 	Err Err
 	Shards []Shard
+	Num int
+}
+
+
+type DeleteArgs struct{
+	Num int
+	ShardsConfirmed map[int]bool
+	From int
+}
+
+type DeleteReply struct{
+	Err Err
+	Num int
 }

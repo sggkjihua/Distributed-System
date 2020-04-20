@@ -1,471 +1,413 @@
 Test: static shards ...
-[08:31:24.547 Follower] 0 timed out initialize a voting
-[08:31:24.562 Candidate] 0 sending VoteRequest to 2 for term 1
-[08:31:24.562 Candidate] 0 sending VoteRequest to 1 for term 1
-[08:31:24.725 Follower] 2 timed out initialize a voting
-[08:31:24.727 Candidate] 2 sending VoteRequest to 1 for term 1       
-[08:31:24.728 Candidate] 2 sending VoteRequest to 0 for term 1       
-[08:31:24.728 VoteRequest] 0 received a VoteRequest from 2 for term 1
-[08:31:24.728 VoteRequest] 1 received a VoteRequest from 2 for term 1
-[08:31:24.917 Candidate] Election initiated from 0 has timed out, restart election
-[08:31:24.919 Candidate] 0 sending VoteRequest to 2 for term 2
-[08:31:24.919 Candidate] 0 sending VoteRequest to 1 for term 2
-[08:31:25.378 Follower] 1 timed out initialize a voting
-[08:31:25.379 Candidate] 1 sending VoteRequest to 2 for term 1       
-[08:31:25.380 Candidate] 1 sending VoteRequest to 0 for term 1       
-[08:31:25.381 VoteRequest] 0 received a VoteRequest from 1 for term 1
-[08:31:25.450 Candidate] Election initiated from 0 has timed out, restart election
-[08:31:25.452 Candidate] 0 sending VoteRequest to 2 for term 3       
-[08:31:25.452 VoteRequest] 2 received a VoteRequest from 0 for term 3
-[08:31:25.452 Candidate] 0 sending VoteRequest to 1 for term 3       
-[08:31:25.454 VoteRequest] 1 received a VoteRequest from 0 for term 3
-[08:31:25.850 Follower] 0 timed out initialize a voting
-[08:31:25.853 Candidate] 0 sending VoteRequest to 2 for term 1
-[08:31:25.854 Candidate] 0 sending VoteRequest to 1 for term 1
-[08:31:25.859 VoteRequest] 1 received a VoteRequest from 0 for term 1
-[08:31:26.683 Follower] 0 timed out initialize a voting
-[08:31:26.685 Candidate] 0 sending VoteRequest to 2 for term 1
-[08:31:26.685 Candidate] 0 sending VoteRequest to 1 for term 1
-[08:31:26.692 VoteRequest] 1 received a VoteRequest from 0 for term 1
-[08:31:26.934 Follower] 2 timed out initialize a voting
-[08:31:26.941 Candidate] 2 sending VoteRequest to 1 for term 1
-[08:31:26.942 Candidate] 2 sending VoteRequest to 0 for term 1
-[08:31:26.943 VoteRequest] 1 received a VoteRequest from 2 for term 1
-[08:31:26.949 VoteRequest] 0 received a VoteRequest from 2 for term 1
+[05:49:01.285 Follower] 1 timed out initialize a voting
+[05:49:01.289 Candidate] 1 sending VoteRequest to 2 for term 1       
+[05:49:01.290 Candidate] 1 sending VoteRequest to 0 for term 1       
+[05:49:01.290 VoteRequest] 2 received a VoteRequest from 1 for term 1
+[05:49:01.291 VoteRequest] 0 received a VoteRequest from 1 for term 1
+[05:49:01.438 Follower] 0 timed out initialize a voting
+[05:49:01.440 Candidate] 0 sending VoteRequest to 2 for term 1
+[05:49:01.440 Candidate] 0 sending VoteRequest to 1 for term 1
+[After INIT] Server 0 [Gid: 100], myShards: map[], keyMap: 
+, shardsNeeded: map[], toDiscard:map[][After INIT] Server 1 [Gid: 100], myShards: map[], keyMap: 
+, shardsNeeded: map[], toDiscard:map[][05:49:01.910 Follower] 1 timed out initialize a voting
+[05:49:01.912 Candidate] 1 sending VoteRequest to 2 for term 1
+[05:49:01.912 Candidate] 1 sending VoteRequest to 0 for term 1
+[05:49:01.918 VoteRequest] 0 received a VoteRequest from 1 for term 1
+[After INIT] Server 2 [Gid: 100], myShards: map[], keyMap: 
+, shardsNeeded: map[], toDiscard:map[][05:49:01.996 Candidate] Election initiated from 0 has timed out, restart election
+[05:49:02.003 Candidate] 0 sending VoteRequest to 2 for term 2
+[05:49:02.003 VoteRequest] 2 received a VoteRequest from 0 for term 2
+[05:49:02.003 Candidate] 0 sending VoteRequest to 1 for term 2
+[05:49:02.005 VoteRequest] 1 received a VoteRequest from 0 for term 2
+[After INIT] Server 0 [Gid: 101], myShards: map[], keyMap: 
+, shardsNeeded: map[], toDiscard:map[][05:49:02.392 Follower] 0 timed out initialize a voting
+[05:49:02.393 Candidate] 0 sending VoteRequest to 2 for term 1
+[05:49:02.393 Candidate] 0 sending VoteRequest to 1 for term 1
+[After INIT] Server 1 [Gid: 101], myShards: map[], keyMap: 
+, shardsNeeded: map[], toDiscard:map[][After INIT] Server 2 [Gid: 101], myShards: map[], keyMap: 
+, shardsNeeded: map[], toDiscard:map[][05:49:02.686 Follower] 1 timed out initialize a voting
+[05:49:02.690 Candidate] 1 sending VoteRequest to 2 for term 1
+[05:49:02.690 Candidate] 1 sending VoteRequest to 0 for term 1
+[05:49:02.691 VoteRequest] 2 received a VoteRequest from 1 for term 1
+[05:49:02.691 VoteRequest] 0 received a VoteRequest from 1 for term 1
+[After INIT] Server 0 [Gid: 102], myShards: map[], keyMap: 
+, shardsNeeded: map[], toDiscard:map[][05:49:03.120 Follower] 0 timed out initialize a voting
+[05:49:03.121 Candidate] 0 sending VoteRequest to 2 for term 1
+[05:49:03.122 Candidate] 0 sending VoteRequest to 1 for term 1
+[After INIT] Server 1 [Gid: 102], myShards: map[], keyMap: 
+, shardsNeeded: map[], toDiscard:map[][05:49:03.242 Follower] 1 timed out initialize a voting
+[05:49:03.243 Candidate] 1 sending VoteRequest to 2 for term 1
+[05:49:03.243 Candidate] 1 sending VoteRequest to 0 for term 1
+[05:49:03.244 VoteRequest] 0 received a VoteRequest from 1 for term 1
+[After INIT] Server 2 [Gid: 102], myShards: map[], keyMap: 
+, shardsNeeded: map[], toDiscard:map[][05:49:03.565 Follower] 2 timed out initialize a voting
+[05:49:03.567 Candidate] 2 sending VoteRequest to 1 for term 1
+[05:49:03.567 Candidate] 2 sending VoteRequest to 0 for term 1
+[05:49:03.575 VoteRequest] 1 received a VoteRequest from 2 for term 1
+[05:49:03.577 VoteRequest] 0 received a VoteRequest from 2 for term 1
+[05:49:03.584 Candidate] Election initiated from 0 has timed out, restart election
+[Reconfig] Server 0 [GID: 100] sending reconfiguration for {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}
 [ShardMaster] After join {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}
-[Commitment] 0 [GID: 101] receive a commitment {true {Reconfiguration   0 0 1 {0 0 map[] map[]} {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}} 1 1 []}
-[After Reconfiguration] Server 0 [Gid: 101], myShards: map[], keyMap:
-[Commitment] 0 [GID: 100] receive a commitment {true {Reconfiguration   0 0 1 {0 0 map[] map[]} {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}} 1 3 []}
+[Reconfig] Server 1 [GID: 101] sending reconfiguration for {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}
+[05:49:03.601 Candidate] 0 sending VoteRequest to 1 for term 2
+[05:49:03.601 Candidate] 0 sending VoteRequest to 2 for term 2
+[05:49:03.604 VoteRequest] 1 received a VoteRequest from 0 for term 2
+[05:49:03.605 VoteRequest] 2 received a VoteRequest from 0 for term 2
+[Commitment] 0 [GID: 100] receive a commitment {true {Reconfiguration   0 0 1 {0 0 map[] map[]} {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}} 1 2 []}
 [After Reconfiguration] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true], keyMap:
-[Commitment] 0 [GID: 102] receive a commitment {true {Reconfiguration   0 0 1 {0 0 map[] map[]} {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}} 1 1 []}
+[Commitment] 1 [GID: 101] receive a commitment {true {Reconfiguration   0 0 1 {0 0 map[] map[]} {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}} 1 1 []} 
+[After Reconfiguration] Server 1 [Gid: 101], myShards: map[], keyMap:
 [ShardMaster] After join {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
-[After Reconfiguration] Server 0 [Gid: 102], myShards: map[], keyMap:
-[Commitment] 0 [GID: 101] receive a commitment {true {Reconfiguration   0 0 2 {0 0 map[] map[]} {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}} 2 1 []}
-[After Reconfiguration] Server 0 [Gid: 101], myShards: map[], keyMap:
-[Commitment] 0 [GID: 100] receive a commitment {true {Reconfiguration   0 0 2 {0 0 map[] map[]} {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}} 2 3 []}
-[After Reconfiguration] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap:
-[Fetching] Server 0 [GID: 101] is requesting shards map[5:true 6:true 7:true 8:true 9:true] from others
-[Commitment] 0 [GID: 102] receive a commitment {true {Reconfiguration   0 0 1 {0 0 map[] map[]} {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}} 2 1 []} 
+[Reconfig] Server 0 [GID: 102] sending reconfiguration for {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}
+[Reconfig] Server 1 [GID: 101] sending reconfiguration for {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}  
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[0:true], myShard: map[0:true 1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}
+[Commitment] 1 [GID: 101] receive a commitment {true {Reconfiguration   0 0 2 {0 0 map[] map[]} {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}} 2 1 []}
+[After Reconfiguration] Server 1 [Gid: 101], myShards: map[], keyMap:
+[Commitment] 0 [GID: 102] receive a commitment {true {Reconfiguration   0 0 1 {0 0 map[] map[]} {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}} 1 2 []} 
 [After Reconfiguration] Server 0 [Gid: 102], myShards: map[], keyMap: 
-[PutAppend] GID: 101 is not responsible for shard 8 , reject map[]
-0 [GID: 100] receive fetchArgs &{2 map[5:true 6:true 7:true 8:true 9:true] 0} from 0
-[PutAppend] GID: 101 is not responsible for shard 8 , reject map[]
+[Put/Append] GID: 101 is not responsible for shard 8 , MyShard: map[], ShardNeeded: map[5:true 6:true 7:true 8:true 9:true], Discarded: map[] 
+[Reconfig] Server 0 [GID: 100] sending reconfiguration for {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}  
+ 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Reconfig] Server 0 [GID: 102] sending reconfiguration for {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}  
+[Fetched Successfully] 1 [GID: 101]
+[Commitment] 0 [GID: 102] receive a commitment {true {Reconfiguration   0 0 2 {0 0 map[] map[]} {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}} 2 2 []}
+[After Reconfiguration] Server 0 [Gid: 102], myShards: map[], keyMap:
+[Commitment] 0 [GID: 100] receive a commitment {true {Reconfiguration   0 0 2 {0 0 map[] map[]} {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}} 2 2 []}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[0:true], myShard: map[0:true 1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}
+[Put/Append] GID: 101 is not responsible for shard 8 , MyShard: map[], ShardNeeded: map[5:true 6:true 7:true 8:true 9:true], Discarded: map[]
+[Fetching] Server 1 [GID: 101] is requesting shards map[5:true 6:true 7:true 8:true 9:true] from map[100:true], myShard: map[] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Fetched Successfully] 1 [GID: 101]
+[Reconfig] Server 0 [GID: 100] sending reconfiguration for {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Reconfiguration] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 
+[Commitment] 0 [GID: 100] receive a commitment {true {Reconfiguration   0 0 2 {0 0 map[] map[]} {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}} 3 2 []}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[5:true 6:true 7:true 8:true 9:true] myConfig: {2 [100 100 100 
+100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Put/Append] GID: 101 is not responsible for shard 8 , MyShard: map[], ShardNeeded: map[5:true 6:true 7:true 8:true 9:true], Discarded: map[] 
+[Fetching] Server 1 [GID: 101] is requesting shards map[5:true 6:true 7:true 8:true 9:true] from map[100:true], myShard: map[] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Reconfiguration] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 
+[GetShard] 0 [GID: 100] receive fetchArgs &{2 map[5:true 6:true 7:true 8:true 9:true] 101} from 101, myShard map[0:true 1:true 2:true 3:true 4:true], shard2Discard: map[5:true 6:true 7:true 8:true 9:true] 
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[5:true 6:true 7:true 8:true 9:true] myConfig: {2 [100 100 100 
+100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Put/Append] GID: 101 is not responsible for shard 8 , MyShard: map[], ShardNeeded: map[5:true 6:true 7:true 8:true 9:true], Discarded: map[] 
+[GetShard] Server 0 [GID: 100] myShard: map[0:true 1:true 2:true 3:true 4:true], shardMap: 
 [GetShard] 100 reply successfully &{OK [{5 1 map[] map[]} {6 1 map[] map[]} {7 1 map[] map[]} {8 1 map[] map[]} {9 1 map[] map[]}]} for request map[5:true 6:true 7:true 8:true 9:true]
-[Commitment] 0 [GID: 102] receive a commitment {true {Reconfiguration   0 0 2 {0 0 map[] map[]} {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}} 3 1 []}
-[Commitment] 0 [GID: 100] receive a commitment {true {Delete   0 0 2 {5 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 3 3 []}
+[Fetched Successfully] 1 [GID: 101]
+[Commitment] 1 [GID: 101] receive a commitment {true {Accept   0 0 2 {5 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 3 1 []}
+[After Accept] Server 1 [Gid: 101], myShards: map[5:true], keyMap: 
+[Commitment] 1 [GID: 101] receive a commitment {true {Accept   0 0 2 {6 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 4 1 []}
+[After Accept] Server 1 [Gid: 101], myShards: map[5:true 6:true], keyMap:
+[Commitment] 1 [GID: 101] receive a commitment {true {Accept   0 0 2 {7 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 5 1 []}
+[After Accept] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true], keyMap:
+[Commitment] 1 [GID: 101] receive a commitment {true {Accept   0 0 2 {8 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 6 1 []}
+[After Accept] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true], keyMap:
+[Commitment] 1 [GID: 101] receive a commitment {true {Accept   0 0 2 {9 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 7 1 []}
+[After Accept] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap:
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[5:true 6:true 7:true 8:true 9:true] myConfig: {2 [100 100 100 
+100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Put/Append] GID: 101 is not responsible for shard 8 , MyShard: map[], ShardNeeded: map[5:true 6:true 7:true 8:true 9:true], Discarded: map[]
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[5:true 6:true 7:true 8:true 9:true] myConfig: {2 [100 100 100 
+100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[DeleteShard] 100 delete successfully [{6 1 map[] map[]} {7 1 map[] map[]} {8 1 map[] map[]} {9 1 map[] map[]} {5 1 map[] map[]}] for request map[5:true 6:true 7:true 8:true 9:true]
+[PushDelete] 101 pushed delete to 100 successfully
+[Commitment] 0 [GID: 100] receive a commitment {true {Delete   0 0 2 {6 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 4 2 []}
 [After Delete] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap:
-[After Reconfiguration] Server 0 [Gid: 102], myShards: map[], keyMap:
-[Commitment] 0 [GID: 100] receive a commitment {true {Delete   0 0 2 {6 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 4 3 []}
+[Commitment] 0 [GID: 100] receive a commitment {true {Delete   0 0 2 {7 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 5 2 []}
 [After Delete] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap:
-[Commitment] 0 [GID: 100] receive a commitment {true {Delete   0 0 2 {7 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 5 3 []}
-[After Delete] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 
-[Commitment] 0 [GID: 101] receive a commitment {true {Accept   0 0 2 {5 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 3 1 []}
-[After Accept] Server 0 [Gid: 101], myShards: map[5:true], keyMap:
-[Commitment] 0 [GID: 101] receive a commitment {true {Accept   0 0 2 {6 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 4 1 []}
-[After Accept] Server 0 [Gid: 101], myShards: map[5:true 6:true], keyMap:
-[Commitment] 0 [GID: 100] receive a commitment {true {Delete   0 0 2 {8 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 6 3 []}
+[Commitment] 0 [GID: 100] receive a commitment {true {Delete   0 0 2 {8 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 6 2 []}
 [After Delete] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap:
-[Commitment] 0 [GID: 101] receive a commitment {true {Accept   0 0 2 {7 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 5 1 []}
-[After Accept] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true], keyMap:
-[Commitment] 0 [GID: 101] receive a commitment {true {Accept   0 0 2 {8 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 6 1 []}
-[Commitment] 0 [GID: 102] receive a commitment {true {Reconfiguration   0 0 2 {0 0 map[] map[]} {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}} 4 1 []}
-[Commitment] 0 [GID: 100] receive a commitment {true {Delete   0 0 2 {9 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 7 3 []}
+[Commitment] 0 [GID: 100] receive a commitment {true {Delete   0 0 2 {9 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 7 2 []}
 [After Delete] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap:
-[After Accept] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true], keyMap:
-[Commitment] 0 [GID: 101] receive a commitment {true {Accept   0 0 2 {9 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 7 1 []}
-[After Accept] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap:
-[After Reconfiguration] Server 0 [Gid: 102], myShards: map[], keyMap: 
-[Request Received] Leader 0 [GID: 101] receive a putAppend request {0 3bRNdHMB84dGB6F0KDJ- Put 2195277882986404806 1}
-[Commitment] 0 [GID: 101] receive a commitment {true {Put 0 3bRNdHMB84dGB6F0KDJ- 1 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 8 1 []}
-[After Put] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 0:3bRNdHMB84dGB6F0KDJ- 
-[Request Commited] Leader 0 [GID: 101] commited a putAppend request {0 3bRNdHMB84dGB6F0KDJ- Put 2195277882986404806 1}
-[Request Received] Leader 0 [GID: 101] receive a putAppend request {1 dXjIdEeTzfu5Co-78PZ0 Put 2195277882986404806 2}
-[Commitment] 0 [GID: 101] receive a commitment {true {Put 1 dXjIdEeTzfu5Co-78PZ0 2 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 9 1 []}
-[After Put] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 1:dXjIdEeTzfu5Co-78PZ0 0:3bRNdHMB84dGB6F0KDJ- 
-[Request Commited] Leader 0 [GID: 101] commited a putAppend request {1 dXjIdEeTzfu5Co-78PZ0 Put 2195277882986404806 2}
-[Request Received] Leader 0 [GID: 100] receive a putAppend request {2 XecX4JnwD-2iesK0zVpv Put 2195277882986404806 3}
-[Commitment] 0 [GID: 100] receive a commitment {true {Put 2 XecX4JnwD-2iesK0zVpv 3 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 8 3 []}
-[After Put] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:XecX4JnwD-2iesK0zVpv 
-[Request Commited] Leader 0 [GID: 100] commited a putAppend request {2 XecX4JnwD-2iesK0zVpv Put 2195277882986404806 3}
-[Request Received] Leader 0 [GID: 100] receive a putAppend request {3 ft2FNuS_XMWXVim5xeBO Put 2195277882986404806 4}
-[Commitment] 0 [GID: 100] receive a commitment {true {Put 3 ft2FNuS_XMWXVim5xeBO 4 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 9 3 []}
-[After Put] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO 
-[Request Commited] Leader 0 [GID: 100] commited a putAppend request {3 ft2FNuS_XMWXVim5xeBO Put 2195277882986404806 4}
-[Request Received] Leader 0 [GID: 100] receive a putAppend request {4 zR8WZd1J2tbitp-epxJn Put 2195277882986404806 5}
-[Commitment] 0 [GID: 100] receive a commitment {true {Put 4 zR8WZd1J2tbitp-epxJn 5 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 10 3 []}
-[After Put] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO 4:zR8WZd1J2tbitp-epxJn
-[Request Commited] Leader 0 [GID: 100] commited a putAppend request {4 zR8WZd1J2tbitp-epxJn Put 2195277882986404806 5}
-[Request Received] Leader 0 [GID: 100] receive a putAppend request {5 Wh2tM3DlE7gBYqhBRNCy Put 2195277882986404806 6}
-[Commitment] 0 [GID: 100] receive a commitment {true {Put 5 Wh2tM3DlE7gBYqhBRNCy 6 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 11 3 []}
-[After Put] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO 4:zR8WZd1J2tbitp-epxJn 5:Wh2tM3DlE7gBYqhBRNCy
-[Request Commited] Leader 0 [GID: 100] commited a putAppend request {5 Wh2tM3DlE7gBYqhBRNCy Put 2195277882986404806 6}
-[Request Received] Leader 0 [GID: 100] receive a putAppend request {6 oz6ZUalitHgXIzXQ09Zf Put 2195277882986404806 7}
-[Commitment] 0 [GID: 100] receive a commitment {true {Put 6 oz6ZUalitHgXIzXQ09Zf 7 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 12 3 []}
-[After Put] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 5:Wh2tM3DlE7gBYqhBRNCy 6:oz6ZUalitHgXIzXQ09Zf 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO 4:zR8WZd1J2tbitp-epxJn
-[Request Commited] Leader 0 [GID: 100] commited a putAppend request {6 oz6ZUalitHgXIzXQ09Zf Put 2195277882986404806 7}
-[Request Received] Leader 0 [GID: 101] receive a putAppend request {7 -VSpmwSNvsnz72VvokF5 Put 2195277882986404806 8}
-[Commitment] 0 [GID: 101] receive a commitment {true {Put 7 -VSpmwSNvsnz72VvokF5 8 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 10 1 []}
-[After Put] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0 7:-VSpmwSNvsnz72VvokF5 
-[Request Commited] Leader 0 [GID: 101] commited a putAppend request {7 -VSpmwSNvsnz72VvokF5 Put 2195277882986404806 8}
-[Request Received] Leader 0 [GID: 101] receive a putAppend request {8 ERzm86pYT5CdJtnguee9 Put 2195277882986404806 9}
-[Commitment] 0 [GID: 101] receive a commitment {true {Put 8 ERzm86pYT5CdJtnguee9 9 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 11 1 []}
-[After Put] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 1:dXjIdEeTzfu5Co-78PZ0 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 0:3bRNdHMB84dGB6F0KDJ-
-[Request Commited] Leader 0 [GID: 101] commited a putAppend request {8 ERzm86pYT5CdJtnguee9 Put 2195277882986404806 9}
-[Request Received] Leader 0 [GID: 101] receive a putAppend request {9 eboX3ghVkhlKKPICuCcl Put 2195277882986404806 10}
-[Commitment] 0 [GID: 101] receive a commitment {true {Put 9 eboX3ghVkhlKKPICuCcl 10 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 12 1 []}
-[After Put] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0 7:-VSpmwSNvsnz72VvokF5
-[Request Commited] Leader 0 [GID: 101] commited a putAppend request {9 eboX3ghVkhlKKPICuCcl Put 2195277882986404806 10}
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  11 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 13 1 []}
-[After Get] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0
-[Get Value] GID: 101 Command {Get 0  11 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val 3bRNdHMB84dGB6F0KDJ-
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 1  12 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 14 1 []}
-[After Get] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl
-[Get Value] GID: 101 Command {Get 1  12 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val dXjIdEeTzfu5Co-78PZ0
-[Commitment] 0 [GID: 100] receive a commitment {true {Get 2  13 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 13 3 []}
-[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO 4:zR8WZd1J2tbitp-epxJn 5:Wh2tM3DlE7gBYqhBRNCy 6:oz6ZUalitHgXIzXQ09Zf
-[Get Value] GID: 100 Command {Get 2  13 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val XecX4JnwD-2iesK0zVpv
-[Commitment] 0 [GID: 100] receive a commitment {true {Get 3  14 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 14 3 []}
-[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO 4:zR8WZd1J2tbitp-epxJn 5:Wh2tM3DlE7gBYqhBRNCy 6:oz6ZUalitHgXIzXQ09Zf
-[Get Value] GID: 100 Command {Get 3  14 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val ft2FNuS_XMWXVim5xeBO
-[Commitment] 0 [GID: 100] receive a commitment {true {Get 4  15 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 15 3 []}
-[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO 4:zR8WZd1J2tbitp-epxJn 5:Wh2tM3DlE7gBYqhBRNCy 6:oz6ZUalitHgXIzXQ09Zf
-[Get Value] GID: 100 Command {Get 4  15 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val zR8WZd1J2tbitp-epxJn
-[Commitment] 0 [GID: 100] receive a commitment {true {Get 5  16 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 16 3 []}
-[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO 4:zR8WZd1J2tbitp-epxJn 5:Wh2tM3DlE7gBYqhBRNCy 6:oz6ZUalitHgXIzXQ09Zf
-[Get Value] GID: 100 Command {Get 5  16 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val Wh2tM3DlE7gBYqhBRNCy
-[Commitment] 0 [GID: 100] receive a commitment {true {Get 6  17 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 17 3 []}
-[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 4:zR8WZd1J2tbitp-epxJn 5:Wh2tM3DlE7gBYqhBRNCy 6:oz6ZUalitHgXIzXQ09Zf 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO
-[Get Value] GID: 100 Command {Get 6  17 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val oz6ZUalitHgXIzXQ09Zf
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 7  18 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 15 1 []}
-[After Get] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0
-[Get Value] GID: 101 Command {Get 7  18 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val -VSpmwSNvsnz72VvokF5
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 8  19 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 16 1 []}
-[After Get] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0
-[Get Value] GID: 101 Command {Get 8  19 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val ERzm86pYT5CdJtnguee9
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 9  20 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 17 1 []}
-[After Get] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl
-[Get Value] GID: 101 Command {Get 9  20 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val eboX3ghVkhlKKPICuCcl
+[Commitment] 0 [GID: 100] receive a commitment {true {Delete   0 0 2 {5 1 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 8 2 []}
+[After Delete] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap:
+[Request Received] Leader 1 [GID: 101] receive a putAppend request {0 zx_XadfPrn8auBu5vlUd Put 2280807751666372244 1}
+[Commitment] 1 [GID: 101] receive a commitment {true {Put 0 zx_XadfPrn8auBu5vlUd 1 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 8 1 []}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Put] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 0:zx_XadfPrn8auBu5vlUd 
+[Request Commited] Leader 1 [GID: 101] commited a putAppend request {0 zx_XadfPrn8auBu5vlUd Put 2280807751666372244 1}
+[PushDelete] 101 pushed delete to 100 successfully
+[Request Received] Leader 1 [GID: 101] receive a putAppend request {1 kdG3CZ2ddp4nxBC99Pc_ Put 2280807751666372244 2}
+[Commitment] 1 [GID: 101] receive a commitment {true {Put 1 kdG3CZ2ddp4nxBC99Pc_ 2 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 9 1 []}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Put] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 0:zx_XadfPrn8auBu5vlUd 1:kdG3CZ2ddp4nxBC99Pc_
+[Request Commited] Leader 1 [GID: 101] commited a putAppend request {1 kdG3CZ2ddp4nxBC99Pc_ Put 2280807751666372244 2}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] 101 pushed delete to 100 successfully
+[Request Received] Leader 0 [GID: 100] receive a putAppend request {2 kqlCdKd03IOOn31KUTct Put 2280807751666372244 3}
+[Commitment] 0 [GID: 100] receive a commitment {true {Put 2 kqlCdKd03IOOn31KUTct 3 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 9 2 []}
+[After Put] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:kqlCdKd03IOOn31KUTct 
+[Request Commited] Leader 0 [GID: 100] commited a putAppend request {2 kqlCdKd03IOOn31KUTct Put 2280807751666372244 3}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Request Received] Leader 0 [GID: 100] receive a putAppend request {3 PWVktMwqxWhUiUnXtRYp Put 2280807751666372244 4}
+[Commitment] 0 [GID: 100] receive a commitment {true {Put 3 PWVktMwqxWhUiUnXtRYp 4 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 10 2 []}
+[After Put] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 3:PWVktMwqxWhUiUnXtRYp 2:kqlCdKd03IOOn31KUTct 
+[Request Commited] Leader 0 [GID: 100] commited a putAppend request {3 PWVktMwqxWhUiUnXtRYp Put 2280807751666372244 4}
+[PushDelete] 101 pushed delete to 100 successfully
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Request Received] Leader 0 [GID: 100] receive a putAppend request {4 3kIY141hlCkRvWW74KH2 Put 2280807751666372244 5}
+[Commitment] 0 [GID: 100] receive a commitment {true {Put 4 3kIY141hlCkRvWW74KH2 5 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 11 2 []}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Put] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 3:PWVktMwqxWhUiUnXtRYp 4:3kIY141hlCkRvWW74KH2 2:kqlCdKd03IOOn31KUTct
+[Request Commited] Leader 0 [GID: 100] commited a putAppend request {4 3kIY141hlCkRvWW74KH2 Put 2280807751666372244 5}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] 101 pushed delete to 100 successfully
+[Request Received] Leader 0 [GID: 100] receive a putAppend request {5 Tlljr_iAHUt0MR6rW4KN Put 2280807751666372244 6}
+[Commitment] 0 [GID: 100] receive a commitment {true {Put 5 Tlljr_iAHUt0MR6rW4KN 6 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 12 2 []}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Put] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:kqlCdKd03IOOn31KUTct 3:PWVktMwqxWhUiUnXtRYp 4:3kIY141hlCkRvWW74KH2 5:Tlljr_iAHUt0MR6rW4KN
+[PushDelete] 101 pushed delete to 100 successfully
+[Request Commited] Leader 0 [GID: 100] commited a putAppend request {5 Tlljr_iAHUt0MR6rW4KN Put 2280807751666372244 6}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Request Received] Leader 0 [GID: 100] receive a putAppend request {6 iHtC1LP59vDLHxwV8n_M Put 2280807751666372244 7}
+[Commitment] 0 [GID: 100] receive a commitment {true {Put 6 iHtC1LP59vDLHxwV8n_M 7 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 13 2 []}
+[After Put] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 4:3kIY141hlCkRvWW74KH2 5:Tlljr_iAHUt0MR6rW4KN 6:iHtC1LP59vDLHxwV8n_M 2:kqlCdKd03IOOn31KUTct 3:PWVktMwqxWhUiUnXtRYp
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Request Commited] Leader 0 [GID: 100] commited a putAppend request {6 iHtC1LP59vDLHxwV8n_M Put 2280807751666372244 7}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Request Received] Leader 1 [GID: 101] receive a putAppend request {7 GCMFubYydO7W1uHJmwnH Put 2280807751666372244 8}
+[PushDelete] 101 pushed delete to 100 successfully
+[Commitment] 1 [GID: 101] receive a commitment {true {Put 7 GCMFubYydO7W1uHJmwnH 8 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 10 1 []}
+[After Put] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 1:kdG3CZ2ddp4nxBC99Pc_ 7:GCMFubYydO7W1uHJmwnH 0:zx_XadfPrn8auBu5vlUd
+[Request Commited] Leader 1 [GID: 101] commited a putAppend request {7 GCMFubYydO7W1uHJmwnH Put 2280807751666372244 8}
+[Request Received] Leader 1 [GID: 101] receive a putAppend request {8 xK-3Nglxyt78Hd8OmhmI Put 2280807751666372244 9}
+[Commitment] 1 [GID: 101] receive a commitment {true {Put 8 xK-3Nglxyt78Hd8OmhmI 9 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 11 1 []}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Put] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 1:kdG3CZ2ddp4nxBC99Pc_ 7:GCMFubYydO7W1uHJmwnH 8:xK-3Nglxyt78Hd8OmhmI 0:zx_XadfPrn8auBu5vlUd
+[Request Commited] Leader 1 [GID: 101] commited a putAppend request {8 xK-3Nglxyt78Hd8OmhmI Put 2280807751666372244 9}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Request Received] Leader 1 [GID: 101] receive a putAppend request {9 7AKwENe74i8VNul4hQFA Put 2280807751666372244 10}
+[PushDelete] 101 pushed delete to 100 successfully
+[Commitment] 1 [GID: 101] receive a commitment {true {Put 9 7AKwENe74i8VNul4hQFA 10 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 12 1 []}
+[After Put] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 8:xK-3Nglxyt78Hd8OmhmI 9:7AKwENe74i8VNul4hQFA 0:zx_XadfPrn8auBu5vlUd 1:kdG3CZ2ddp4nxBC99Pc_ 7:GCMFubYydO7W1uHJmwnH
+[Request Commited] Leader 1 [GID: 101] commited a putAppend request {9 7AKwENe74i8VNul4hQFA Put 2280807751666372244 10}
+[Commitment] 1 [GID: 101] receive a commitment {true {Get 0  11 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 13 1 []}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Get] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:GCMFubYydO7W1uHJmwnH 8:xK-3Nglxyt78Hd8OmhmI 9:7AKwENe74i8VNul4hQFA 0:zx_XadfPrn8auBu5vlUd 1:kdG3CZ2ddp4nxBC99Pc_
+[Get Value] GID: 101 Command {Get 0  11 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val zx_XadfPrn8auBu5vlUd
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] 101 pushed delete to 100 successfully
+[Commitment] 1 [GID: 101] receive a commitment {true {Get 1  12 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 14 1 []}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Get] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:GCMFubYydO7W1uHJmwnH 8:xK-3Nglxyt78Hd8OmhmI 9:7AKwENe74i8VNul4hQFA 0:zx_XadfPrn8auBu5vlUd 1:kdG3CZ2ddp4nxBC99Pc_
+[PushDelete] 101 pushed delete to 100 successfully
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Commitment] 1 [GID: 101] receive a commitment {true {Get 1  12 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 15 1 []}
+[Sequence Less] Key 1 [Shard: 9] Seq 12 is <= record 12
+[Ignore] Server: 1, Gid[101] ignore Commitment: {true {Get 1  12 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 15 1 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:GCMFubYydO7W1uHJmwnH] map[2280807751666372244:8]} 6:{6 2 map[8:xK-3Nglxyt78Hd8OmhmI] map[2280807751666372244:9]} 7:{7 2 map[9:7AKwENe74i8VNul4hQFA] map[2280807751666372244:10]} 8:{8 2 map[0:zx_XadfPrn8auBu5vlUd] map[2280807751666372244:11]} 9:{9 2 map[1:kdG3CZ2ddp4nxBC99Pc_] map[2280807751666372244:12]}]
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Get Value] GID: 101 Command {Get 1  12 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val kdG3CZ2ddp4nxBC99Pc_
+[PushDelete] 101 pushed delete to 100 successfully
+[Sequence Less] Key 1 [Shard: 9] Seq 12 is <= record 12
+[Sequence Less] Key 1 [Shard: 9] Seq 12 is <= record 12
+[Commitment] 0 [GID: 100] receive a commitment {true {Get 2  13 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 14 2 []}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:kqlCdKd03IOOn31KUTct 3:PWVktMwqxWhUiUnXtRYp 4:3kIY141hlCkRvWW74KH2 5:Tlljr_iAHUt0MR6rW4KN 6:iHtC1LP59vDLHxwV8n_M
+[Get Value] GID: 100 Command {Get 2  13 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val kqlCdKd03IOOn31KUTct
+[PushDelete] 101 pushed delete to 100 successfully
+[Commitment] 0 [GID: 100] receive a commitment {true {Get 3  14 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 15 2 []}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 3:PWVktMwqxWhUiUnXtRYp 4:3kIY141hlCkRvWW74KH2 5:Tlljr_iAHUt0MR6rW4KN 6:iHtC1LP59vDLHxwV8n_M 2:kqlCdKd03IOOn31KUTct
+[Get Value] GID: 100 Command {Get 3  14 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val PWVktMwqxWhUiUnXtRYp
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Commitment] 0 [GID: 100] receive a commitment {true {Get 4  15 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 16 2 []}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] 101 pushed delete to 100 successfully
+[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:kqlCdKd03IOOn31KUTct 3:PWVktMwqxWhUiUnXtRYp 4:3kIY141hlCkRvWW74KH2 5:Tlljr_iAHUt0MR6rW4KN 6:iHtC1LP59vDLHxwV8n_M
+[Get Value] GID: 100 Command {Get 4  15 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val 3kIY141hlCkRvWW74KH2
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Commitment] 0 [GID: 100] receive a commitment {true {Get 5  16 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 17 2 []}
+[PushDelete] 101 pushed delete to 100 successfully
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 6:iHtC1LP59vDLHxwV8n_M 2:kqlCdKd03IOOn31KUTct 3:PWVktMwqxWhUiUnXtRYp 4:3kIY141hlCkRvWW74KH2 5:Tlljr_iAHUt0MR6rW4KN
+[Get Value] GID: 100 Command {Get 5  16 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val Tlljr_iAHUt0MR6rW4KN
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] 101 pushed delete to 100 successfully
+[Commitment] 0 [GID: 100] receive a commitment {true {Get 6  17 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 18 2 []}
+[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:kqlCdKd03IOOn31KUTct 3:PWVktMwqxWhUiUnXtRYp 4:3kIY141hlCkRvWW74KH2 5:Tlljr_iAHUt0MR6rW4KN 6:iHtC1LP59vDLHxwV8n_M
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Get Value] GID: 100 Command {Get 6  17 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val iHtC1LP59vDLHxwV8n_M
+[PushDelete] 101 pushed delete to 100 successfully
+[Commitment] 1 [GID: 101] receive a commitment {true {Get 7  18 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 16 1 []}
+[After Get] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 8:xK-3Nglxyt78Hd8OmhmI 9:7AKwENe74i8VNul4hQFA 0:zx_XadfPrn8auBu5vlUd 1:kdG3CZ2ddp4nxBC99Pc_ 7:GCMFubYydO7W1uHJmwnH
+[Get Value] GID: 101 Command {Get 7  18 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val GCMFubYydO7W1uHJmwnH
+[Commitment] 1 [GID: 101] receive a commitment {true {Get 8  19 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 17 1 []}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Get] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:GCMFubYydO7W1uHJmwnH 8:xK-3Nglxyt78Hd8OmhmI 9:7AKwENe74i8VNul4hQFA 0:zx_XadfPrn8auBu5vlUd 1:kdG3CZ2ddp4nxBC99Pc_
+[Get Value] GID: 101 Command {Get 8  19 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val xK-3Nglxyt78Hd8OmhmI
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] 101 pushed delete to 100 successfully
+[Commitment] 1 [GID: 101] receive a commitment {true {Get 9  20 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 18 1 []}
+[PushDelete] Server 1 [GID: 101] is pushing delete map[] to map[100:true], myShard: map[5:true 6:true 7:true 8:true 9:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Get] Server 1 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 8:xK-3Nglxyt78Hd8OmhmI 9:7AKwENe74i8VNul4hQFA 0:zx_XadfPrn8auBu5vlUd 1:kdG3CZ2ddp4nxBC99Pc_ 7:GCMFubYydO7W1uHJmwnH
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Get Value] GID: 101 Command {Get 9  20 2280807751666372244 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val 7AKwENe74i8VNul4hQFA
 Pass Checking first 10........................................
-[08:31:32.211 Leader] 0 has been terminated
-[08:31:32.211 Follower] 2 has been terminated
-[08:31:32.211 Follower] 1 has been terminated
-[Commitment] 0 [GID: 100] receive a commitment {true {Get 2  1 1787161003596013739 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 18 3 []}
-[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 4:zR8WZd1J2tbitp-epxJn 5:Wh2tM3DlE7gBYqhBRNCy 6:oz6ZUalitHgXIzXQ09Zf 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO
-[Get Value] GID: 100 Command {Get 2  1 1787161003596013739 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val XecX4JnwD-2iesK0zVpv
-[Commitment] 0 [GID: 100] receive a commitment {true {Get 5  1 3596193958698504163 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 19 3 []}
-[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 6:oz6ZUalitHgXIzXQ09Zf 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO 4:zR8WZd1J2tbitp-epxJn 5:Wh2tM3DlE7gBYqhBRNCy
-[Commitment] 0 [GID: 100] receive a commitment {true {Get 6  1 4171522754939259120 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 20 3 []}
-[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 6:oz6ZUalitHgXIzXQ09Zf 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO 4:zR8WZd1J2tbitp-epxJn 5:Wh2tM3DlE7gBYqhBRNCy
-[Commitment] 0 [GID: 100] receive a commitment {true {Get 4  1 3612158500443805224 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 21 3 []}
-[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 3:ft2FNuS_XMWXVim5xeBO 4:zR8WZd1J2tbitp-epxJn 5:Wh2tM3DlE7gBYqhBRNCy 6:oz6ZUalitHgXIzXQ09Zf 2:XecX4JnwD-2iesK0zVpv
-[Get Value] GID: 100 Command {Get 6  1 4171522754939259120 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val oz6ZUalitHgXIzXQ09Zf
-[Get Value] GID: 100 Command {Get 5  1 3596193958698504163 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val Wh2tM3DlE7gBYqhBRNCy
-[Commitment] 0 [GID: 100] receive a commitment {true {Get 3  1 1871561838135201141 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 22 3 []}
-[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 6:oz6ZUalitHgXIzXQ09Zf 2:XecX4JnwD-2iesK0zVpv 3:ft2FNuS_XMWXVim5xeBO 4:zR8WZd1J2tbitp-epxJn 5:Wh2tM3DlE7gBYqhBRNCy
-[Get Value] GID: 100 Command {Get 4  1 3612158500443805224 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val zR8WZd1J2tbitp-epxJn
-[Get Value] GID: 100 Command {Get 3  1 1871561838135201141 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val ft2FNuS_XMWXVim5xeBO
+[05:49:16.997 Follower] 0 has been terminated
+[05:49:17.079 Leader] 1 has been terminated
+[05:49:17.079 Follower] 2 has been terminated
+[PushDelete] 101 pushed delete to 100 successfully
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Commitment] 0 [GID: 100] receive a commitment {true {Get 2  1 2705783570620367416 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 19 2 []}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:kqlCdKd03IOOn31KUTct 3:PWVktMwqxWhUiUnXtRYp 4:3kIY141hlCkRvWW74KH2 5:Tlljr_iAHUt0MR6rW4KN 6:iHtC1LP59vDLHxwV8n_M
+[Commitment] 0 [GID: 100] receive a commitment {true {Get 4  1 2448961870761152845 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 20 2 []}
+[Get Value] GID: 100 Command {Get 2  1 2705783570620367416 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val kqlCdKd03IOOn31KUTct
+[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 5:Tlljr_iAHUt0MR6rW4KN 6:iHtC1LP59vDLHxwV8n_M 2:kqlCdKd03IOOn31KUTct 3:PWVktMwqxWhUiUnXtRYp 4:3kIY141hlCkRvWW74KH2
+[Commitment] 0 [GID: 100] receive a commitment {true {Get 6  1 4587757202673304858 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 21 2 []}
+[Get Value] GID: 100 Command {Get 4  1 2448961870761152845 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val 3kIY141hlCkRvWW74KH2
+[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 5:Tlljr_iAHUt0MR6rW4KN 6:iHtC1LP59vDLHxwV8n_M 2:kqlCdKd03IOOn31KUTct 3:PWVktMwqxWhUiUnXtRYp 4:3kIY141hlCkRvWW74KH2
+[Commitment] 0 [GID: 100] receive a commitment {true {Get 5  1 1239450665754853494 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 22 2 []}
+[Get Value] GID: 100 Command {Get 6  1 4587757202673304858 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val iHtC1LP59vDLHxwV8n_M
+[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 3:PWVktMwqxWhUiUnXtRYp 4:3kIY141hlCkRvWW74KH2 5:Tlljr_iAHUt0MR6rW4KN 6:iHtC1LP59vDLHxwV8n_M 2:kqlCdKd03IOOn31KUTct
+[Commitment] 0 [GID: 100] receive a commitment {true {Get 3  1 241574498528014365 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 23 2 []}
+[Get Value] GID: 100 Command {Get 5  1 1239450665754853494 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val Tlljr_iAHUt0MR6rW4KN
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[After Get] Server 0 [Gid: 100], myShards: map[0:true 1:true 2:true 3:true 4:true], keyMap: 2:kqlCdKd03IOOn31KUTct 3:PWVktMwqxWhUiUnXtRYp 4:3kIY141hlCkRvWW74KH2 5:Tlljr_iAHUt0MR6rW4KN 6:iHtC1LP59vDLHxwV8n_M
+[Get Value] GID: 100 Command {Get 3  1 241574498528014365 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} has been processed with val PWVktMwqxWhUiUnXtRYp
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
 Passed checking half exists.................
-[08:31:35.243 Follower] 0 timed out initialize a voting
-[08:31:35.245 Candidate] 0 sending VoteRequest to 2 for term 2
-[08:31:35.245 Candidate] 0 sending VoteRequest to 1 for term 2
-[08:31:35.461 Follower] 1 timed out initialize a voting
-[08:31:35.463 Candidate] 1 sending VoteRequest to 2 for term 2
-[08:31:35.463 Candidate] 1 sending VoteRequest to 0 for term 2
-[08:31:35.470 VoteRequest] 0 received a VoteRequest from 1 for term 2
-[08:31:35.654 Follower] 2 timed out initialize a voting
-[08:31:35.657 Candidate] 2 sending VoteRequest to 1 for term 2
-[08:31:35.657 Candidate] 2 sending VoteRequest to 0 for term 2
-[08:31:35.659 VoteRequest] 1 received a VoteRequest from 2 for term 2
-[08:31:35.659 VoteRequest] 0 received a VoteRequest from 2 for term 2
-[08:31:35.669 Candidate] Election initiated from 0 has timed out, restart election
-[08:31:35.714 Candidate] 0 sending VoteRequest to 2 for term 3
-[08:31:35.717 VoteRequest] 2 received a VoteRequest from 0 for term 3
-[08:31:35.715 Candidate] 0 sending VoteRequest to 1 for term 3
-[08:31:35.726 VoteRequest] 1 received a VoteRequest from 0 for term 3
-[Commitment] 0 [GID: 101] receive a commitment {true {Reconfiguration   0 0 1 {0 0 map[] map[]} {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}} 1 1 []}
-[My Num is higher] Key  [Shard: 0] my num 2 is higher than 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Reconfiguration   0 0 1 {0 0 map[] map[]} {1 [100 100 100 100 100 100 100 100 100 100] map[100:[server-100-0 server-100-1 server-100-2]]}} 1 1 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[]
-[Commitment] 0 [GID: 101] receive a commitment {true {Reconfiguration   0 0 2 {0 0 map[] map[]} {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}} 2 1 []}
-[After Reconfiguration] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 
-[Commitment] 0 [GID: 101] receive a commitment {true {Accept   0 0 2 {5 1 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 3 1 []}
-[After Accept] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:-VSpmwSNvsnz72VvokF5
-[Commitment] 0 [GID: 101] receive a commitment {true {Accept   0 0 2 {6 1 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 4 1 []}
-[After Accept] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9
-[Commitment] 0 [GID: 101] receive a commitment {true {Accept   0 0 2 {7 1 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:10]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 5 1 []}
-[After Accept] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl
-[Commitment] 0 [GID: 101] receive a commitment {true {Accept   0 0 2 {8 1 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:11]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 6 1 []}
-[After Accept] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl 0:3bRNdHMB84dGB6F0KDJ-
-[Commitment] 0 [GID: 101] receive a commitment {true {Accept   0 0 2 {9 1 map[1:dXjIdEeTzfu5Co-78PZ0] map[2195277882986404806:12]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 7 1 []}
-[After Accept] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl
-[Commitment] 0 [GID: 101] receive a commitment {true {Put 0 3bRNdHMB84dGB6F0KDJ- 1 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 8 1 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 11
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Put 0 3bRNdHMB84dGB6F0KDJ- 1 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 8 1 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:10]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:11]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Put 1 dXjIdEeTzfu5Co-78PZ0 2 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 9 1 []}
-[Sequence Less] Key 1 [Shard: 9] Seq 2 is <= record 12
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Put 1 dXjIdEeTzfu5Co-78PZ0 2 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 9 1 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:10]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:11]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[2195277882986404806:12]}]
-[My Num is higher] Key  [Shard: 0] my num 2 is higher than 1
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 11
-[Sequence Less] Key 1 [Shard: 9] Seq 2 is <= record 12
-[Commitment] 0 [GID: 101] receive a commitment {true {Put 7 -VSpmwSNvsnz72VvokF5 8 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 10 1 []}
-[Sequence Less] Key 7 [Shard: 5] Seq 8 is <= record 18
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Put 7 -VSpmwSNvsnz72VvokF5 8 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 10 1 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:10]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:11]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[2195277882986404806:12]}]
-[Sequence Less] Key 7 [Shard: 5] Seq 8 is <= record 18
-[Sequence Less] Key 8 [Shard: 6] Seq 9 is <= record 9
-[Sequence Less] Key 9 [Shard: 7] Seq 10 is <= record 10
-[Sequence Less] Key 0 [Shard: 8] Seq 11 is <= record 11
-[Sequence Less] Key 1 [Shard: 9] Seq 12 is <= record 12
-[Sequence Less] Key 7 [Shard: 5] Seq 18 is <= record 18
-[08:31:36.306 Follower] 1 timed out initialize a voting
-[Commitment] 0 [GID: 101] receive a commitment {true {Put 8 ERzm86pYT5CdJtnguee9 9 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 11 1 []}
-[Sequence Less] Key 8 [Shard: 6] Seq 9 is <= record 19
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Put 8 ERzm86pYT5CdJtnguee9 9 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 11 1 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:10]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:11]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[2195277882986404806:12]}]
-[My Num is higher] Key  [Shard: 0] my num 2 is higher than 1
-[08:31:36.396 Follower] 2 timed out initialize a voting
-[Commitment] 0 [GID: 101] receive a commitment {true {Put 9 eboX3ghVkhlKKPICuCcl 10 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 12 1 []}
-[Sequence Less] Key 9 [Shard: 7] Seq 10 is <= record 10
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Put 9 eboX3ghVkhlKKPICuCcl 10 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 12 1 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:10]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:11]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  11 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 13 1 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 11 is <= record 11
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  11 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 13 1 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:10]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:11]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[2195277882986404806:12]}]
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 11
-[Sequence Less] Key 1 [Shard: 9] Seq 2 is <= record 12
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 1  12 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 14 1 []}
-[Sequence Less] Key 1 [Shard: 9] Seq 12 is <= record 12
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 1  12 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 14 1 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:10]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:11]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[2195277882986404806:12]}]
-[Sequence Less] Key 7 [Shard: 5] Seq 8 is <= record 18
-[Sequence Less] Key 8 [Shard: 6] Seq 9 is <= record 9
-[Sequence Less] Key 9 [Shard: 7] Seq 10 is <= record 10
-[Sequence Less] Key 0 [Shard: 8] Seq 11 is <= record 11
-[Sequence Less] Key 1 [Shard: 9] Seq 12 is <= record 12
-[Sequence Less] Key 7 [Shard: 5] Seq 18 is <= record 18
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 7  18 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 15 1 []}
-[Sequence Less] Key 7 [Shard: 5] Seq 18 is <= record 18
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 7  18 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 15 1 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:10]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:11]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 8  19 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 16 1 []}
-[Sequence Less] Key 8 [Shard: 6] Seq 19 is <= record 19
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 8  19 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 16 1 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:10]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:11]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 9  20 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 17 1 []}
-[After Get] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 18 3 []}
-[After Get] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 19 3 []}
-[After Get] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 20 3 []}
-[After Get] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 21 3 []}
-[After Get] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0 7:-VSpmwSNvsnz72VvokF5
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 22 3 []}
-[After Get] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 23 3 []}
-[After Get] Server 0 [Gid: 101], myShards: map[5:true 6:true 7:true 8:true 9:true], keyMap: 7:-VSpmwSNvsnz72VvokF5 8:ERzm86pYT5CdJtnguee9 9:eboX3ghVkhlKKPICuCcl 0:3bRNdHMB84dGB6F0KDJ- 1:dXjIdEeTzfu5Co-78PZ0
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 24 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 24 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 25 3 []}
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 25 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 26 3 []}
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 26 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 27 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 27 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 28 3 []}
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 28 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 29 3 []}
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 29 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 30 3 []}
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 30 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 31 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 31 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 32 3 []}
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 32 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 33 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 33 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 34 3 []}
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 34 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 35 3 []}
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 35 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 36 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 36 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 37 3 []}
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 37 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 38 3 []}
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 38 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 39 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 39 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 40 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 40 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 41 3 []}
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 41 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 42 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 42 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 43 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 43 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 44 3 []}
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 44 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 45 3 []}
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 45 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 46 3 []}
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 46 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 47 3 []}
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 47 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 48 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 48 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 49 3 []}
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 49 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 50 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 50 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 51 3 []}
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 51 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 52 3 []}
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 52 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 53 3 []}
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 53 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 54 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 54 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 55 3 []}
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 55 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 56 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 56 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 57 3 []}
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 57 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 58 3 []}
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 58 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 59 3 []}
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 59 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 60 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 60 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 61 3 []}
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 1  1 1663333804940523602 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 61 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 1 is <= record 1
-[Sequence Less] Key 1 [Shard: 9] Seq 1 is <= record 1
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 62 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 0  21 2195277882986404806 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 62 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 63 3 []}
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 8  1 3047598768350198331 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 63 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 64 3 []}
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 7  1 2588468889310948250 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 64 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 65 3 []}
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Sequence Less] Key 0 [Shard: 8] Seq 21 is <= record 21
-[Sequence Less] Key 8 [Shard: 6] Seq 1 is <= record 1
-[Sequence Less] Key 7 [Shard: 5] Seq 1 is <= record 1
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Sequence Less] Key 9 [Shard: 7] Seq 1 is <= record 1
-[Ignore] Server: 0, Gid[101] ignore Commitment: {true {Get 9  1 4084833880120906209 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 65 3 []} since myShard: map[5:true 6:true 7:true 8:true 9:true], shardMap: map[5:{5 2 map[7:-VSpmwSNvsnz72VvokF5] map[2195277882986404806:18 2588468889310948250:1]} 6:{6 2 map[8:ERzm86pYT5CdJtnguee9] map[2195277882986404806:19 3047598768350198331:1]} 7:{7 2 map[9:eboX3ghVkhlKKPICuCcl] map[2195277882986404806:20 4084833880120906209:1]} 8:{8 2 map[0:3bRNdHMB84dGB6F0KDJ-] map[2195277882986404806:21 3366632714441894201:1]} 9:{9 2 map[1:dXjIdEeTzfu5Co-78PZ0] map[1663333804940523602:1 2195277882986404806:12]}]
-[Commitment] 0 [GID: 101] receive a commitment {true {Get 0  1 3366632714441894201 2 {0 0 map[] map[]} {0 [0 0 0 0 0 0 0 0 0 0] map[]}} 66 3 []}
+[After INIT] Server 0 [Gid: 101], myShards: map[], keyMap: 
+, shardsNeeded: map[5:true 6:true 7:true 8:true 9:true], toDiscard:map[][PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[05:49:20.714 Follower] 0 timed out initialize a voting
+[05:49:20.715 Candidate] 0 sending VoteRequest to 2 for term 2
+[05:49:20.715 Candidate] 0 sending VoteRequest to 1 for term 2
+[After INIT] Server 1 [Gid: 101], myShards: map[], keyMap: 
+, shardsNeeded: map[5:true 6:true 7:true 8:true 9:true], toDiscard:map[][Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[After INIT] Server 2 [Gid: 101], myShards: map[], keyMap: 
+, shardsNeeded: map[5:true 6:true 7:true 8:true 9:true], toDiscard:map[][PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[05:49:21.056 Follower] 1 timed out initialize a voting
+[05:49:21.084 Candidate] 1 sending VoteRequest to 2 for term 2
+[05:49:21.084 Candidate] 1 sending VoteRequest to 0 for term 2
+[05:49:21.084 VoteRequest] 2 received a VoteRequest from 1 for term 2
+[05:49:21.085 VoteRequest] 0 received a VoteRequest from 1 for term 2
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Fetching] Server 1 [GID: 101] is requesting shards map[5:true 6:true 7:true 8:true 9:true] from map[100:true], myShard: map[] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Fetched Successfully] 1 [GID: 101]
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Fetching] Server 1 [GID: 101] is requesting shards map[5:true 6:true 7:true 8:true 9:true] from map[100:true], myShard: map[] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Fetched Successfully] 1 [GID: 101]
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Fetching] Server 1 [GID: 101] is requesting shards map[5:true 6:true 7:true 8:true 9:true] from map[100:true], myShard: map[] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Fetched Successfully] 1 [GID: 101]
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT 
+[Fetching] Server 1 [GID: 101] is requesting shards map[5:true 6:true 7:true 8:true 9:true] from map[100:true], myShard: map[] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT
+[Fetched Successfully] 1 [GID: 101]
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Fetching] Server 1 [GID: 101] is requesting shards map[5:true 6:true 7:true 8:true 9:true] from map[100:true], myShard: map[] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Fetched Successfully] 1 [GID: 101]
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Fetching] Server 1 [GID: 101] is requesting shards map[5:true 6:true 7:true 8:true 9:true] from map[100:true], myShard: map[] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT
+[Fetched Successfully] 1 [GID: 101]
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT 
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Fetching] Server 1 [GID: 101] is requesting shards map[5:true 6:true 7:true 8:true 9:true] from map[100:true], myShard: map[] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Fetched Successfully] 1 [GID: 101]
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Fetching] Server 1 [GID: 101] is requesting shards map[5:true 6:true 7:true 8:true 9:true] from map[100:true], myShard: map[] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[PushDelete] Server 0 [GID: 100] is pushing delete map[] to map[], myShard: map[0:true 1:true 2:true 3:true 4:true] , shardsToDiscard: map[] myConfig: {2 [100 100 100 100 100 101 101 101 101 101] map[100:[server-100-0 server-100-1 server-100-2] 101:[server-101-0 server-101-1 server-101-2]]}
+[Get] IsLeader: false  GID: 101 is not responsible for shard 7 REJECT 
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 5 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 9 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 8 REJECT
+[Get] IsLeader: false  GID: 101 is not responsible for shard 6 REJECT
+[Fetched Successfully] 1 [GID: 101]

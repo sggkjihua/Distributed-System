@@ -514,7 +514,7 @@ func TestConcurrent2G(t *testing.T) {
 	fmt.Printf("  ... Passed\n")
 }
 
-func TestUnreliable1A(t *testing.T) {
+func TestUnreliable1B(t *testing.T) {
 	fmt.Printf("Test: unreliable 1...\n")
 
 	cfg := make_config(t, 3, true, 100)

@@ -143,6 +143,8 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	// Your code here.
 	kv.mu.Lock()
+	op := Op{Operation: args.Op, Key: args.Key, Val: args.Value, Cid: args.Cid, Seq: args.Seq, Num: kv.config.Num}
+
 	isMyShard := kv.checkShard(args.Key)
 	kv.mu.Unlock()
 	if !isMyShard {
@@ -151,7 +153,6 @@ func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 		return
 	}
 	// for PutAppend, only key, val, cid, seq are needed, no need to go for shard, space consuming
-	op := Op{Operation: args.Op, Key: args.Key, Val: args.Value, Cid: args.Cid, Seq: args.Seq, Num: kv.config.Num}
 	index, _, isLeader := kv.rf.Start(op)
 	if !isLeader {
 		// if not leader
@@ -235,12 +236,14 @@ func (kv *ShardKV) putShard(key string, val string, append bool, cid int64, seq 
 func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Shard, Num int, Op string)(bool,bool) {
 	// 现在能够确保的是myShard永远记录着属于自己的那一shard，只要不被
 	shard := key2shard(Key)
-	if Op == "Get" || Op == "Put" || Op == "Append" {
+	if Op == "Reconfiguration" {
+		return Num == kv.config.Num+1, true
+	}else if Op == "Get" || Op == "Put" || Op == "Append" {
 		// Put/Append/Get, first check if we are responsible for this
 		_, responsible := kv.myShard[shard]
 		if !responsible {
 			// we are not responsible for this shard currently
-			if kv.isLeader {
+			if kv.isLeader && !responsible {
 				fmt.Printf("[Not in myShard] Key %v [Shard: %v] is not int myShard %v\n", Key, shard, kv.myShard)
 			}
 			return false, false
@@ -250,35 +253,39 @@ func (kv *ShardKV) shouldProcessRequest(Key string, Cid int64, Seq int, Shard Sh
 		if ok {
 			seq, exist := Shard.SeqOfCid[Cid]
 			if exist && seq >= Seq {
-				// 这里其实应该是大于等于的，但是不知道为什么当start的时候会重新去accept
-				fmt.Printf("[Sequence Less] Key %v [Shard: %v] Seq %v is <= record %v\n", Key, shard, Seq, seq)
+				// the operation has been processed
+				if kv.isLeader{
+					fmt.Printf("[Sequence Less] Key %v [Shard: %v] Seq %v is <= record %v\n", Key, shard, Seq, seq)
+				}
 				return false, true
 			}
 		}
+		if Num != kv.config.Num {
+			// not int my Num, return and do it again
+			fmt.Printf("[Not in same Num] received: %v , my %v, retry again\n", Num, kv.config.Num)
+			return false, false
+		}
+		// nothing wrong, should process and return processed
 		return true, true
 	} else if Op == "Accept"{
 		shard = Shard.Id
-		if mShard, ok := kv.shardMap[shard]; ok {
-			//preSeqOfCid := mShard.SeqOfCid
-			// 唯一的可能性就是这里？？？？？？？
-			return compareShard(Shard, mShard), true
-			//return compareShard(Shard, mShard), true
+		_, needed := kv.shardsNeeded[shard]
+		if needed && Num==kv.config.Num {
+			return true, true
 		}
+		return false, false
 	} else if Op == "Delete" {
 		shard = Shard.Id
 		_, shouldDiscard := kv.shardsToDiscard[shard]
-		if shouldDiscard {
+		if shouldDiscard && Num == kv.config.Num {
 			return true, true
 		}
 		return false, true
 	}
-	if Num >= kv.config.Num {
-		return true, true
-	}
-	fmt.Printf("[My Num is higher] Key %v [Shard: %v] my num %v is higher than %v\n", Key, shard, kv.config.Num, Num)
-	return false,false
+	return true,true
 }
 
+/*
 func compareShard(comin Shard, mine Shard)bool{
 	// we can either compare the len of the value or seqOfCid??
 	// 感觉这个判断还是错的
@@ -306,7 +313,7 @@ func compareShard(comin Shard, mine Shard)bool{
 	}
 	return true
 }
-
+*/
 
 
 func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg) {
@@ -352,7 +359,7 @@ func (kv *ShardKV) handleCommitment(commit raft.ApplyMsg) {
 		kv.printState(Operation)
 	} else {
 		if kv.isLeader {
-			fmt.Printf("[Ignore] Server: %v, Gid[%v] ignore Commitment: %v since myShard: %v, shardMap: %v\n", kv.me, kv.gid, commit, kv.myShard, kv.shardMap)
+			fmt.Printf("[Ignore] Server: %v, Gid[%v] ignore Commitment: %v since myShard: %v, shardMap: %v\n", kv.me, kv.gid, commit, kv.myShard, kv.printAllKeys())
 		}
 	}
 	kv.mu.Unlock()
@@ -400,6 +407,8 @@ func (kv *ShardKV) handleReconfiguration(config shardmaster.Config) {
 			} else if config.Num == 1 {
 				// 针对第一个加入的gid，特别进行全部都为true的处理
 				kv.myShard[shard] = true
+				// 人为地添加shard，这样就能够确保不会是空的
+				kv.shardMap[shard] = Shard{Id:shard, KvMap:make(map[string]string), SeqOfCid:make(map[int64]int), Num:1}
 				shouldDelete = false
 			} else {
 				if Shard, ok := kv.shardMap[shard]; ok {
@@ -490,6 +499,18 @@ func (kv *ShardKV) printAllKeys() string {
 	return res
 }
 
+func printReturnedKeys(shards []Shard) string {
+	res := ""
+	for _, shard := range shards {
+		for k, v := range shard.KvMap {
+			res += k + ":" + v + " "
+		}
+	}
+	return res
+}
+
+
+
 func (kv *ShardKV) checkSnapShot(commit raft.ApplyMsg) {
 	kv.mu.Lock()
 	defer kv.mu.Unlock()
@@ -500,7 +521,7 @@ func (kv *ShardKV) checkSnapShot(commit raft.ApplyMsg) {
 	//fmt.Printf("RaftStateSize %v, Max: %v \n", kv.persister.RaftStateSize(), kv.maxraftstate)
 	//op, _ := commit.Command.(Op)
 	//if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 && (ok && op.Operation!="Sync") {
-	if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 && op!="Reconfiguration" {
+	if kv.persister.RaftStateSize() < kv.maxraftstate*8/10 && op!="Reconfiguration" && op!="Delete" && op!="Accept" {
 		// when not exceed
 		//fmt.Printf("Operation: %v \n", op.Operation)
 		return
@@ -585,7 +606,7 @@ func (kv *ShardKV) pollShards() {
 	// used this function in case that the leader breakdown
 	for {
 		kv.fetchShards()
-		time.Sleep(200 * time.Millisecond)
+		time.Sleep(50 * time.Millisecond)
 	}
 }
 
@@ -634,7 +655,7 @@ func (kv *ShardKV) fetchShards() {
 	}
 	kv.mu.Unlock()
 	wg.Wait()
-	fmt.Printf("[Fetched Successfully] %v [GID: %v]\n", kv.me, kv.gid)
+	//fmt.Printf("[Fetched Successfully] %v [GID: %v]\n", kv.me, kv.gid)
 }
 
 func (kv *ShardKV) gidsToAsked(preShards [10]int) map[int]bool {
@@ -667,7 +688,7 @@ func (kv *ShardKV) GetShard(args *FetchArgs, reply *FetchReply) {
 	kv.mu.Lock()
 
 
-	if Num < kv.config.Num {
+	if Num != kv.config.Num {
 		// and old request, reject
 		reply.Err = ErrWrongGroup
 		kv.mu.Unlock()
@@ -688,23 +709,27 @@ func (kv *ShardKV) GetShard(args *FetchArgs, reply *FetchReply) {
 		// condition here might be really critical
 		if ok {
 			Shards = append(Shards, deepCopyOfShard(shard))
-		} else {
+		}
+		/* 
+		else if Num==2 {
 			fakeShard := Shard{Id: shardId, Num: Num - 1, KvMap: make(map[string]string), SeqOfCid: make(map[int64]int)}
 			Shards = append(Shards, fakeShard)
 		}
+		*/
 		// only return those which is hold by me last configuration
 	}
 	// 也许之后需要把这里优化一下，确保之前传出去的shards都不在这里了
 	kv.mu.Unlock()
+	/*
 	for _, shard := range Shards {
 		// 具体意思就是在 Num th config 需要将这个shard 从自己这里抹除
 		op := Op{Operation: "Delete", Shard: shard, Num: Num}
 		kv.rf.Start(op)
-	}
+	}*/
+	reply.Num = Num
 	reply.Shards = Shards
 	reply.Err = OK
-	fmt.Printf("[GetShard] %v reply successfully %v for request %v\n", kv.gid, reply, ShardsNeeded)
-
+	fmt.Printf("[GetShard] %v reply successfully %v for request %v\n", kv.gid, reply, printReturnedKeys(Shards))
 }
 
 func deepCopyOfShard(shard Shard) Shard {
@@ -732,6 +757,107 @@ func Max(a int, b int) int {
 	return b
 }
 
+
+
+
+func (kv *ShardKV) pushDelete(){
+	for{
+		kv.pushDeleteMessage()
+		time.Sleep(100 * time.Millisecond)
+	}
+}
+
+func (kv *ShardKV) pushDeleteMessage(){
+	_, isLeader := kv.rf.GetState()
+	kv.mu.Lock()
+	if !isLeader || len(kv.myShard) == 0 {
+		// no need to ask for any shards from others
+		kv.mu.Unlock()
+		return
+	}
+	curConfig := kv.config
+	preConfig := kv.sm.Query(curConfig.Num - 1)
+	Num := curConfig.Num
+	Shards := preConfig.Shards
+	Groups := preConfig.Groups
+	Gids := kv.gidsToPush(Shards)
+
+	fmt.Printf("[PushDelete] Server %v [GID: %v] is pushing delete %v to %v, myShard: %v , shardsToDiscard: %v myConfig: %v\n", 
+	kv.me, kv.gid, kv.shardsNeeded,Gids, kv.myShard, kv.shardsToDiscard, kv.config)
+	wg := sync.WaitGroup{}
+	args := DeleteArgs{Num: Num, ShardsConfirmed: kv.myShard, From: kv.gid}
+	for gid := range Gids {
+		servers := Groups[gid]
+		// used this to prevent from being called again
+		wg.Add(1)
+		go func(servers []string) {
+			defer wg.Done()
+			for si := 0; si < len(servers); si++ {
+				reply := DeleteReply{}
+				srv := kv.make_end(servers[si])
+				if srv.Call("ShardKV.DeleteShard", &args, &reply) && reply.Err == OK {
+					fmt.Printf("[PushDelete] %v pushed delete to %v successfully\n", kv.gid, gid)
+				}
+			}
+		}(servers)
+	}
+	kv.mu.Unlock()
+	wg.Wait()
+	//fmt.Printf("[Delete Successfully] %v [GID: %v]\n", kv.me, kv.gid)
+}
+
+func (kv *ShardKV) gidsToPush(preShard [10]int) map[int]bool{
+	gids := make(map[int]bool)
+	for shard, gid := range preShard {
+		if gid == kv.gid || kv.config.Shards[shard]!=kv.gid{
+			continue
+		}
+		gids[gid] = true
+	}
+	return gids
+}
+
+
+
+func (kv *ShardKV) DeleteShard(args *DeleteArgs, reply *DeleteReply){
+	_, isLeader := kv.rf.GetState()
+	if !isLeader {
+		reply.Err = ErrWrongLeader
+		return
+	}
+	kv.mu.Lock()
+	if len(kv.shardsToDiscard)==0 {
+		// nothing to discard, simply return ok
+		reply.Err = OK
+		kv.mu.Unlock()
+		return
+	}
+	Num := args.Num
+	ShardsConfirmed := args.ShardsConfirmed
+	if kv.config.Num != Num {
+		reply.Err = ErrWrongGroup
+		kv.mu.Unlock()
+		return
+	}
+	ShardsToDelete := make([]Shard, 0)
+	for shard := range ShardsConfirmed {
+		if _, ok := kv.shardsToDiscard[shard];ok {
+			sh, hold := kv.shardMap[shard]
+			if !hold {
+				sh = Shard{Num:Num-1, Id:shard} 
+			}
+			ShardsToDelete = append(ShardsToDelete, sh)
+		}
+	}
+	// release the lock first
+	kv.mu.Unlock()
+	for _, sh := range ShardsToDelete {
+		op := Op{Operation: "Delete", Num: Num, Shard: sh}
+		kv.rf.Start(op)
+	}
+	reply.Err = OK
+	fmt.Printf("[DeleteShard] %v delete successfully %v for request %v\n", kv.gid, ShardsToDelete, ShardsConfirmed)
+}
 //
 // servers[] contains the ports of the servers in this group.
 //
@@ -782,7 +908,7 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister,
 
 	kv.sm = shardmaster.MakeClerk(masters)
 
-	kv.config = kv.sm.Query(-1)
+	kv.config = kv.sm.Query(0)
 
 	kv.dispatcher = make(map[int]chan Notification)
 	kv.persister = persister
@@ -793,20 +919,15 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister,
 
 	kv.shardMap = make(map[int]Shard)
 
-	
-	for shard, gid := range kv.config.Shards {
-		if gid == kv.gid {
-			kv.myShard[shard] = true
-		}
-	}
-
-	fmt.Printf("[After %v] Server %v [Gid: %v], myShards: %v, keyMap: %v\n", "INIT", kv.me, kv.gid, kv.myShard, kv.printAllKeys())
+	fmt.Printf("[After %v] Server %v [Gid: %v], myShards: %v, keyMap: %v\n, shardsNeeded: %v, toDiscard:%v\n", "INIT", 
+	kv.me, kv.gid, kv.myShard, kv.printAllKeys(), kv.shardsNeeded,kv.shardsToDiscard)
 
 	//fmt.Printf("[GID] %v come to live again!!!!!!\n", kv.gid)
 
 	go kv.listenForCommitment()
 	go kv.pollNextConfig()
 	go kv.pollShards()
+	go kv.pushDelete()
 
 	return kv
 }
